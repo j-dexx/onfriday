@@ -18,7 +18,7 @@
 # SQLITE VERSION
 #development:
 #  adapter: sqlite3
-#  database: 
+#  database:
 
 # MYSQL VERSION
 development:
@@ -29,7 +29,7 @@ development:
   pool: 5
   username: root
   password: tmedia
-  socket: /tmp/mysql.sock
+  host: 192.168.0.122
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

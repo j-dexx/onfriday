@@ -1,0 +1,72 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (2.3.18)
+      actionpack (= 2.3.18)
+    actionpack (2.3.18)
+      activesupport (= 2.3.18)
+      rack (~> 1.1.0)
+    activerecord (2.3.18)
+      activesupport (= 2.3.18)
+    activeresource (2.3.18)
+      activesupport (= 2.3.18)
+    activesupport (2.3.18)
+    acts-as-taggable-on (2.0.6)
+    authlogic (2.1.6)
+      activesupport
+    babosa (0.2.2)
+    countries (0.6.2)
+      currencies (= 0.4.0)
+      currencies (>= 0.2.0)
+    curb (0.7.15)
+    currencies (0.4.0)
+    friendly_id (3.1.7)
+      babosa (~> 0.2.0)
+    mysql (2.9.1)
+    nokogiri (1.5.11)
+    paperclip (2.3.5)
+      activerecord
+      activesupport
+    prawn (0.8.4)
+      prawn-core (>= 0.8.4, < 0.9)
+      prawn-layout (>= 0.8.4, < 0.9)
+      prawn-security (>= 0.8.4, < 0.9)
+    prawn-core (0.8.4)
+    prawn-layout (0.8.4)
+    prawn-security (0.8.4)
+    rack (1.1.6)
+    rails (2.3.18)
+      actionmailer (= 2.3.18)
+      actionpack (= 2.3.18)
+      activerecord (= 2.3.18)
+      activeresource (= 2.3.18)
+      activesupport (= 2.3.18)
+      rake (>= 0.8.3)
+    rake (10.4.2)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
+    searchlogic (2.4.23)
+      activerecord (>= 2.0.0)
+    system_timer (1.0)
+    will_paginate (2.3.15)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  acts-as-taggable-on (= 2.0.6)
+  authlogic (= 2.1.6)
+  countries (= 0.6.2)
+  curb (= 0.7.15)
+  friendly_id (= 3.1.7)
+  mysql
+  paperclip (= 2.3.5)
+  prawn (= 0.8.4)
+  rails (~> 2.3.18)
+  sanitize (= 2.0.3)
+  searchlogic (= 2.4.23)
+  system_timer (= 1.0)
+  will_paginate (= 2.3.15)
+
+BUNDLED WITH
+   1.10.3

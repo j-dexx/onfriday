@@ -2,7 +2,7 @@
 <% hide_left %>
 
 <script language="Javascript">
-  
+
   function checkTermsAndConditions()
   {
     if (document.getElementById('terms_and_conditions').checked == true)
@@ -40,14 +40,14 @@
     <br />
     Max on this purchase: <strong><%= number_to_pounds min %></strong>
   </p>
-  
-  <% form_tag :action => "add_credit" do %>  
+
+  <% form_tag :action => "add_credit" do %>
     <p>
       <span style="float: left;"><%= label_tag :credit, "Credit (&pound;)" %> <%= text_field_tag :credit, "", {:class=>'med'} %></span> <%= submit_tag "Apply Credit", :style=>"float: left;" %>
     <br />
     </p>
   <% end %>
-  
+
   <hr />
   <h2>Your Basket</h2>
 <% end %>

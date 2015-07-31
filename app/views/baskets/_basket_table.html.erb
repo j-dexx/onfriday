@@ -14,16 +14,16 @@
 
   <td valign="top" class="border">
     <% if basket_item.voucher? %>
-      <% image_url = "footer_gift_vouchers.gif" %> 
+      <% image_url = "footer_gift_vouchers.gif" %>
     <% elsif basket_item.donation? %>
-      <% image_url = "footer_gift_wishlists.gif" %> 
+      <% image_url = "footer_gift_wishlists.gif" %>
     <% elsif basket_item.product.product_images.length > 0 %>
-      <% image_url = basket_item.product.product_images.sort_by{|x| x.position}.first.image.url(:tiny) %> 
+      <% image_url = basket_item.product.product_images.sort_by{|x| x.position}.first.image.url(:tiny) %>
     <% else %>
-      <% image_url = "no_image.gif" %> 
+      <% image_url = "no_image.gif" %>
     <% end %>
     <%= link_to image_tag(image_url), basket_item.product %>  </td>
-  
+
 <td valign="top" class="border">
     <% if basket_item.basket_item_type == 0 %>
       <%= link_to "#{basket_item.product.brand.name} - #{basket_item.product.name}", basket_item.product, {:class=>"product_name_basket"} %>
@@ -41,7 +41,7 @@
       <span class="product_code"><%= basket_item.product.product_code %></span>
     <% end %>
   </td>
-  
+
   <td valign="top" class="border">
     <span class="price">
       <% if basket_item.non_physical? %>
@@ -54,29 +54,29 @@
       <% end %>
     </span>
   </td>
-  
+
   <td class="border" valign="top" nowrap="nowrap">
     <span class="price" style="float: left; display: inline; margin-right: 8px;"><%= basket_item.amount %></span>
     <% unless locked || basket_item.non_physical? %>
       <%= link_to image_tag('increase.gif'), :action => "increase", :basket_item_id => basket_item.id %>
       <%= link_to image_tag('decrease.gif'), :action => "decrease", :basket_item_id => basket_item.id %>
     <% end %>  </td>
-  
+
 <% unless locked %>
     <td class="border" valign="top">
       <%= link_to image_tag('remove.gif'), :action => "remove", :basket_item_id => basket_item.id %>
     </td>
 <% end %>
-  
+
   <td valign="top"><span class="price"><%= number_to_pounds basket_item.subtotal %></span></td>
-  
+
 </tr>
 <% end %>
 
 <% span = locked ? 2 : 3 %>
 
 <tr>
-  <td colspan="<%= span %>" class="black_border"></td>	
+  <td colspan="<%= span %>" class="black_border"></td>
   <td colspan="2" valign="top" class="black black_border font_grey">Product Subtotal:</td>
   <td  valign="top" class="black black_border font_med"><%= number_to_pounds @current_basket.products_subtotal %></td>
 </tr>
@@ -132,16 +132,16 @@
       <h2>
       Code Entered: <%= @current_basket.promo_code.code %>
 			<%= link_to image_tag("remove.gif"), {:action => "remove_promotional_code"}, {:title => "Remove this code", :style=>"float: right; margin: 0px -25px 0px 10px;"} %>
-       
+
       </h2>
-    
+
     <% else %>
-  
+
       <% form_for @current_basket, :url => {:action => "set_promotional_code"} do |f| %>
       <span class="font_grey" style="margin-right: -25px;">If you have a discount code please enter here:</span><br />
-        <%= text_field_tag "promo_code", params[:promo_code], :class=>"med" %><%= f.submit "Enter Code", :style=>"float: right; margin-right: -25px;" %>  
+        <%= text_field_tag "promo_code", params[:promo_code], :class=>"med" %><%= f.submit "Enter Code", :style=>"float: right; margin-right: -25px;" %>
       <% end %>
-      
+
     <% end %>
     </div>
   </td>
@@ -153,59 +153,61 @@
 <tr>
   <td colspan="<%= span %>"></td>
   <td colspan="3" class="checkout">
-  
+
   <% if locked %>
-  
+
     <% if @current_basket.orderable? %>
-    
+
       <% if @current_basket.credit_payment_valid? %>
-      
+
         <% form_tag :action => "credit_payment" do %>
           <p align="right">
             <%= check_box_tag :terms_and_conditions, "1", false, :class => "checkbox", :onclick => "checkTermsAndConditions();" %>
             I accept the <%= link_to "terms and conditions", url_for(PageNode.terms_and_conditions.path), :popup => true %>
           </p>
-          <p align="right"> <%= submit_tag "Place Order", :class => "checkout_button", :disabled => true, :id => "credit_button" %></p>  
+          <p align="right">
+            <%= submit_tag "Place Order", :class => "checkout_button", :disabled => true, :id => "credit_button" %>
+          </p>
         <% end %>
-      
+
       <% else %>
-              
+        <!--
         <% form_tag Sagepay.live_url do %>
           <%= hidden_field_tag "VPSProtocol", Sagepay.vps_protocol %>
           <%= hidden_field_tag "Crypt", @crypt %>
           <%= hidden_field_tag "TxType", Sagepay.tx_type %>
           <%= hidden_field_tag "Vendor", Sagepay.vendor %>
-				
+
 				  <p align="right">
             <%= check_box_tag :terms_and_conditions, "1", false, :class => "checkbox", :onclick => "checkTermsAndConditions();" %>
             I accept the <%= link_to "terms and conditions", url_for(PageNode.terms_and_conditions.path), :popup => true %>
           </p>
-          
-          <p>  
+
+          <p>
             <%= submit_tag "Pay with SagePay", :disabled => true, :id => "sagepay_checkout_button", :class => "checkout_button" %>
           </p>
-          
+
         <% end %>
-        
+        -->
       <% end %>
-          
-    <% end %> 
-  
+
+    <% end %>
+
   <% else %>
-	  
+
 	  <% form_tag({:action => "begin_checkout"})  do %>
       <%= submit_tag "Checkout", :disabled => (@current_basket.empty? ? true : false), :class => "checkout_button" %>
     <% end %>
-    
+
     <% if session[:product_search] %>
       <% destination = session[:product_search] %>
     <% else %>
       <% destination = products_path %>
     <% end %>
     <%= link_to "Continue Shopping", destination, {:class=>"continue_shopping"} %>
-    
+
   <% end %>
-    
+
   </td>
 </tr>
 
