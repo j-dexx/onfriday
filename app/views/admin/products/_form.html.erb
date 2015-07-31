@@ -1,0 +1,120 @@
+<% form_for [:admin, @product] do |f| %>
+  <%= f.error_messages %>
+
+  <fieldset>
+  <legend>Basic Information</legend>  
+  <p>
+    <%= f.label :brand_id %> 
+    <br />
+    <%= f.collection_select :brand_id, Brand.unrecycled, :id, :name %>
+  </p>
+  
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+  	<%= f.label :product_code %><br />
+  	<%= f.text_field :product_code %>
+  </p>
+
+  <p>
+    <%= f.label :price, "Price (&pound;)" %><br />
+    <%= f.text_field :price %>
+  </p>
+  
+  <p>
+    <%= f.helpful_label :sale_price, "Sale Price (&pound;)", "If you would like to put this item on sale enter the reduced price here." %><br />
+    <%= f.text_field :sale_price %>
+  </p>
+
+  <p>
+    <%= f.label :stock %><br />
+    <%= f.text_field :stock %>
+  </p>
+  
+  <p>
+    <%= f.label :summary %><br />
+    <%= f.text_area :summary %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Details</legend>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.advanced_text_area :description %>
+  </p>
+  
+  <p>
+    <%= f.label :size %><br />
+    <%= f.text_area :size %>
+  </p>
+  
+  <p>
+    <%= f.helpful_label :stock_message, "Out of stock message", "If left blank this will display the stock message default which can be set in the site settings" %>
+    <%= f.text_area :stock_message %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Additional Information</legend>
+    <p>
+      <%= f.label :new_in %>
+      <%= f.check_box :new_in %>
+    </p>
+  
+    <p>
+      <%= f.label :men %>
+      <%= f.check_box :men %>
+    </p>
+    
+    <p>
+      <%= f.label :women %>
+      <%= f.check_box :women %>
+    </p>
+  
+    <p>
+      <%= f.label :fair_trade %>
+      <%= f.check_box :fair_trade %>
+    </p>
+    
+    <p>
+      <%= f.label :upcycled %>
+      <%= f.check_box :upcycled %>
+    </p>
+    
+    <p>
+      <%= f.label :colours, "Colours (comma seperated list)" %>
+      <%= f.tag_field :colours %>
+    </p>
+    
+    <p>
+      <%= f.label :materials, "Materials, (comma seperated list)" %>
+      <%= f.tag_field :materials %>
+    </p>
+    
+    <p>
+      <%= f.label :types, "Types, (comma seperated list)" %>
+      <%= f.tag_field :types %>
+    </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Associated Products</legend>
+  <p>
+    Hold the ctrl key to select multiple associated products.
+  </p>
+  <p>
+    <%= f.collection_select :associated_product_ids, Product.unrecycled.reject{|x| x == f.object}, :id, :brand_name_code, {}, :multiple => true, :size => 8 %>
+  </p>
+  </fieldset>
+  
+  <p>
+    <%= f.label :display %>
+    <%= f.check_box :display %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

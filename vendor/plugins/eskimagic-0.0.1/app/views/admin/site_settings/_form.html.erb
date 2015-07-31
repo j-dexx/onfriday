@@ -1,0 +1,36 @@
+<% form_for [:admin, @site_setting] do |f| %>
+  <%= f.error_messages %>
+
+  <% if @current_administrator.super_admin? %> 
+  
+    <p>
+      <%= f.helpful_label :name, "Name", "change with extreme caution" %><br />
+      <%= f.text_field :name %>
+    </p>
+    
+    <p>
+      <%= f.label :input_type %><br />
+      <%= f.select :input_type, options_for_select(["text_field", "text_area", "true/false"], f.object.input_type) %>
+    </p>
+    
+    <p>
+      <%= f.check_box :super_admin_only, :class=>"checkbox" %>
+      <%= f.label :super_admin_only %>
+    </p>
+    
+    <p>
+      <%= f.label :value %><br />
+      <%= parse_input_type(f.object.input_type, f.object.value) %>
+    </p>
+    
+  <% else %>
+  
+    <p>
+      <%= f.label :value, @site_setting.name %><br />
+      <%= parse_input_type(f.object.input_type, f.object.value) %>
+    </p>
+    
+  <% end %>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

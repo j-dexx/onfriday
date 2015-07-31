@@ -1,0 +1,9 @@
+<% static = false unless defined?(static) %>
+
+<ul id="sortable">
+  <%= render :partial => "node", :locals => {:nodes => @roots, :static => static} %>
+</ul>
+
+<% unless static %>
+	<%= sortable_element('sortable', :url => {:action => :sort}, :tree => true, :handle => 'handle') %>
+<% end %>

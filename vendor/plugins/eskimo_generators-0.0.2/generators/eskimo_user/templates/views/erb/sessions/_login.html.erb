@@ -1,0 +1,28 @@
+<%% if current_<%= singular_name %> %>
+
+  <p>You are currently logged in as <strong><%%= current_<%= singular_name %>.email %></strong>.  You can <%%= link_to "logout by clicking here", <%= singular_name %>_logout_path %>.
+
+<%% else %>
+
+  <%% form_for @<%= singular_name %>_session do |f| %>  
+    <%%= f.error_messages %>  
+
+    <p>  
+      <%%= f.label :email %> <br /> 
+      <%%= f.text_field :email %>  
+    </p>  
+    
+    <p>  
+      <%%= f.label :password %> <br /> 
+      <%%= f.password_field :password %>  
+    </p>  
+    
+    <p>  
+      <%%= f.submit "Submit" %>  
+    </p>  
+      
+  <%% end %>
+  
+  <%%= link_to "Forgotten your password?", new_<%= singular_name %>_password_reset_path %>
+
+<%% end %>

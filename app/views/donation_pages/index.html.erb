@@ -1,0 +1,78 @@
+<% hide_left %>
+<% hide_right %>
+<%= render "users/sub_navigation" %>
+
+<h1 class="title_gift_wishlists"><%= title "Wishlist Pages" %></h1>
+
+<% if @donation_pages.length > 0 %>
+	<br />
+ 	
+  <table border="0" cellpadding="0" cellspacing="0">
+  	<tr>
+    	<th>Current Wishlist Page(s)</th>
+      <th>Donations</th>
+      <th></th>
+    </tr>
+		<% for donation_page in @donation_pages %>
+        <tr>
+          <td valign="top" class="border black_border">
+            <h2 style="margin: 4px 0px 0px 0px; padding: 0px;"><%= donation_page.name %></h2>
+            <% if donation_page.product && !donation_page.product.product_images.empty? %>
+              <p><%= image_tag donation_page.product.product_images.first.image.url(:tiny) %></p>
+            <% end -%>
+          </td>  
+          <td valign="top" class="border black_border"><p align="center" class="price"><%= number_to_pounds donation_page.total %><span class="font_yellow"><br /> of <br /><%= number_to_pounds donation_page.goal %></span></p></td>
+          <td valign="top" class="black_border">
+         		<p><%= link_to "VIEW", donation_page, :class => "product_name_basket" %> my wishlist page</p>
+						<p><%= link_to "EDIT", edit_product_donation_page_path(donation_page.product, donation_page), :class => "product_name_basket" %> my wishlist page</p>
+						<p>
+						  <%= link_to "END", convert_donation_page_path(donation_page), :class => "product_name_basket" %>
+						   click here when you have reached your contribution target or your deadline date. We will now credit your account with the amount you have raised through your Gift Wishlist. The credit will remain in your account until it has been fully redeemed. We hope you enjoy spending it!
+						</p>
+						<p><span class="product_name_basket">SHARE</span> this URL <%= link_to donation_page_url(donation_page), donation_page_url(donation_page) %></p>
+						<p><%= link_to 'EMAIL', email_donation_page_path(donation_page), :class => "product_name_basket" %> my friends and family</p>
+          </td>
+        </tr>
+        <tr>
+        	<td valign="top" colspan="3" class="black_border"></td>
+        </tr>  
+    <% end %>
+  </table>
+    
+<% else %>
+
+  <p>You currently have no Gift Wishlists. To create a Gift Wishlist page simply select the bag you would like and click the "Add this to my Wishlist" link. For more information please see the <%= link_to_page "Gift Wishlists", "New Donation" %> page.</p>
+
+<% end %>
+
+<% if @closed_donation_pages.length > 0 %>
+	<br />
+ 	
+  <table border="0" cellpadding="0" cellspacing="0">
+  	<tr>
+    	<th>Closed Wishlist Page(s)</th>
+      <th>Donations</th>
+      <th></th>
+    </tr>
+  <% for donation_page in @closed_donation_pages %>
+    <tr>
+    	<td valign="top" class="border black_border">
+      	<h2 style="margin: 4px 0px 0px 0px; padding: 0px;" class="font_grey"><%= donation_page.name %></h2>
+        <% if donation_page.product && !donation_page.product.product_images.empty? %>
+          <p><%= image_tag donation_page.product.product_images.first.image.url(:tiny) %></p>
+        <% end -%>
+      </td> 
+      <td valign="top" class="border black_border"><p align="center" class="price font_grey"><%= number_to_pounds donation_page.total %><br /> of <br /><%= number_to_pounds donation_page.goal %></p></td>
+      <td valign="top" class="black_border">
+				<p><%= link_to "VIEW", donation_page, :class => "product_name_basket" %> <span class="font_grey">my wishlist page</span></p>
+      </td>
+    </tr>
+    <tr>
+    	<td valign="top" colspan="3" class="black_border"></td>
+    </tr>
+  <% end %>
+ 	</table>
+    
+<% else %>
+
+<% end %>

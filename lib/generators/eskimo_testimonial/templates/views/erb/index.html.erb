@@ -1,0 +1,19 @@
+<%%= javascript_include_tag :defaults %>
+
+<h1><%%= title "<%= plural_title %>" %></h1>
+
+<%% if @<%= plural_name %>.length > 0 %>
+
+  <%% for <%= singular_name %> in @<%= plural_name %> %>
+    <%%= render "<%= plural_name %>/<%= singular_name %>", :<%= singular_name %> => <%= singular_name %> %>
+  <%% end %>
+  
+  <%%= will_paginate @<%= plural_name %> %>
+  
+<%% else %>
+ <p>No <%= human_plural_name %> to display.</p>
+<%% end %>
+
+<%% content_for :right do  %>
+    <%%= render :partial => "tags" %>
+<%% end %>

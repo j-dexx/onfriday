@@ -1,0 +1,34 @@
+<% hide_right %>
+<% hide_left %>
+
+<%= render "checkout_navigation" %>
+<h1 class="title_your_account"><%= title "Your Account" %></h1>
+
+<% if @current_basket.user %>
+
+  <h2>Current User: <%= @current_basket.user.email %></h2>
+
+  <p>To continue the checkout process as this user click the continue button below, otherwise click the logout button to login as a different user.</p> 
+ 
+  
+  <% form_tag :action => "switch_user" do %>
+    <p style="float:left; margin-right: 20px;"><%= submit_tag "Logout" %></p>
+  <% end %>
+  
+   <% form_tag :action => "set_user" do %>
+    <p style="float:left"><%= submit_tag "Continue" %></p>
+  <% end %>
+  
+<% else %>
+  
+  <br />
+  
+  <h2>Existing Account</h2>
+  <%= render "user_sessions/login" %>
+  
+  <br />
+  
+  <h2>Create New Account</h2>
+  <%= render "users/form" %>
+  
+<% end %>

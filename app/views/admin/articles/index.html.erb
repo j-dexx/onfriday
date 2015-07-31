@@ -1,0 +1,19 @@
+<% title "Articles" %>
+
+
+<p><%= link_to "New Article", new_admin_article_path %></p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :name_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => 
+  [
+    "name", 
+    ["Short Summary", lambda{|x| x.summary.length > 100 ? "#{x.summary[0..100]}..." : x.summary }, "summary"],
+    "date"
+  ], :list => @articles, :images => true}) %>

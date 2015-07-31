@@ -1,0 +1,49 @@
+<% form_for [:admin, @user] do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>User Information</legend>
+  <p>
+    <%= f.label :first_names %><br />
+    <%= f.text_field :first_names %>
+  </p>
+  
+  <p>
+    <%= f.label :surname %><br />
+    <%= f.text_field :surname %>
+  </p>
+
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Credit</legend>
+  <p>
+    <%= f.label :credit, "Credit (&pound;)" %><br />
+    <%= f.text_field :credit %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Permissions</legend>
+  <p>
+    <%= f.label :redeem_disabled %><br />
+    <%= f.check_box :redeem_disabled %>
+  </p>
+  </fieldset>
+  
+  <p><%= f.submit "Submit" %></p>
+<% end %>

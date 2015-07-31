@@ -1,0 +1,21 @@
+<div class="navigation_right">
+	<% for page_node in PageNode.active.position.roots.navigation %>
+          
+        <% options = {} %>
+        
+        <% if @current_page_node && (@current_page_node == page_node || @current_page_node.ancestors.include?(page_node)) %>
+            <% options.merge!(:class => "highlight") %>
+        <% end %>
+        
+        <% if page_node.access_key? %>
+            <% options.merge!(:accesskey => page_node.access_key) %>
+        <% end %>
+        
+        <% if page_node.special_menu? %>
+          <% options.merge!(:class => page_node.stylesheet) %>
+        <% end %>
+        
+        <%= link_to h(page_node.navigation_title), url_for(page_node.path), options %>
+        
+    <% end %>
+</div>

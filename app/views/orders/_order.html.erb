@@ -1,0 +1,113 @@
+<% dynamic ||= false %>
+
+<div class="orders">
+
+  <table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <th class="black_border">Order date</th>
+      <td colspan="3" class="black_border"><%= simple_date_format order.created_at %></td>
+    </tr>
+    <tr>
+      <th>Invoice Number</th>
+      <td colspan="3"><%= order.online_invoice_number %></td>
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td colspan="3"><%= order.status.titleize %></td>
+    </tr>
+  
+    <% for order_item in order.order_items %>
+      <tr>
+        <% if order_item == order.order_items.first %>
+          <th rowspan=<%= order.order_items.length %>>Products</th>
+        <% end %>
+        <td>
+          <% if order_item.item_type == 1 %>
+            <%= link_to order_item.product_name, voucher_order_item_path(order_item, :code => order_item.code) %>
+          <% else %>
+            <%= order_item.amount if order_item.amount > 1 %> <%= order_item.product_name %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  
+    <% if dynamic %>
+      <tr>
+        <td colspan="4" class="black_border"><%= link_to_function "Order Details", "document.getElementById('order_#{order.id}').style.display = ''", {:class=>"black_link", :style=>"margin-left: -15px"} %></td>
+      </tr>
+    <% end %>
+  
+  </table>  
+  <div id="order_<%= order.id %>" style="<%= dynamic ? "display: none;" : "" %>">
+  
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tr><th>Products</th><th>Price</th></tr>
+      <% for order_item in order.order_items %>
+      <tr>    
+        
+        <td class="black_border">
+          <% if order_item.item_type == 1 %>
+            <%= link_to order_item.product_name, voucher_order_item_path(order_item, :code => order_item.code) %>
+          <% else %>
+            <%= order_item.amount %> <%= order_item.product_name %>
+          <% end %>
+        </td>
+        <td class="black_border"><%= number_to_pounds order_item.subtotal %></td>    
+      </tr>
+      <% end %>
+      <tr>
+        <td>Product Subtotal</td>
+        <td><%= number_to_pounds order.products_subtotal %></td>
+      </tr>
+  
+      <tr>
+        <td><%= order.delivery_summary %></td>
+        <td><%= number_to_pounds order.delivery_subtotal %></td>
+      </tr>
+  
+      <% if order.discount_subtotal > 0 %>
+        <tr>
+          <td>Discount Subtotal</td>
+          <td><%= number_to_pounds order.discount_subtotal %></td>
+        </tr>
+      <% end %>
+  
+      <tr>
+        <td class="black_border"><div align="right"><strong>Total</strong></div></td>
+        <td class="black_border"><strong><%= number_to_pounds order.total %></strong></td>
+      </tr>
+    </table>
+  
+  	<div class="order_address">
+      <h3>Billing Address</h3>
+      <p>
+      <%= order.billing_first_names %> <%= order.billing_surname %><br />
+      <%= order.billing_address_1 %><br />
+      <% if order.billing_address_2? %><%= order.billing_address_2 %><br /><% end %>
+      <%= order.billing_city %><br />
+      <%= order.billing_postcode %><br />
+      <%= Shipping.code_to_country order.billing_country %>
+      </p>
+  	</div>
+    
+    <div class="order_address">
+      <h3>Delivery Address</h3>
+      <p>
+      <%= order.delivery_first_names %> <%= order.delivery_surname %><br />
+      <%= order.delivery_address_1 %><br />
+      <% if order.delivery_address_2? %><%= order.delivery_address_2 %><br /><% end %>
+      <%= order.delivery_city %><br />
+      <%= order.delivery_postcode %><br />
+      <%= Shipping.code_to_country order.delivery_country %>
+      </p>
+    </div>
+    
+    <% if dynamic %>
+      <p class="clear">
+        <%= link_to_function "Hide Order", "document.getElementById('order_#{order.id}').style.display = 'none'", {:class=>"black_link"} %>
+      </p>
+    <% end %>
+  
+  </div>
+
+</div>

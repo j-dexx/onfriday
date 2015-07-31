@@ -1,0 +1,11 @@
+<% unless node.layout == "invisible" %>
+	<li>
+		<%= link_to node.name, url_for(node.path) %>
+	  <% for child in node.children.sort_by{|x| x.name} %>
+		  <ul>
+		    <%= render :partial => "site_map_node", :locals => {:node => child} %>
+		  </ul>
+	  <% end %>
+	  
+	</li>
+<% end %>

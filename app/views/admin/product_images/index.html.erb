@@ -1,0 +1,11 @@
+<% title "Product Images" %>
+
+<p>
+  <%= link_to "Back to Products", admin_products_path %>
+   | 
+  <%= link_to "New Product Image", new_admin_product_image_path(:product_id => @product.id) %>
+</p>
+
+<%= admin_table({:columns => [
+  ["", lambda{|x| image_tag x.image.url(:sample)}, nil]
+  ], :list => @product_images, :images => true}, "admin/shared/admin_table_sort") %>

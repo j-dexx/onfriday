@@ -1,0 +1,47 @@
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_what_you_say"><%= title "What You Say" %></h1>
+
+<% if @testimonials.length > 0 %>
+<div class="what_you_say"> 
+
+  <div>
+  <% for testimonial in @testimonials_1 %>
+    <p>
+      "<%=h testimonial.statement %>"<br />
+      <span><%=h testimonial.writer %></span>
+    </p>
+    <hr />
+  <% end %>
+  </div>
+  
+  <div>
+  <% for testimonial in @testimonials_2 %>
+    <p>
+      "<%=h testimonial.statement %>"<br />
+      <span><%=h testimonial.writer %></span>
+    </p>
+    <hr />
+  <% end %>
+  </div>
+  
+  <div>
+  <% for testimonial in @testimonials_3 %>
+    <p>
+      "<%=h testimonial.statement %>"<br />
+      <span><%=h testimonial.writer %></span>
+    </p>
+    <hr />
+  <% end %>
+  </div>
+  
+</div> 
+   
+  <%= will_paginate @testimonials %>
+  
+<% else %>
+
+  <p>No testimonials to display</p>
+
+<% end %>
+

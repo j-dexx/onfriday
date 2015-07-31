@@ -1,0 +1,7 @@
+<h1><%= title @product_story.name %></h1>
+ 
+<p>
+  <%= @product_story.summary %>
+</p>
+
+<%= render "products/associated_products", :products => @product_story.products %>

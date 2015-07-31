@@ -1,0 +1,28 @@
+<h1><%= title "Product Stories" %></h1>
+
+
+
+<% if @product_stories.length > 0 %>
+
+  <% for product_story in @product_stories %>
+  <p>
+
+      <%=h product_story.name %><br />
+
+      <%=h product_story.summary %><br />
+
+
+      <%= link_to "Show", product_story %><br />
+
+
+
+  </p>
+  <% end %>
+  
+  <%= will_paginate @product_stories %>
+  
+<% else %>
+
+  No Product Stories  to Display
+
+<% end %>

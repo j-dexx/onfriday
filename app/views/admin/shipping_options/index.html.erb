@@ -1,0 +1,11 @@
+<% title "Shipping Options" %>
+
+<p>Please ensure that you always have at least one shipping option per region.</p>
+
+<p><%= link_to "New Shipping Option", new_admin_shipping_option_path %></p>
+
+<%= admin_table({:columns => [
+  "region",
+  "name", 
+  ["Price", lambda{|x| number_to_pounds x.price}, 'price']
+  ], :list => @shipping_options}, "admin/shared/admin_table_sort") %>

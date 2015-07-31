@@ -1,0 +1,15 @@
+<%% title "<%= plural_title %>" %>
+
+<p><%%= link_to "New <%= singular_title %>", new_admin_<%= singular_name %>_path %></p>
+ 
+<%% form_for @search do |f| %>
+  <p>
+    <%%= f.text_field :name_or_summary_or_main_content_like %>
+    <%%= f.submit "Search" %>
+  </p>
+<%% end %>
+
+<%%= admin_table({:columns => [
+  "name", 
+  ["Summary", lambda{|x| (x.summary.length > 50) ? "#{x.summary[0..50]}..." : x.summary }, "summary"]],
+  :list => @<%= plural_name %>, :images => true}, "admin/shared/admin_table_sort") %>

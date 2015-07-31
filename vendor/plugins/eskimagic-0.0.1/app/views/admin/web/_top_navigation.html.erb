@@ -1,0 +1,23 @@
+<ul class="login_info">
+<li><%= link_to "Logout", admin_logout_path, {:style=>"border-left: 0px;"} %></li>
+<li>
+	<span>Welcome: <%= current_administrator.username %></span>
+	<%= link_to "Manage my account", :controller => "admin/administrators", :action => "edit_self" %>
+</li>
+</ul>
+
+<ul class="web_info">
+<% for feature in Feature.menu.normal.location("Top Navigation") %>
+	<% if @current_administrator.has_permission? feature.controller, feature.action %>
+    <li>
+    	<% if feature.css_class? %>
+		  	<%= link_to feature.name, {:controller => feature.controller, :action => feature.action}, :class => feature.css_class %>
+		  <% else %>
+		  	<%= link_to feature.name, {:controller => feature.controller, :action => feature.action} %>
+		  <% end %>
+    </li>
+  <% end %>
+<% end %>
+<li><%= link_to "View web statistics", SiteSetting.find_by_name("Site Domain").value + SiteSetting.find_by_name("Stats Url").value %></li>
+<li><%= link_to "View web site", root_url, :popup => true %></li>
+</ul>

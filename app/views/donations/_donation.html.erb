@@ -1,0 +1,10 @@
+
+  <h3><%= donation.donor_name %>
+  <% unless donation.secret? %>
+  	<br />
+    <%= number_to_pounds donation.value %>
+    <br />
+  <% end %>
+  </h3>
+  <%= donation.message %>
+

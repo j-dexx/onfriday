@@ -1,0 +1,13 @@
+<% title "Administrators" %>
+
+<p><%= link_to "New Administrator", new_admin_administrator_path %></p>
+
+<% form_for @search do |f| %>
+    <%= f.label :username_like_or_email_like, "Username/Email" %>
+    <%= f.text_field :username_like_or_email_like %>
+    <%= f.submit "Search", {:class=>"submit"} %>
+<% end %>
+
+<%= admin_table :columns => [:username, :email, :login_count], :list => @administrators, :show_action => nil %>
+
+<%= will_paginate @administrators %>

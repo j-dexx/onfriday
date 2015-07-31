@@ -1,0 +1,1 @@
+<%= label_tag "basket[shipping_option_id]", "Delivery option" %> <%= select_tag "basket[shipping_option_id]", options_from_collection_for_select(@shipping_options, :id, :summary, @current_basket.delivery_summary) %>

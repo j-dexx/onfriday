@@ -1,0 +1,14 @@
+eskimo-redirects
+================
+
+This plugin is straightforward and can be used with any eskimodules version by dropping it in and navigating
+to admin/redirects. If adding it to an older site make sure you also create a feature so that it appears in
+the navigation and set the permissions to souper user only. For new sites this should already be done.
+
+You will need to restart apache to apply changes
+
+301 Syntax
+
+From: /oldpage.html
+To: http://www.domain.co.uk/newpage 
+

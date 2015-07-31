@@ -1,0 +1,24 @@
+<% form_for [:admin, @role] do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+  <%= f.helpful_label :features, "Features", "Tick the features this role should have access to." %><br />
+  <p>  
+    <%= f.check_box :all_features, :class=>"checkbox" %>  
+    All (Allows Access to Every Feature)
+  </p>    
+  <% for feature in Feature.permission %>  
+    <p>  
+      <%= check_box_tag "role[feature_ids][]", feature.id, @role.features.include?(feature), :class => "checkbox" %>  
+      <%= feature.name %><font color="grey"> - <%= "#{feature.controller}/#{feature.action}" %></font>
+    </p>  
+  <% end %> 
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

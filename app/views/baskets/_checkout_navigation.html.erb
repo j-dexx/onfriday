@@ -1,0 +1,61 @@
+<div class="basket_checkout_navigation">
+  
+  <% if params[:controller] == "baskets" && params[:action] == "index" %>  
+    <%= link_to "<span>1</span>Your Basket", basket_url, :class => "highlight" %>
+  <% else %>
+    <%= link_to "<span>1</span>Your Basket", basket_url, :class => "done" %>
+  <% end %>
+  
+  <% if @current_basket.user_ready? %>
+    <% if params[:controller] == "baskets" && params[:action] == "user" %>  
+      <% css_class = "highlight" %>    
+    <% elsif @current_basket.user_done? %>
+      <% css_class = "done" %>
+    <% else %>
+      <% css_class = "ready" %>
+    <% end %>
+    <%= link_to "<span>2</span>Your Account", {:controller => "baskets", :action => "user"}, :class => css_class %>
+  <% else %>
+    <div><span>2</span>Your Account</div>
+  <% end %>
+
+  <% if @current_basket.delivery_ready? %>
+    <% if params[:controller] == "baskets" && params[:action] == "delivery" %>  
+      <% css_class = "highlight" %>
+    <% elsif @current_basket.delivery_done? %> 
+      <% css_class = "done" %>
+    <% else %>
+      <% css_class = "ready" %>
+    <% end %>
+    <%= link_to "<span>3</span>Delivery", {:controller => "baskets", :action => "delivery"}, :class => css_class %>
+  <% else %>
+    <div><span>3</span>Delivery</div>
+  <% end %>
+   
+  <% if @current_basket.gift_ready? %>
+    <% if params[:controller] == "baskets" && params[:action] == "gift_wrap" %>  
+      <% css_class = "highlight" %>
+    <% elsif @current_basket.gift_done? %>
+      <% css_class = "done" %>
+    <% else %>
+      <% css_class = "ready" %>
+    <% end %>
+    <%= link_to "<span>4</span>Gift Service", {:controller => "baskets", :action => "gift_wrap"}, :class => css_class %>
+  <% else %>
+    <div><span>4</span>Gift Wrap</div>
+  <% end %>
+   
+  <% if @current_basket.payment_ready? %>
+    <% if params[:controller] == "baskets" && params[:action] == "payment" %>  
+      <% css_class = "highlight" %>
+    <% else %>
+      <% css_class = "ready" %>
+    <% end %>
+    <%= link_to "<span>5</span>Payment", {:controller => "baskets", :action => "payment"}, :class => css_class %>
+  <% else %>
+    <div><span>5</span>Payment</div>
+  <% end %>
+
+</div>
+
+<div class="clear"></div>

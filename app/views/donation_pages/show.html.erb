@@ -1,0 +1,126 @@
+<% hide_left %>
+<% hide_right %>
+
+<div class="wishlist_left">
+
+<div class="introduction">
+
+<% if @donation_page.display? %>
+  <h1><%= title @donation_page.name %></h1>
+<% else %>
+  <h1 style="color: #990000;"><%= title "#{@donation_page.name} (closed)" %></h1>
+<% end %>
+
+  <%= simple_format @donation_page.summary %>
+
+</div> 
+
+<div class="wishlist_content">
+<h2 class="underline"><%= "#{@product.brand.name} - #{@product.name}" %> <span><%= @product.product_code %></span></h2>
+
+<p><%=h @product.summary %></p>
+    
+
+  <% if @product_image %>
+      <%= link_to image_tag(@product_image.image.url(:large)), @donation_page.product %>
+  <% end %>
+
+<hr />
+
+<div class="product_show_info">
+  <% if @product.colours.length > 0 %>
+      <div>
+      COLOUR
+      <p><%= @product.colour_list %></p>
+      </div>
+  <% end %>
+    
+  <% if @product.materials.length > 0 %>
+    	<div>
+      MATERIAL
+    	<p><%= @product.material_list %></p>
+      </div>
+  <% end %>
+
+  <% if @product.types.length > 0 %>
+        <div style="background-image: none;">
+        TYPE
+        <p><%= @product.type_list %></p>
+        </div>
+  <% end %>
+</div>
+
+<div class="clear"><br /></div>
+
+<div class="size">
+<% if @product.size? %>
+     <%=h @product.size %>
+<% end %>
+</div>
+    
+<br />
+
+<% if @product.fair_trade? %>
+  <%= image_tag "fair_trade.gif", :alt => "Fair Trade", :border => "0", :hspace => "0", :vspace => "0" %>
+<% end %>
+
+<% if @product.upcycled? %>
+  <%= image_tag "upcycled.gif", :alt => "Upcycled", :border => "0", :hspace => "0", :vspace => "0" %>
+<% end %>
+    
+<br />
+    
+<%= @product.description %>
+
+<!--    
+<%#= link_to image_tag(@product.brand.image.url(:small)), @product.brand %>
+
+<p><#%= link_to "Read more about the brand", @product.brand, :class=>"black_link" %></p>
+    
+<%# if @product.product_stories.length > 0 %>
+  <h2>The Story...</h2>
+  <p>
+    <%# for product_story in @product.product_stories %>
+      <%#= link_to product_story.name, product_story, :class=>"black_link" %><br />
+    <%# end %>
+  </p>
+<%# end %>
+-->
+
+</div>    
+</div>
+<div class="wishlist_right">
+	<h2>Goal: <strong><%= number_to_pounds @donation_page.goal %></strong></h2>
+  <hr />
+  <h2>Raised so far: <strong><%= number_to_pounds @donation_page.total %></strong></h2>
+  <div style="border: 3px solid #000000; height: 40px; margin-top: 5px;">
+  	<div style="height: 40px; width: <%= @donation_page.goal_percentage %>%; background-color: #efc000;"></div>
+  </div>
+  <p align="right" class="price"><%= @donation_page.goal_percentage %>%</p>
+  <p align="right">Target Date: <strong><%= simple_date_format @donation_page.target_date %></strong></p>
+   
+   <% if @donation_page.display? %>
+   <hr />
+    <p align="center"><%= link_to "Contribute Here", new_donation_donation_page_basket_items_path(@donation_page), {:class=>"contribute"} %></p> 
+    <hr /> 
+  <% end %>
+  
+  <% for donation in @donations[0..3] %> 
+  <div class="contributors">
+    <%= render "donations/donation", :donation => donation %>
+  <hr />
+  </div>  
+  <% end %>
+  <% if @donations.length > 4 %>
+  
+    <p align="right"><%= link_to "See all contributions", donation_page_donations_path(@donation_page) %></p>
+  <% end %>
+  
+</div>
+
+<div class="clear"></div>
+
+<h2 class="other_title">A few more of our onfriday bags</h2>
+<%= render "products/associated_products", :products => Product.active %>
+
+  

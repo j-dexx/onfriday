@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Exception Reported</h1>
+    
+    <h2>Exceptions</h2>
+    <p><%= @exception %></p>
+    
+    <h2>Clean Backtrace</h2>
+    <p><%= @clean_backtrace %></p>
+    
+    <h2>Data</h2>
+    <p><%= @data %></p>
+    
+    <h2>Params</h2>
+    <% @params.each_pair do |k,v| %>
+	    	<strong><%= k.to_s %>: </strong><%= v.to_s %><br />
+	    <% end %>
+    
+    <h2>Env</h2>
+    <p>
+	    <% @env.each_pair do |k,v| %>
+	    	<strong><%= k.to_s %>: </strong><%= v.to_s %><br />
+	    <% end %>
+    </p>
+    
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<% hide_right %>
+<% hide_left %>
+
+<h1 class="title_newsletter"><%= title "Unsubscribe" %></h1>
+<br />
+
+<p>
+  To unsubscribe from out newsletter please enter the email address receiving the newsletter in the area below.
+</p>
+
+<% form_tag do %>
+
+  <p>
+    <label for="email" style="float: left; margin-right: 10px;">Email Address</label>
+    <%= text_field_tag :email, "", :style => "float: left;" %>
+    <%= submit_tag "Submit" %>
+  </p>
+
+<% end %> 

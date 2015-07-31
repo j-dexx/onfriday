@@ -1,0 +1,32 @@
+<% form_for [@product, @donation_page], :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+ 
+   <p>
+    <%= f.label :product_id %><br />
+    <%= link_to @product.name, @product, :popup => true %>
+  </p>
+
+  <p>
+    <%= f.label :name, "Name of your wishlist campaign" %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :summary, "Welcome text for my Wishlist page" %><br />
+    <%= f.text_area :summary %>
+  </p>
+  
+  <p>
+    <%= f.label :target_date %><br />
+    <%= f.date_select :target_date, :order => [:day, :month, :year] %>
+  </p>
+  
+  <% if f.object.new_record? %>
+    <p>
+      <%= f.check_box :terms_and_conditions %>
+      <%= f.label :terms_and_conditions, "I accept the #{link_to 'terms and conditions', page_node_path(PageNode.find_by_name("New Donation"), :anchor => 'tac'), :popup => true}" %>
+    </p>
+  <% end -%>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

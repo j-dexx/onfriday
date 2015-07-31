@@ -1,0 +1,24 @@
+
+
+<div class="navigation_left">
+
+  <% if params[:controller] == "products" && params[:action] == "index" && params[:search] && params[:search][:men] == "true" %>
+    <%= link_to "Men", products_path(:search => {:men => true}), :class => "highlight" %>
+  <% else %>
+    <%= link_to "Men", products_path(:search => {:men => true}) %>
+  <% end %>
+  
+  <% if params[:controller] == "products" && params[:action] == "index" && params[:search] && params[:search][:women] == "true" %>
+    <%= link_to "Women", products_path(:search => {:women => true}), :class => "highlight" %>
+  <% else %>
+    <%= link_to "Women", products_path(:search => {:women => true}) %>
+  <% end %>
+  
+  <%= link_to "All Bags", index_clean_products_path, :class => " ", :accesskey => "7" %>  
+  <%= link_to "New In", new_products_path, :class => @new_in ? 'highlight' : nil %>
+  <%= link_to "Christmas Sale", sale_products_path, :class => @sale ? 'highlight' : nil %>    
+    
+</div>
+highlight' : nil %>    
+    
+</div>

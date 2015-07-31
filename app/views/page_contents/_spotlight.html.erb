@@ -1,0 +1,38 @@
+<% metadata(@page_node.active_content.meta_description, @page_node.active_content.meta_tags) %>
+
+<% hide_right %>
+<% hide_left %>
+
+
+<% if @page_node.active_content.brand %>
+  <%= link_to image_tag(@page_node.active_content.brand.image.url(:small), :class=>"spotlight_img"), @page_node.active_content.brand %>
+<% end %>
+
+<h1 class="<%= @page_node.stylesheet %>"><%= title @page_node.active_content.name %></h1>
+
+
+
+<div class="clear"></div>
+
+<% if @page_node.active_content.designer? || @page_node.active_content.company? %>
+<h2 class="spotlight_sub_header"><%= @page_node.active_content.designer %><span><%= @page_node.active_content.company %></span></h2>
+<% end %>
+
+<% if @page_node.active_content.introduction? %>
+  <div class="introduction">
+  	<%= simple_format @page_node.active_content.introduction %>
+  </div>
+<% end %>
+
+<% if @page_node.active_content.image? %>
+  <%= image_tag @page_node.active_content.image.url(:large), :hspace => 0, :vspace => 0, :border => 0, :class => "image_right" %>
+<% end %>
+
+<div class="main_content spotlight_main">
+	<%= @page_node.active_content.main_content %>
+</div>
+
+
+<% content_for :right do %>
+
+<% end %>

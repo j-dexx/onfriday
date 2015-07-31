@@ -1,0 +1,65 @@
+<div class="document_field">
+  
+  <% if form.object.send("#{document}?") %>
+    
+    <p>
+      <% begin %>
+        <%= form.object.class.send('const_get', "#{document.to_s.capitalize}_name") %>
+      <% rescue %>
+        <%= document.to_s.titleize %>
+      <% end %>
+       - 
+      <%= link_to_function "Remove/Replace", "document.getElementById('replace_#{document}').toggle()" %>
+    </p>
+    
+    <div id="replace_<%= document %>" style="display:none;">
+      <p>
+        <%= label_tag "#{object}[delete_#{document}]", "Remove document" %>
+        <%= check_box_tag "#{object}[delete_#{document}]", "1", false, :class => "checkbox" %>
+      </p>
+    
+  <% else %>
+  
+    <div id="replace_<%= document %>">
+    
+  <% end %>
+
+      <p>
+        <%= label_tag "#{object}[#{document}]", document.to_s.titleize %><br />
+        <%= file_field_tag "#{object}[#{document}]" %>
+      </p>
+
+      <p>
+        <%= label_tag "#{object}[store_#{document}]", "Keep copy of document on server" %>
+        <%= check_box_tag "#{object}[store_#{document}]", "1", false, :class => "checkbox" %>
+      </p>
+
+      <p>
+        <%= label_tag "stored_documents_for_#{document}", "Use a stored document" %>
+        <%= link_to_function "View All", "$('stored_documents_#{document}').toggle()" %>
+        <br />
+        <div id="stored_documents_<%= document %>" style="display:none;">
+          <%= render "admin/form/stored_documents", :object => object, :document => document %>
+        </div>
+      </p>
+    
+      <% unless form.object.send("#{document}?") %>
+        <p>
+          <%= form.label "#{document}_alt".to_sym, "Document title" %><br />
+          <%= form.text_field "#{document}_alt".to_sym %>
+        </p>
+      <% end %>
+    </div>
+  
+  <% if form.object.send("#{document}?") %>
+
+    <p><%= link_to form.object.send("#{document}_file_name"), form.object.send("#{document}").url %></p>
+    
+    <p>
+      <%= form.label "#{document}_alt".to_sym, "Document title" %><br />
+      <%= form.text_field "#{document}_alt".to_sym %>
+    </p>
+    
+  <% end %>
+
+</div>

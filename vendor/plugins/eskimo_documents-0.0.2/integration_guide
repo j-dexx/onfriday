@@ -1,0 +1,21 @@
+This guide is only relevant for sites made in the week leading up to 15/11/10
+
+Follow these steps to get documents to work as they should;
+	
+  delete eskimo_documents-0.0.1 from vendor/plugins folder
+  copy over eskimo_documents-0.0.2 from framework
+  
+  for each Model using documents add "handles_documents_for Model" in the relevant controller
+  and also "may_contain_documents :attribute" in the relevant model.
+	
+  copy over public/images/admin/document_manager.gif from framework. This is not the right image yet
+  but hannah has been tasked and i will give people a shout when it's done.
+  
+  copy over vendor/plugins/eskimagic/app/views/admin/html_popups/index_links.html.erb
+  -- this will remove the option of the old way of handling documents.
+  
+  copy over vendor/plugins/eskimagic/app/views/layouts/admin
+  -- this points tiny_mce to the right controller
+  
+  copy over public/javascripts/admin/tiny_mce_configs.js
+

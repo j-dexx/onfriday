@@ -1,0 +1,12 @@
+<p>
+  From: <%= order_item.order.user.full_name %>
+  <br />
+  Message: <%= simplish_format order_item.message %>
+  <br />
+  Value: <%= number_to_currency order_item.value, :unit => "&pound;" %>
+  <br />
+  Voucher Code: <%= order_item.code %>
+  <br />
+
+</p>
+

@@ -1,0 +1,42 @@
+<% if level == 0 %>
+  <%= "<div id='tree' style='overflow:auto; height:200px; background-color: #FFFFFF;'>" if options[:scrolling] %>
+  <%= "<ul style='list-style-type:none; margin-left:10px; padding-left:0px;' class='check_box_tree'>" %>
+<% end %>
+
+<% nodes = nodes.sort_by{|x| x.position} if options[:manual_order] %>
+
+<% for node in nodes %>
+  <li>
+    <% unless node.send(options[:children_method]).empty? %>
+      <%= link_to_function("&nbsp;", "toggleDiv(this, 'n#{node.id}', 'down', 'up')", :class => "down") %>
+		<% end %>
+    
+    <%= label_tag "cb#{node.id}", node.send(options[:name_method]) %>
+    
+    <input name='<%= object.class.name.underscore %>[<%= attribute %>_ids][]'
+           value='<%= node.id.to_s %>'
+           type='checkbox'
+           class='checkbox'
+           id='cb<%= node.id %>'
+          
+           <% if object.send(attribute.pluralize).include? node %>
+             checked=''
+           <% end %>
+           size='3'>
+           
+    <ul style='list-style-type:none; margin-left:10px; padding-left:0px; display: none;' id="n<%= node.id %>" style="display:none;">
+      <%= render(:partial => "admin/shared/check_box_tree",
+                 :locals => {:nodes => node.send(options[:children_method]),
+                             :attribute => attribute,
+                             :object => object,
+                             :level => level + 1,
+                             :options => options}) if node.send(options[:children_method]) %>
+    </ul>
+  </li>
+<% end %>
+
+<% if level == 0 %>
+  <%= "</ul>" %>
+  <%= "</div>" if options[:scrolling] %>
+<% end %>
+

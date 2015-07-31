@@ -1,0 +1,26 @@
+<% hide_right %>
+<% hide_left %>
+<% title("Welcome") %>
+
+<script type="text/javascript">	
+var flashvars = { // These are variables which are passed to the Flash document - they have to be already defined in the SWF
+  buttonText: ""
+};
+var params = { // Parameters for display
+  wmode: "transparent" // a common request to make the 
+};
+var attributes = {
+  id: "newID",
+  name: "newID"
+};
+
+  swfobject.embedSWF("/flash/homepage.swf?23234", "home_banner", "912", "456", "9.0.0",false,flashvars, params, attributes);
+</script>
+
+<div style="margin: 0px 13px -40px 13px;">
+  <div id="home_banner">
+<%= link_to (image_tag "/flash/images/home-christmas.jpg", :alt => "onfriday", :border => "0", :hspace => "0", :vspace => "0"), sale_products_path%>  
+      </a>
+  </div>
+</div>
+

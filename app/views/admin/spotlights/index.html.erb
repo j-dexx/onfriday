@@ -1,0 +1,16 @@
+<% title "Spotlights" %>
+
+<p><%= link_to "New Spotlight", new_admin_spotlight_path %></p>
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :designer_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<% form_tag :action => "index_update", :search => params[:search], :page => params[:page] do %>
+  <%= admin_table({:columns => ["designer", "company", ["Brand", lambda{|x| x.brand.name if x.brand}, "brand_name"], ["Highlight?", lambda{|x| (x.highlight) ? "<input name='ids[]' value='#{x.id}' type='checkbox' checked='' />" : "<input name='ids[]' value='#{x.id}' type='checkbox' />"}] ], :list => @spotlights, :images => true, :highlight => lambda{|x| (x.highlight) ? x : nil}}) %>
+  
+  <%= submit_tag "Update" %>
+<% end %>

@@ -1,0 +1,4 @@
+10/11/10 - Nick
+---------------
+
+Added <th> for Position when manual sorting is true.

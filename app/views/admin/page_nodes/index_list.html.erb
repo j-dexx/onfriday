@@ -1,0 +1,39 @@
+<% title "Content Pages" %>
+
+<div class="view">
+	<%= link_to "Browse", {:action => "index"} %>
+	 | 
+	<%= link_to "Search", params.merge({:action => "index_list"}), :class => "highlight" %>
+	 | 
+	<%= link_to "Re-Order", {:action => "index_reorder"} %>
+</div>
+
+<p><%= link_to "New Page", new_admin_page_node_path %></p>
+ 
+<% form_for @search do |f| %>
+  <p>
+  	<%= f.label :name_like, "Name" %>
+    <%= f.text_field :name_like %>
+  </p>
+  <p>
+  	<%= label_tag :filter_section, "Section" %>
+  	<%= select_tag :filter_section, options_for_select(@sections, params[:filter_section].to_i) %>
+  </p>
+  <p>
+  	<%= label_tag :filter_diplay, "Hidden/Displayed" %>
+  	<%= select_tag :filter_display, options_for_select([["Any",""],["Hidden","false"],["Displayed","true"]], params[:filter_display].to_s) %>
+  </p>
+  <p>
+  	<%= f.submit "Search" %>	
+  </p>
+<% end %>
+
+<% if @page_nodes.length > 0 %>
+	<br /><%= link_to "More Details", params.merge(:action => "index_list_advanced"), :class => "table_details" %>
+<% end %>
+<%= admin_table :columns => [
+	"name",
+	["Section", lambda{|x| x.sections.collect{|y| y.name}.join(" / ")}, "section"],
+	["Last Updated At", lambda{|x| simple_datetime_format x.updated_at }, "updated_at"],
+	["", lambda{|x| link_to(image_tag("admin/file_edit.gif"), {:action => "edit", :id => x.id}) if x.can_be_edited?}, nil]
+	], :list => @page_nodes, :delete_action => nil, :edit_action => nil  %>

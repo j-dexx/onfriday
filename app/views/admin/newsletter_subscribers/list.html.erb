@@ -1,0 +1,8 @@
+<% title "Newsletter Subscribers" %>
+
+
+<p><%= link_to "View all", admin_newsletter_subscribers_path %></p>
+ 
+<p>
+  <%= @newsletter_subscribers.collect{|x| x.email}.join(', ') %>
+</p>

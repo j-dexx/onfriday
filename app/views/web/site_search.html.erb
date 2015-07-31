@@ -1,0 +1,35 @@
+<% hide_left %>
+<% hide_right %>
+
+<h1><%= title("Search Results") %></h1>
+<h2><%= title("Search Results for #{params[:search]}") %></h2>
+<% if @results.length > 0 %>
+
+  <% for result in @results %>
+  
+    <% begin %>
+      
+		<br />
+        <%= render :partial => "#{result.class.to_s.underscore.pluralize}/search_result", :locals => {:result => result} %>
+      
+    <% rescue Exception => e %>
+    
+      <% logger.info "Result render error:" %>
+      <% logger.info e.to_s %>
+      
+
+        <h3><%= h result.name %></h3>
+        <p><%= h result.summary %></p>
+        <p><%= link_to "More", url_for(result) %></p>
+<br />
+      
+    <% end %>
+  
+  <% end %>
+  <p><%= will_paginate @results, :params => {:search => params[:search]} %></p>
+
+<% else %>
+
+<p>Sorry no results to display.</p>
+
+<% end %>

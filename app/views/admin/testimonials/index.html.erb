@@ -1,0 +1,10 @@
+<% title "Testimonials" %>
+
+
+<p><%= link_to "New Testimonial", new_admin_testimonial_path %></p>
+
+<%= admin_table({:columns => 
+  [
+  "writer", 
+  ["Statement", lambda{|x| x.statement.length > 100 ? "#{Sanitize.clean(x.statement[0..100])}..." : x.statement}, "statement"]
+  ], :list => @testimonials}, "admin/shared/admin_table_sort") %>

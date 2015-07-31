@@ -1,0 +1,100 @@
+<% if @page_node.new_record? then action = "create" else action = "update" end %>
+	
+<% form_for @page_node, :url => {:controller => "admin/page_nodes", :action => action, :id => @page_node.id, :content_id => params[:content_id]}, :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+	<legend>Page Position</legend>
+		<% if @current_administrator.super_admin? %>
+			<%= tree_select PageNode.roots, "page_node[parent_id]", f.object.parent_id, :include_blank => true, :insert_anywhere => true %>
+		<% else %>
+  		<% if f.object.can_be_moved? %>
+				<%= tree_select PageNode.roots, "page_node[parent_id]", f.object.parent_id, :include_blank => true %>
+  		<% else %>
+	  		<p>This pages location is locked</p>
+			<% end %>
+		<% end %>
+	</fieldset>
+
+  
+  <% f.fields_for :page_contents, @page_content do |builder| %>
+  	<% begin %>
+    	<%= render "admin/page_contents/#{f.object.likely_layout}", :f => builder %>
+    <% rescue %>
+    	<%= render "admin/page_contents/basic", :f => builder %>
+    <% end %>
+  <% end %>
+  
+	<% if @current_administrator.super_admin? %>
+  <fieldset>
+	<legend>Souper Admin Properties</legend>
+	
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :access_key %><br />
+    <%= f.text_field :access_key %>
+  </p>
+	
+	<p>
+    <%= f.label :can_be_moved %>
+    <%= f.check_box :can_be_moved %>
+  </p>
+
+  <p>
+    <%= f.label :can_be_edited %>
+    <%= f.check_box :can_be_edited %>
+  </p>
+
+  <p>
+    <%= f.label :can_be_deleted %>
+    <%= f.check_box :can_be_deleted %>
+  </p>
+  
+  <p>
+    <%= f.label :can_have_children %>
+    <%= f.check_box :can_have_children %>
+  </p>
+  
+  <p>
+    <%= f.label :display_in_navigation %>
+    <%= f.check_box :display_in_navigation %>
+  </p>
+  
+  <p>
+    <%= f.label :special_menu %>
+    <%= f.check_box :special_menu %>
+  </p>
+
+  <p>
+    <%= f.label :controller %><br />
+    <%= f.text_field :controller %>
+  </p>
+  
+  <p>
+    <%= f.label :action %><br />
+    <%= f.text_field :action %>
+  </p>
+  
+  <p>
+    <%= f.label :model %><br />
+    <%= f.text_field :model %>
+  </p>
+
+  <p>
+    <%= f.label :layout %><br />
+    <%= f.text_field :layout, :value => f.object.likely_layout %>
+  </p>
+  
+  <p>
+    <%= f.label :stylesheet %><br />
+    <%= f.text_field :stylesheet %>
+  </p>
+  </fieldset>
+	<% end %>  
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

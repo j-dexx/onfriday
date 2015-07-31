@@ -1,0 +1,12 @@
+<%% title "<%= plural_title %>" %>
+
+<p><%%= link_to "New <%= singular_title %>", new_admin_<%= singular_name %>_path %></p>
+ 
+<%% form_for @search do |f| %>
+  <p>
+    <%%= f.text_field :email_like %>
+    <%%= f.submit "Search" %>
+  </p>
+<%% end %>
+
+<%%= admin_table({:columns => ["email"], :list => @<%= plural_name %>}) %>

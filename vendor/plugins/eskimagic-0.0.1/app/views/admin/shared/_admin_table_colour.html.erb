@@ -1,0 +1,116 @@
+<%# basic list with pagination and ordering and new style links and sub menu  %>
+
+<% main_columns  = columns.reject{|c| c[3] == true } %>
+<% menu_columns = columns.select{|c| c[3] == true } %>
+
+
+<table  class="datatable">
+    <tr>
+            
+      <% for column in main_columns -%>
+        <th scope="col">
+        <% if column[2] && sorting && @search -%>
+        <%= order @search, :by => column[2], :as => column[0], :params => params.delete_if{|k,v| k == "search"} %>
+          </th>
+        <% else -%>
+          <%= column[0] %>
+        <% end -%>
+        </th>
+      <% end -%>
+      
+      <% if notes == true %>
+      	<th scope='col'>Notes</th>
+      <% end %>
+      <% unless show_action == nil %>
+        <th scope='col'></th>
+      <% end %>      
+      <% unless edit_action == nil %>
+        <th scope='col'></th>
+      <% end %>
+      <% unless delete_action == nil %>
+        <th scope='col'></th>
+      <% end %>
+      
+      <% if menu && menu_columns.length > 0 %>
+        <th scope='col'></th>
+      <% end %>
+    </tr>
+
+    <tbody id='draggable'>
+
+    <% for item in list -%>
+    
+      <% row_css_class = '' %>
+      <% begin %>
+        <% if lowlight %>
+          <% row_css_class = "lowlight" if lowlight.call(item) %>
+        <% end %>
+      <% rescue %>
+      <% end %>
+      <% begin %>
+        <% if highlight %>
+          <% row_css_class = "highlight" if highlight.call(item) %>
+        <% end %>
+      <% rescue %>
+      <% end %>
+      	<% if css_class != nil %>
+      		<% row_css_class = css_class.call(item) %>
+      	<% end %>
+      
+      <tr valign="TOP" id='item_<%= item.id %>' class='<%= row_css_class %>'>  
+        
+      <% for column in main_columns -%>
+        <% if column[1].class == Proc %>
+          <td><%= column[1].call(item) %></td>
+        <% else %>
+          <% if item.send(column[1]).class == Date %>
+            <td><%= simple_date_format item.send(column[1]) %></td>
+          <% elsif item.send(column[1]).class == DateTime %>
+            <td><%= simple_datetime_format item.send(column[1]) %></td>
+          <% else %>
+            <td><%=h item.send(column[1]) %></td>
+          <% end %>
+        <% end %>
+        <% end %>
+        
+        <% if notes == true %>
+        	<% if item.extra_info.notes &&  item.extra_info.notes.strip != "" %>
+        	<td class='<%= row_css_class %>'><%= image_tag "admin/notes.gif", :onmouseover => "ddrivetip('#{item.extra_info.notes}');", :onmouseout => "hideddrivetip();"%></td>
+        	<% else %>
+        	<td class='<%= row_css_class %>'></td>
+        	<% end %>
+        <% end %>        
+        <% unless show_action == nil %>
+          <td class='<%= row_css_class %>'><%= link_to (image_tag "admin/view.gif"), {:action => show_action, :id => item.id}, :title => "show", :method => :get %></td>
+        <% end %>
+        <% unless edit_action == nil %>
+          <td class='<%= row_css_class %>'><%= link_to (image_tag "admin/file_edit.gif"), {:action => edit_action, :id => item.id}, :title => "edit" %></td>
+        <% end %>
+        <% unless delete_action == nil %>
+          <td class='<%= row_css_class %>'><%= link_to (image_tag "admin/delete.gif"), {:action => delete_action, :id => item.id}, :title => "delete", :confirm => delete_message, :method => :delete %></td>
+        <% end %>
+
+        <% if menu && menu_columns.length > 0 %>
+          <td class='<%= row_css_class %>'><%= image_tag "admin/more_menu.gif", :class=>'menu_link', :rel=>"#{item.id}_sub_menu", :rev=>'lr' %></td>
+          
+          <div id='<%= item.id %>_sub_menu' class='anylinkcss'>
+          <ul>
+            <% for column in columns.select{|c| c[3] == true} %>
+                <% if column[1].class == Proc %>
+                  <% data = column[1].call(item) %>
+                <% else %>
+                  <% data = item.send(column[1]) %>
+                <% end %>
+                <li><%= data || '&nbsp;' %></li>
+            <% end %>
+          </ul>
+          </div>
+        <% end %>      
+
+    </tr>
+    <% end -%>
+  </table>
+
+<% unless paging == nil || paging == false %>
+  <%= will_paginate list%>
+<% end %>

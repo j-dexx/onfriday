@@ -1,0 +1,6 @@
+<div id="sortable_tree">
+  <ul id="sortable">
+    <%= render :partial => 'admin/shared/sortable_tree_node', :locals => {:nodes => @roots} %>
+  </ul>
+  <%= sortable_element('sortable', :url => {:action => :sort, :section => params[:section]}, :tree => true, :handle => 'handle') %>
+</div>

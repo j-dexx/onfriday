@@ -1,0 +1,15 @@
+<% form_for [:admin, @price_range] do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :start, "Start (£)" %><br />
+    <%= f.text_field :start %>
+  </p>
+
+  <p>
+    <%= f.helpful_label :end, "End (£)", "If you would like no upper bound on the price enter a number greater than 10000" %><br />
+    <%= f.text_field :end %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

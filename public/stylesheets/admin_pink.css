@@ -1,0 +1,61 @@
+/* Links */
+a:link, a:visited, a:active {
+	color: #cc33cc; 
+}
+
+a.preview:hover {
+	background-color: #cc33cc; 
+}
+
+
+/* Header */
+#header {
+	background: #cc33cc;
+}
+
+#top_nav li a:hover { 
+	background-color: #cc33cc; 
+}	
+
+
+/* Left Nav */
+.nav_content h2, .nav_content li span  {
+	background-color: #cc33cc;
+	border-right: 1px solid #ab2bab; 
+	border-bottom: 1px solid #ab2bab;
+}
+
+.nav_content a:link, .nav_content a:visited, .nav_content a:active {
+	background-color: #f4d8f4; 
+	border-right: 1px solid #d4afd4; 
+	border-bottom: 1px solid #d4afd4;
+}
+
+.nav_content a:hover {
+	background-color: #fff4ff;
+}
+
+
+/* Form */
+form {
+	background-color: #fef7fe; 
+}
+
+fieldset {
+	border: 1px solid #cc33cc;
+}
+	
+legend {
+	border: 1px solid #cc33cc;
+	background-color: #e5c6e5;
+}
+
+
+/* Help / Features */
+.tag {
+	color: #cc33cc;
+}
+
+.selectedanchor {
+	color: #cc33cc;
+}

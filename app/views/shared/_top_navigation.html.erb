@@ -1,0 +1,11 @@
+<div class="navigation_left">
+  <%= link_to "Men's Bags", products_path(:search => {:men => true}), :class => @men ? "highlight" : nil %>
+  <%= link_to "Women's Bags", products_path(:search => {:women => true}), :class => @women ? "highlight" : nil %>
+  <%= link_to "All Bags", index_clean_products_path, :class => @no_gender ? 'highlight' : nil, :accesskey => "7" %>  
+  <% unless Product.active.new_in.empty? -%>
+    <%= link_to "New In", new_products_path, :class => @new_in ? 'highlight' : nil %>
+  <% end -%>
+  <span class="special">
+    <%= link_to "Special Offers", sale_products_path, :class => @sale ? 'highlight' : nil %>    
+  </span>
+</div>

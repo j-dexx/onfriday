@@ -1,0 +1,26 @@
+<%% if <%= singular_name %>.image? %>
+ <%%= link_to image_tag(<%= singular_name %>.image.url(:index), :class=>"image_left"), {:action => "show",
+  :id => <%= singular_name %>.id,
+  :tag => params[:tag],
+  :year => params[:year],
+  :month => params[:month]} %>
+<%% end %>
+
+<%%= link_to h(<%= singular_name %>.headline), {:action => "show",
+  :id => <%= singular_name %>.id,
+  :tag => params[:tag],
+  :year => params[:year],
+  :month => params[:month]} %>
+<br />
+
+<span class="date"><%%=h simple_date_format <%= singular_name %>.date %></span><br />
+
+<%%=h <%= singular_name %>.summary %><br />
+
+<p align="right"><%%= link_to "Read more", {:action => "show",
+  :id => <%= singular_name %>.id,
+  :tag => params[:tag],
+  :year => params[:year],
+  :month => params[:month]} %></p>
+
+  <hr />

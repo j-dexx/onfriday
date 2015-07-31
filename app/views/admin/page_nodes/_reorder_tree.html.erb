@@ -1,0 +1,4 @@
+<ul id="sortable">
+  <%= render :partial => "reorder_node", :locals => {:nodes => @roots} %>
+</ul>
+<%= sortable_element("sortable", :url => {:controller => "admin/page_nodes", :action => "order", :page_node_id => "sortable"}, :handle => "handle") %>

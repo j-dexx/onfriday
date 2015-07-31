@@ -1,0 +1,7 @@
+Description:
+    Generates a eskimo_scaffold template which behaves as a standard "Product Pictures" module.  You need to supply the name of the model which it will handle the images for.  For example script/generate eskimo_x_images Product will make the ProductImages model, and associated controllers and views.  This generator should be used when a model has a variable (potentially large) number of images.
+    
+Examples:
+    ./script/generate eskimo_article SingularObjectName
+    ./script/generate eskimo_article Product
+    ./script/generate eskimo_article Article

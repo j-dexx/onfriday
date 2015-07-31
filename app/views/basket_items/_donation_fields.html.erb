@@ -1,0 +1,19 @@
+<%= f.error_messages %>
+ 
+<p>
+  <%= f.label :message, "You can leave your very own personal message here..." %><br />
+  <%= f.text_area :message %>
+</p>
+
+<p>
+  <%= f.label :value, "Value (&pound;)" %> <%= f.text_field :value, :class=>'med' %>
+</p>
+
+<p>
+  <%= f.label :delivery_type, "Keep donation amount secret?"  %><br />
+	<%= f.select :delivery_type, [["No", nil], ["Yes", "Secret"]] %>
+</p>
+
+<p>
+  <%= f.submit f.object.new_record? ? "Add to Basket" : "Update" %>
+</p>

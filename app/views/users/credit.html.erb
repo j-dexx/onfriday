@@ -1,0 +1,8 @@
+<%= render "sub_navigation" %>
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_account_credit"><%= title "Account Credit" %></h1>
+
+<p>
+  You have <strong><%= number_to_pounds current_user.credit %></strong> credit.
+</p>

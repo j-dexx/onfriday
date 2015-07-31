@@ -1,0 +1,44 @@
+<script language="Javascript">
+  function selectStoredImageFor<%= image %>(element, imageId)
+  {
+    // turn all the classes back to normal
+    <% for stored_image in Image.all %>
+      document.getElementById("<%= image %>_stored_image_<%= stored_image.id %>").className = "image";  
+    <% end %>
+    var targetElement = document.getElementById("<%= options[:field_id] || object %>_existing_image_for_<%= image %>");
+    if (targetElement.value == imageId)
+    {
+      element.className = "image";
+      targetElement.value = null;
+      document.getElementById("<%= options[:field_id] || object %>_store_<%= image %>").disabled = false;
+    }
+    else
+    {
+      element.className = "selected_image";
+      targetElement.value = imageId;
+      // disable "keep copy of image on server" options
+      document.getElementById("<%= options[:field_id] || object %>_store_<%= image %>").disabled = true;
+      
+    }
+  }
+</script>
+
+<div align="right"><%= link_to_remote " ", {:update => "stored_images_#{image}", :url => {:controller => "admin/images", :action => "update_stored_images", :image => image, :object => object}}, :class => "refresh", :title => "Refresh Stored Images" %></div>
+
+<%= hidden_field_tag "#{object}[existing_image_for_#{image}]" %>
+
+<div class="stored_images">
+<% if Image.newest.length > 0 %>
+  <% for stored_image in Image.newest %>
+    
+    <%= image_tag stored_image.image.url(:small), 
+      :id => "#{image}_stored_image_#{stored_image.id}",
+      :class => "image",
+      :onclick => "selectStoredImageFor#{image}(this, #{stored_image.id});"
+    %>
+    
+  <% end %>
+<% else %>
+  <p>No images currently stored on server...</p>
+<% end %>
+</div>

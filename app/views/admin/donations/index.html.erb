@@ -1,0 +1,22 @@
+<% title "Donations" %>
+
+
+<p><%= link_to "New Donation", new_admin_donation_path %></p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.collection_select :donation_page_id_equals, DonationPage.unrecycled.arrange, :id, :name, :include_blank => "All Donation Pages" %>
+  </p>
+
+  <p>
+    <%= f.text_field :message_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => [
+  ["Order", lambda{|x| link_to "Order", edit_admin_order_path(x.order_item.order) if x.order_item && x.order_item.order}, nil],
+  ["Donation Page", lambda{|x| link_to x.donation_page.name, edit_admin_donation_page_path(x.donation_page)}, "donation_pages_name"],
+  ["Value", lambda{|x| number_to_pounds x.value}, "value"]
+  ], :list => @donations}) %>

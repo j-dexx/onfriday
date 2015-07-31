@@ -1,0 +1,11 @@
+<%% form_for [:admin, @<%= singular_name %>_image], :html => {:multipart => true} do |f| %>
+  <%%= f.error_messages %>
+
+  <p>
+    <%%= image_field_tag f, :<%= singular_name %>_image, :image %>
+  </p>
+  
+  <%%= f.hidden_field :<%= singular_name %>_id %>
+
+  <p><%%= f.submit "Submit" %></p>
+<%% end %>

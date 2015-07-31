@@ -1,0 +1,48 @@
+<% form_for [:admin, @administrator], :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+  <legend>Login Details</legend>
+  <p>
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Personal Preferences</legend>
+  <p>
+  	<%= f.label :css, "Colour Theme" %><br />
+  	<%= f.select :css, Administrator.colours %>
+  </p>
+  <p>
+    <%= image_field_tag f, :administrator, :image %>
+  </p>
+</fieldset> 
+
+<fieldset>
+  <legend>Roles</legend>
+  <p>
+  <%= f.helpful_label :roles, "Roles", "Tick the roles this administrator take on." %><br />
+  <% for role in Role.all %>  
+    <p>  
+      <%= check_box_tag "administrator[role_ids][]", role.id.to_i, @administrator.roles.include?(role), {:class=>"checkbox"} %>  
+      <%= role.name %>  
+    </p>  
+  <% end %> 
+  </p>
+</fieldset> 
+
+  <p><%= f.submit "Submit", {:class=>"submit"} %></p>
+<% end %>

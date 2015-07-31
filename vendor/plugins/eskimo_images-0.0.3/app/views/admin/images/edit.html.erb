@@ -1,0 +1,61 @@
+<% title "Edit Image" %>
+ 
+<%= javascript_include_tag "admin/cropper" %>
+<%= javascript_include_tag "prototype" %>
+<%= javascript_include_tag "scriptaculous" %>
+<%= stylesheet_link_tag "cropper.css" %>
+
+<% image = @image.image %>
+<% display_width, display_height = Image.scaled_dimensions(image) %>
+<% original_width, original_height = Image.original_dimensions(image) %>
+<% scalar = Image.scalar(image) %>
+
+<script language="Javascript">
+
+  Event.observe( window, 'load', function() 
+  {
+    new Cropper.Img(
+			'frame_image',
+			{
+        onloadCoords: {
+          x1: <%= (display_width/2)-(display_width/4) %>,
+          y1: <%= (display_height/2)-(display_height/4) %>,
+          x2: <%= (display_width/2)+(display_width/4) %>,
+          y2: <%= (display_height/2)+(display_height/4) %>
+        },
+				displayOnInit: true,
+				onEndCrop: onEndCrop
+			}
+    );
+  } );
+
+
+  function onEndCrop( coords, dimensions )
+  {
+    $( 'x1' ).value = coords.x1;
+    $( 'y1' ).value = coords.y1;
+    $( 'x2' ).value = coords.x2;
+    $( 'y2' ).value = coords.y2;
+    $( 'width' ).value = dimensions.width;
+    $( 'height' ).value = dimensions.height;
+  }
+  
+</script>
+
+<p><%= link_to "View All", admin_images_path %></p>
+
+<p><%= image_tag image.url, :width => display_width, :height => display_height, :id => "frame_image" %></p>
+
+<div class="form_no_style">
+<% form_tag params.merge(:action => "execute_frame") do %>
+  <%= hidden_field_tag :x1 %>
+  <%= hidden_field_tag :y1 %>
+  <%= hidden_field_tag :x2 %>
+  <%= hidden_field_tag :y2 %>
+  <%= hidden_field_tag :width %>
+  <%= hidden_field_tag :height %>
+
+    <p><%= submit_tag "Alter Stored Image", :name => "alter" %> <%= submit_tag "Create New Stored Image", :name => "new" %></p>
+
+<% end %>
+</div>

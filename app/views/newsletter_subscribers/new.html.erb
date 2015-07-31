@@ -1,0 +1,13 @@
+<% hide_right %>
+<% hide_left %>
+
+<h1 class="title_newsletter"><%= title "Newsletter" %></h1>
+ <br />
+<% form_for @newsletter_subscriber do |f| %>
+
+  <%= f.error_messages :id => "flash_error", :header_message => nil %>
+
+  <p>
+    <label for="email" style="float: left; margin-right: 10px;">Email Address</label> <%= f.text_field :email, :style=>"float: left;" %><%= f.submit "Submit" %></p>
+
+<% end %> 

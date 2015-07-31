@@ -1,0 +1,5 @@
+Usage:
+
+  script/generate eskimo_documents
+
+This will create a migration to create the documents table

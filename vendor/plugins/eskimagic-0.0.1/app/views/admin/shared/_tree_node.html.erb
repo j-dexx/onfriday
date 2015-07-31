@@ -1,0 +1,18 @@
+<% for node in nodes %>
+
+<li class="node" id="node_<%= node.id %>">
+  <span class='handle'><%= node.name %></span><%= link_to image_tag("admin/file_edit.gif"), {:action => "index_versions", :id => node.id}, :title => "edit" %>
+  <ul>
+  <li>
+    <span class='handle'></span>
+    <%= link_to image_tag("admin/new.gif"), {:action => "new", :parent_id => node.id, :section_id => params[:section]} %>
+    <%= link_to "Add New Page to #{node.name}", {:action => "new", :parent_id => node.id, :section_id => params[:section]} %>
+  </li>
+  <% if !node.children.empty? %>
+    <%= render :partial => 'admin/shared/tree_node', :locals => {:nodes => node.children} %>
+    <li><span class='handle'></span>&nbsp;</li>
+  <% end %>
+  </ul>
+</li>
+
+<% end %>

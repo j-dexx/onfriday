@@ -1,0 +1,19 @@
+<% title "Roles" %>
+
+
+<p><%= link_to "New Role", new_admin_role_path %></p>
+
+ 
+<!-- 
+<% form_for @search do |f| %>
+  <p>
+    <%# f.label :name_like %>
+    <%# f.text_field :name_like %>
+  </p>
+  <p>
+    <%# f.submit "Search" %>
+  </p>
+<% end %>
+-->
+
+<%= admin_table :columns => ["name"], :list => @roles %>

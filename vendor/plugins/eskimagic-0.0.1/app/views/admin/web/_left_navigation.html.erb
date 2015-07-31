@@ -1,0 +1,61 @@
+<div class="nav_content">
+	<h2>Website Content</h2>
+	<ul>
+	<% for feature in Feature.menu.normal.location("Website Content") %>
+	  <% if @current_administrator.has_permission? feature.controller, feature.action %>
+      <% if feature.path %>
+      	<% if feature.css_class? %>
+      		<li><%= link_to feature.name, feature.path, :class => feature.css_class %></li>
+      	<% else %>
+      		<li><%= link_to feature.name, feature.path %></li>
+      	<% end %>
+      <% else %>
+        <li><span><%= feature.name %></span></li>
+      <% end %>
+	  <% end %>
+	<% end %>
+	</ul>
+</div>	
+
+<% management_features = [] %>
+<% for feature in Feature.menu.normal.location("Management Tools") %>
+	<% management_features << feature if @current_administrator.has_permission? feature.controller, feature.action %>
+<% end %>
+
+<% if management_features.length > 0 %>
+	<div class="nav_tools">
+	<h2>Management Tools</h2>
+	<ul>
+	<% for feature in management_features %>
+    <% if feature.path %>
+    	<% if feature.css_class? %>
+    		<li><%= link_to feature.name, feature.path, :class => feature.css_class %></li>
+    	<% else %>
+    		<li><%= link_to feature.name, feature.path %></li>
+    	<% end %>
+    <% else %>
+      <li><span><%= feature.name %></span></li>
+    <% end %>
+	<% end %>
+	</ul>
+	</div>
+<% end %>
+
+<% if @current_administrator.super_admin? %>
+  <div class="nav_tools">
+  <h2>Souper Features</h2>
+  <ul>
+  <% for feature in Feature.menu.super_admin %>
+    <% if feature.path %>
+    	<% if feature.css_class? %>
+    		<li><%= link_to feature.name, feature.path, :class => feature.css_class %></li>
+    	<% else %>
+    		<li><%= link_to feature.name, feature.path %></li>
+    	<% end %>
+    <% else %>
+      <li><span><%= feature.name %></span></li>
+    <% end %>
+  <% end %>
+  </ul>
+  </div>
+<% end %>

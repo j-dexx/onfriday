@@ -1,0 +1,33 @@
+<% title "Select Page" %>
+
+<p><%= link_to "Go back", :action => "index" %></p>
+
+<% form_tag (:action => "insert", :link_type => "page") do %>
+
+  <%= label_tag :page_node_id, "Page" %><br />
+  <%= select_tag :page_node_id, options_from_collection_for_select(@page_nodes.sort_by{|pn| pn.name}, :id, :name) %>
+  
+  <p>
+    <%= check_box_tag :popup, "1", params[:popup], {:class=>"checkbox"} %> <%= label_tag :popup, "I would like this link to open a new window" %>    
+  </p>
+  
+  <%= submit_tag "Use This Page" %>
+
+<% end %>
+
+<% if @object_list.length > 0 %>
+
+  <% form_tag (:action => "insert", :link_type => "object") do %>
+  	
+    <%= label_tag :object_class_id, @model_names.to_sentence(:last_word_connector => " or ") %><br />
+    <%= select_tag :object_class_id, grouped_options_for_select(@object_list) %>
+    
+     <p>
+      <%= check_box_tag :popup, "1", params[:popup], {:class=>"checkbox"} %> <%= label_tag :popup, "I would like this link to open a new window" %>    
+    </p>
+    
+    <%= submit_tag "Use This Content" %>
+
+  <% end %>
+
+<% end %>

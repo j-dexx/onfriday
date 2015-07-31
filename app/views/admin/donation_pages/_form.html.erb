@@ -1,0 +1,30 @@
+<% form_for [:admin, @donation_page], :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.collection_select :user_id, User.unrecycled.arrange, :id, :email %>
+  </p>
+
+  <p>
+    <%= f.label :product_id %><br />
+    <%= f.collection_select :product_id, Product.unrecycled.arrange, :id, :name %>
+  </p>
+
+  <p>
+    <%= f.label :summary %><br />
+    <%= f.text_area :summary %>
+  </p>
+  
+  <p>
+    <%= f.label :target_date %><br />
+    <%= f.date_select :target_date, :order => [:day, :month, :year] %>
+  </p>
+
+  <p>
+    <%= f.label :admin_contribution %><br />
+    <%= f.text_field :admin_contribution %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

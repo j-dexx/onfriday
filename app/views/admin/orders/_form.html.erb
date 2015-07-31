@@ -1,0 +1,129 @@
+<% form_for [:admin, @order] do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>Status</legend>
+  <p>
+    <%= f.object.status.titleize %>
+  </p>
+  
+  <p>
+  <% unless f.object.status == "cancelled" || f.object.status == "shipped" %>
+    <%= link_to("Ship order", {:action => "ship", :id => @order.id}, :confirm => "Are you sure you want to SHIP this order and email the customer?") %><br />
+  <% end %>
+  <% unless f.object.status == "cancelled" || f.object.status == "shipped" %>
+    <%= link_to("Cancel order", {:action => "cancel", :id => @order.id}, :confirm => "Are you sure you want to CANCEL this order and email the customer?") %><br />
+  <% end %>
+  </p>
+  </fieldset>
+
+  <fieldset>
+  <legend>User Information</legend>
+  <p>
+    User: 
+    <%= link_to f.object.user_email, edit_admin_user_path(f.object.user) %>
+  </p>  
+  </fieldset>
+  
+  <fieldset>
+  <legend>Order Contents</legend>
+  <% for order_item in f.object.order_items %>
+    <%= render "admin/order_items/order_item", :order_item => order_item %>
+  <% end %>
+  </fieldset>
+
+  <fieldset>
+  <legend>Cost</legend>
+  <p>
+    Delivery Subtotal: 
+    <%= number_to_pounds f.object.delivery_subtotal %>
+  </p>
+  
+  <p>
+    Discount: 
+    <%= number_to_pounds f.object.discount_subtotal %>
+  </p>
+  
+  <p>
+    Gift Wrap: 
+    <%= number_to_pounds f.object.gift_wrap_subtotal %>
+  </p>
+
+  <p>
+    Products: 
+    <%= number_to_pounds f.object.products_subtotal %>
+  </p>
+  
+  <% if f.object.credit && f.object.credit > 0 %>
+    <p>
+      Credit: 
+      -<%= number_to_pounds f.object.credit %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>
+    Total:
+    <%= number_to_pounds f.object.total %>
+    </strong>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Gift Wrap</legend>
+    <% if f.object.gift_wrap? %>
+    <p>
+      Paid: 
+      <%= number_to_pounds f.object.gift_wrap_subtotal %>
+    </p>
+    <p>
+      Message: "<%= f.object.gift_wrap_message %>"
+    </p>
+    <% else %>
+    <p>No Gift Wrap</p>
+    <% end %>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Delivery Summary</legend>
+  <p>
+    Delivery Option: 
+    <%= f.object.delivery_summary %>
+  </p>
+  
+  <p>
+    <%= f.object.delivery_first_names %> <%= f.object.delivery_surname %><br />
+    <%= f.object.delivery_address_1 %><br />
+    <% if f.object.delivery_address_2? %><%= f.object.delivery_address_2 %><br /><% end %>
+    <%= f.object.delivery_city %><br />
+    <%= f.object.delivery_postcode %><br />
+    <%= Shipping.code_to_country f.object.delivery_country %>
+  </p>
+  </fieldset>
+
+  <fieldset>
+  <legend>Billing Summary</legend>
+  <p>
+    <%= f.object.billing_first_names %> <%= f.object.billing_surname %><br />
+    <%= f.object.billing_address_1 %><br />
+    <% if f.object.billing_address_2? %><%= f.object.billing_address_2 %><br /><% end %>
+    <%= f.object.billing_city %><br />
+    <%= f.object.billing_postcode %><br />
+    <%= Shipping.code_to_country f.object.billing_country %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Payment Details</legend>
+  <p><%= link_to_function "Toggle Payment Details", "toggleDiv(this, 'payment_details', '', '')" %></p>
+  <p id="payment_details" style="display:none;">
+    <% if f.object.gateway_reply? %>
+      <% f.object.gateway_reply.sort{|x,y| x[0] <=> y[0]}.each do |r| %>
+        <%= r[0].to_s.humanize %>: <%= r[1] %><br />
+      <% end %>
+    <% end %>
+  </p>
+  </fieldset>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

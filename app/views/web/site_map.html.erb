@@ -1,0 +1,10 @@
+<% hide_left %>
+<% hide_right %>
+
+<h1 class="title_site_map"><%= title("Site Map") %></h1>
+
+<ul>
+<% for page_node in @roots %>
+  <%= render :partial => "site_map_node", :locals => {:node => page_node} %>  
+<% end %>
+</ul>

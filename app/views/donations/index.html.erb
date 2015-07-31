@@ -1,0 +1,11 @@
+<% hide_left %>
+<% hide_right %>
+<h1  class="title_gift_wishlists"><%= title "#{@donation_page.name} Wishlist" %></h1>
+
+<p><%= link_to "Back", @donation_page %></p>
+
+  <% for donation in @donation_page.donations %>
+    <%= render "donation", :donation => donation %>
+  <% end %>
+
+<p><%= link_to "Back", @donation_page %></p>

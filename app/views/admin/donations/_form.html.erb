@@ -1,0 +1,30 @@
+<% form_for [:admin, @donation], :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :donation_page_id %><br />
+    <%= f.collection_select :donation_page_id, DonationPage.unrecycled, :id, :name %>
+  </p>
+
+  <p>
+    <%= f.label :message %><br />
+    <%= f.text_area :message %>
+  </p>
+
+  <p>
+    <%= f.label :value, "Value (&pound;)" %><br />
+    <%= f.text_field :value %>
+  </p>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.collection_select :user_id, User.unrecycled.arrange, :id, :email, :include_blank => "onfriday Donation" %>
+  </p>
+  
+  <p>
+    <%= f.label :secret %>
+    <%= f.check_box :secret %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

@@ -1,0 +1,73 @@
+<% form_for [:admin, @promo_code] do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>Basic Information</legend>
+  <p>
+    <%= f.helpful_label :name, "Name", "Short name identifying the code (this will be displayed to the used)" %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.helpful_label :code, "Code", "Code the user must enter in order to access the code" %><br />
+    <%= f.text_field :code %>
+  </p>
+  
+  <p>
+    <%= f.helpful_label :start_date, "Start date", "Date on which the code becomes active" %><br />
+    <%= f.calendar_date_select :start_date %>
+  </p>
+
+  <p>
+    <%= f.helpful_label :end_date, "End date (optional)", "Date on which the code becomes inactive" %><br />
+    <%= f.calendar_date_select :end_date %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Promo Code Type</legend>
+  <p>
+    <%= f.label :promo_code_type %><br />
+    <%= f.select :promo_code_type, PromoCode.promo_code_types %>
+  </p>
+  </fieldset>
+    
+  <fieldset>
+  <legend>Savings</legend>
+  <p>
+    <%= f.label :percentage_off, "Percentage off (%)" %><br />
+    <%= f.text_field :percentage_off %>
+  </p>
+ 
+  <p>
+    <%= f.label :amount_off, "Amount off (£)" %><br />
+    <%= f.text_field :amount_off %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Conditions (Optional)</legend>
+  <p>
+    <%= f.label :minimum_amount %><br />
+    <%= f.text_field :minimum_amount %>
+  </p>    
+  </fieldset>
+    
+  <fieldset>
+  <legend>Products</legend>
+  <p>
+    <%= f.label :product_ids, "Products (hold ctrl to select many)" %><br />
+    <%= f.collection_select :product_ids, Product.unrecycled, :id, :brand_name, {}, :multiple => true %>
+  </p>    
+  </fieldset>
+  
+  <fieldset>
+  <legend>Shipping Savings</legend>  
+  <p>
+    <%= f.label :shipping_option_ids, "Free Shipping (hold ctrl to select many)" %><br />
+    <%= f.collection_select :shipping_option_ids, ShippingOption.unrecycled, :id, :region_name, {}, :multiple => true %>
+  </p>
+  </fieldset>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

@@ -1,0 +1,27 @@
+<% metadata(@page_node.active_content.meta_description, @page_node.active_content.meta_tags) %>
+
+<% hide_right %>
+<% hide_left %>
+
+<h1 class="<%= @page_node.stylesheet %>"><%= title @page_node.active_content.name %></h1>
+
+<% if @page_node.active_content.introduction? %>
+    <div class="introduction">
+    	<%= simple_format @page_node.active_content.introduction %>
+    </div>
+<% end %>
+
+<% if @page_node.active_content.image? %>
+  <%= image_tag @page_node.active_content.image.url(:large), :hspace => 0, :vspace => 0, :border => 0, :class => "image_right" %>
+<% end %>
+
+<div class="main_content">
+	<%= @page_node.active_content.main_content %>
+	<%= render "basket_items/voucher_form" %>
+</div>
+
+
+
+<% content_for :right do %>
+
+<% end %>

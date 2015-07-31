@@ -1,0 +1,54 @@
+<br />
+<% form_for @basket_item do |f| %>  
+
+  <%= f.error_messages %>
+  
+  <p>
+    <%= f.label :name, "Recipient's Name" %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :message, "Your message to them" %><br />
+    <%= f.text_area :message %>
+  </p>
+  
+  <p>
+    <%= f.label :value, "Value (&pound;)" %> <%= f.select :value, (1..25).collect{|x| x * 10} %>
+  </p>
+  
+  <p>
+    <%= f.label :delivery_type %> <%= f.select :delivery_type, BasketItem.delivery_types %>
+</p>  
+  
+  <p>
+    <%= f.label :name, "Recipient's email (if you have chosen the email option)" %><br />
+    <%= f.text_field :email %>
+  </p>
+  
+  <p>
+    <%= f.submit "Add to Basket" %>
+  </p>
+  
+  <h2>
+    <% end %>
+    
+  </h2>
+  
+<!--
+<h2>Gift Voucher Terms and Conditions </h2>
+  <ul>
+  <li>The onfriday gift voucher can only be redeemed at <a href="http://www.onfriday.co.uk/">www.onfriday.co.uk</a> </li>
+  <li>Recipients will need to set up an onfriday account and submit the voucher code prior to purchase.</li>
+  <li>The gift voucher code remains active in your account until it has been fully redeemed</li>
+  <li>The gift voucher code will remain valid for 24 months from the date of purchase. Any remaining balance will be cancelled following the expiry date</li>
+  <li>Gift vouchers cannot be exchanged for cash</li>
+  <li>If you do not spend the entire balance of the gift voucher, the remaining balance will be updated after each transaction</li>
+  <li>You can purchase a product of a higher price than the face value of the gift voucher on payment of the difference. </li>
+  <li>If any product purchased with a gift voucher is subsequently exchanged for a product of a lower price or a refund, any money owing will be added to the remaining gift voucher balance</li>
+  <li>Please treat gift vouchers as you would cash - onfriday will not accept liability for lost or stolen gift voucher codes - we strongly recommend your associate your voucher code with your onfriday account immediately upon receipt</li>
+  <li>You will be able to view your gift voucher balance by logging in to your account</li>
+  <li>onfriday reserves the right to amend the terms and conditions of gift vouchers at any time and to take appropriate action, including the cancellation of the gift voucher code if, at its discretion, it deems such action necessary.&nbsp; This does not affect your legal rights</li>
+  <li>If you have any queries please feel free to drop us an email - <a href="mailto:info@onfriday.co.uk">info@onfriday.co.uk</a></li>
+</ul>
+-->

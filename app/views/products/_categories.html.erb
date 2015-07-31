@@ -1,0 +1,19 @@
+<h4>Categories</h4>
+
+<ul>
+
+  <% options = {} %>
+  <% options[:class] = "highlight" if params[:fair_trade] %>
+
+  <li>
+    <%= link_to "Fair Trade", params.merge(:controller => "products", :action => "index", :fair_trade => true), options %>
+  </li>
+  
+  <% options = {} %>
+  <% options[:class] = "highlight" if params[:upcycled] %>
+
+  <li>
+    <%= link_to "Upcycled", params.merge(:controller => "products", :action => "index", :upcycled => true), options %>
+  </li>
+
+</ul>

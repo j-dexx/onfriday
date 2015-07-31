@@ -1,0 +1,21 @@
+<% hide_right %>
+<% hide_left %>
+
+<h1 class="title_behind_the_brands"><%= title "Behind the brands" %></h1>
+
+<div class="brands">
+<% if @brands.length > 0 %>
+  
+  <% for brand in @brands %>
+    <div>
+      <%= link_to image_tag(brand.image.url(:small)), brand, :title => brand.name %>
+    </div>
+  <% end %>
+</div>
+
+    <%= will_paginate @brands %>
+
+  
+<% else %>
+  <p>No Brands to display</p>
+<% end %>

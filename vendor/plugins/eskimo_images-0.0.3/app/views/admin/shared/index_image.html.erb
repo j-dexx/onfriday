@@ -1,0 +1,30 @@
+<% title params[:image].to_s.titleize %>
+
+<fieldset>
+
+<% if @object.send("#{params[:image]}?") %>
+   
+  <div class="image_thumbnails">
+    Original<br />
+  <%= image_tag(@object.send(params[:image]).url, :width => 120) %>
+  </div>
+  
+  <% if @object.crops(params[:image]).length > 0 %>
+
+
+      <% @object.crops(params[:image]).each_pair do |crop, dims| %>
+      <% unless crop == :original %>
+      <div class="image_thumbnails">
+        <%= crop.to_s.titleize %> - <%= link_to "Edit", :action => "frame", :id => @object.id, :image => params[:image], :crop => crop, :lytebox => true %>
+        <br />
+        <%= link_to image_tag("#{@object.send(params[:image]).url(crop, false)}?#{rand(100000)}", :width => 120), :action => "frame", :id => @object.id, :image => params[:image], :crop => crop, :lytebox => true %>
+      </div>
+	  <% end %>
+	  <% end %>
+  <% end %>
+
+<% else %>
+  <p style="margin-top:15px;">No image uploaded</p>
+<% end %>
+
+</fieldset>

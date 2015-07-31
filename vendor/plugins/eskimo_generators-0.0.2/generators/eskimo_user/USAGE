@@ -1,0 +1,8 @@
+Description:
+    Generates a eskimo_scaffold template which behaves as a standard "Users" module.  Quickest way to start using on the front end is to add the _navigation partial to the layout.  Because this uses emails to reset passwords ensure you have the sites default url set in the configs properly.  
+    
+Examples:
+    ./script/generate eskimo_user SingularObjectName
+    ./script/generate eskimo_user User
+    ./script/generate eskimo_user Customer
+    ./script/generate eskimo_user TeamMember

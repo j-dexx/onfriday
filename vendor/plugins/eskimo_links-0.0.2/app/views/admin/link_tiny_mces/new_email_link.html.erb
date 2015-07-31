@@ -1,0 +1,7 @@
+<% title "Email Link" %>
+<p><%= link_to "Go back", :action => "index" %></p>
+
+<% form_tag (:action => "insert", :link_type => "email") do %>
+  <%= label_tag :url, "mailto:" %>  <%= text_field_tag :url, params[:url], :length => 100 %>
+  <%= submit_tag "Create Link" %>
+<% end %>

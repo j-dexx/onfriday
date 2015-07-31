@@ -1,0 +1,60 @@
+<script language="Javascript">
+  
+  var first_ass_prod = 0;
+  var ass_prods = new Array();
+  <% count = 0 %>
+  <% for product in products %>
+    ass_prods[<%= count %>] = "<%= "associated_product_#{product.id}" %>";
+    <% count += 1 %>
+  <% end %>
+
+  function cycleAssProds(direction)
+  {
+    if (direction == "left")
+    {
+      if (first_ass_prod > 0)
+      {
+        document.getElementById(ass_prods[first_ass_prod-1]).style.display = "";
+        document.getElementById(ass_prods[first_ass_prod+5]).style.display = "none";   
+        first_ass_prod--;
+      }      
+    }
+    else
+    {
+      if (first_ass_prod < (ass_prods.length-6))
+      {
+        document.getElementById(ass_prods[first_ass_prod]).style.display = "none";
+        document.getElementById(ass_prods[first_ass_prod+6]).style.display = "";
+        first_ass_prod++;
+      }
+    }
+  }
+</script>
+
+<% if products.length > 0 %>
+
+<div class="other_bags">
+
+<% if products.length > 6 %>
+    <%= link_to_function image_tag("back.gif", :hspace=>"0", :vspace=>"0", :border=>"0", :alt=>"next", :style=>"margin: 50px 0px 0px 0px;"), "cycleAssProds('left')" %>
+  <% end %>
+  
+<% for product in products %>
+
+  <div id="associated_product_<%= product.id %>" style="<%= products[0..5].include?(product) ? "" : "display:none;" %>">
+    <% if product.product_images.select{|x| x.active?}.length > 0 %>
+      <%= link_to image_tag(product.product_images.select{|x| x.active?}.sort_by{|x| x.position}.first.image.url(:tiny), :hspace=>"0", :vspace=>"0", :border=>"0", :width=>"116"), product %>
+    <% else %>
+      <%= link_to image_tag("no_image.gif", :width => 107, :height => 107), product, :title => product.brand_name %>
+    <% end %>
+  </div>
+      
+<% end %>
+
+<% if products.length > 6 %>
+  <%= link_to_function image_tag("next.gif", :hspace=>"0", :vspace=>"0", :border=>"0", :alt=>"next", :style=>"margin: 50px 0px 0px 0px;"), "cycleAssProds('right')" %>
+<% end %> 
+
+</div> 
+
+<% end %>

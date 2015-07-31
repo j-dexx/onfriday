@@ -1,0 +1,28 @@
+<% determine_page_node %>
+  
+<% unless @content_for_title == "Home" %>
+  <%= link_to "Home", root_url %> :: 
+<% end %>
+
+<% if @current_page_node %>
+
+  <% page_node = @current_page_node %>
+  <% page_nodes = [] %>
+  <% while page_node != nil do %>
+    <% page_nodes << page_node %>
+    <% page_node = page_node.parent %>
+  <% end %>
+  
+  <% for page_node in page_nodes.reverse %>
+    <% unless page_node.navigation_title == "Home" || (@content_for_title && page_node.navigation_title.downcase.strip == @content_for_title.downcase.strip) %>
+    	<% if page_node.layout == "none" && !page_node.controller? %>
+    		<%= h(page_node.navigation_title) %> :: 
+    	<% else %>
+    		<%= link_to h(page_node.navigation_title), url_for(page_node.path) %> :: 
+    	<% end%>
+    <% end %>
+  <% end %>
+  
+<% end %>
+
+<%= @content_for_title %>

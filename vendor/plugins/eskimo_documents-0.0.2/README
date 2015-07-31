@@ -1,0 +1,54 @@
+eskimo-documents
+=============
+
+New approach to documents on eskimodules 1.0.2.
+
+BASIC: 1.0.0
+
+To use follow steps:
+
+1. 
+  To create the document table:
+  script/generate eskimo_documents
+  
+2.
+  Create the model as usual using eskimo_scaffold but make no reference to documents in it.
+  
+3.
+  Run the generator to create document columns for the model
+  script/generate paperclip_document
+  This method works just like the normal paperclip generator but has an additional column (alt)
+  
+4.
+  In the model specify that the model has_attached_document :name
+  
+5.
+  Add styles if needed (see STYLES: 2.0.0 for more information)
+  NOTE never use the name :sample for a style, this is reserved
+  
+6. 
+  AFTER the has_attached_document code include:
+  has_documents
+  This loads in the required libraries and methods for the model
+  
+7.
+  If the model has any advanced text fields (or any other html text areas) which may contain documents they need to be
+  highlighted so that on after_saves the model knows to scan them for documents and store them in the appropriate location.
+  To do this simply use:
+  may_contain_documents [:summary, :body]
+  (OR)
+  may_contain_documents :summary
+  
+8. 
+  In the controller which handles saving the object with documents add:
+  handles_documents_for Model
+  (e.g. handles_documents_for Article)
+  
+9.
+  In the form make sure the form is multipart (:html => {:multipart => true}) and add:
+  <%= document_field_tag f, :article, :document %>
+  where f is the form object, :article the name of the object being saved and :document the name of the document attachment
+  
+10.
+  On the frontend use <%= link_to String, @object.document.url %> for the link.
+

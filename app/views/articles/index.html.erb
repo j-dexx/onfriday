@@ -1,0 +1,28 @@
+<% title @title %>
+
+<% if @articles.length > 0 %>
+
+  <% for article in @articles %>
+    <p>
+      <% if article.image? %>
+        <%= image_tag article.image(:thumbnail) %><br />
+      <% end %>
+      <%= link_to h(article.name), article %><br />
+      <%=h article.date %><br />
+      <%=h article.summary %><br />
+      <%= link_to "Read More", article %><br />
+    </p>
+  <% end %>
+  
+  <%= will_paginate @articles %>
+  
+<% else %>
+
+  No Articles to Display
+
+<% end %>
+
+<% content_for :left do %>
+  <%= render "tags" %>
+  <%= render "dates" %>
+<% end %>

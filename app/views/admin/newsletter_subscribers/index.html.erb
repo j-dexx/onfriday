@@ -1,0 +1,23 @@
+<% title "Newsletter Subscribers" %>
+
+
+<p>
+  <%= link_to "New Newsletter Subscriber", new_admin_newsletter_subscriber_path %>
+   | 
+  <%= link_to "Newsletter Subscriber List", :action => "list" %>
+</p>
+
+<p>
+  Unsubscribe URL: 
+  <%= link_to unsubscribe_newsletter_subscribers_url, unsubscribe_newsletter_subscribers_url, :popup => true %>
+</p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :email_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => ["email"], :list => @newsletter_subscribers}) %>

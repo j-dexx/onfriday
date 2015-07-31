@@ -1,0 +1,45 @@
+<% form_for [:admin, @feature] do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :controller %><br />
+    <%= f.text_field :controller %>
+  </p>
+
+  <p>
+    <%= f.label :action %><br />
+    <%= f.text_field :action %>
+  </p>
+  
+  <p>
+    <%= f.helpful_label :super_admin_only, "Super admin only?", "Should we be the only people able to control this feature?" %><br />
+    <%= f.check_box :super_admin_only %>
+  </p>
+
+  <p>
+    <%= f.helpful_label :menu, "Appear in menu?", "Should this item appear in the admin menu?" %><br />
+    <%= f.check_box :menu %>
+  </p>
+
+  <p>
+    <%= f.helpful_label :permission, "Permission control?", "Should this item appear in the permissions list and check for administrator permissions on access?" %><br />
+    <%= f.check_box :permission %>
+  </p>
+  
+  <p>
+    <%= f.label :location, "Navigation Location" %><br />
+    <%= f.select :location, ["Website Content", "Management Tools", "Top Navigation"] %>
+  </p>
+  
+  <p>
+    <%= f.label :css_class, "Navigation CSS class" %><br />
+    <%= f.text_field :css_class %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

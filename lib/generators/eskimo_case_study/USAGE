@@ -1,0 +1,7 @@
+Description:
+    Generates a eskimo_scaffold template which behaves as a standard "Articles" module.
+    
+Examples:
+    ./script/generate eskimo_article SingularObjectName
+    ./script/generate eskimo_article Article
+    ./script/generate eskimo_article BlogEntry

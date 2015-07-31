@@ -1,0 +1,9 @@
+<div class="<%= singular_name %>_navigation">
+<%% if current_<%= singular_name %> %>
+  <%%= link_to "Edit profile", edit_<%= singular_name %>_path(:current) %> |  
+  <%%= link_to "Logout", <%= singular_name %>_logout_path %>
+<%% else %>  
+  <%%= link_to "Register", new_<%= singular_name %>_path %> |
+  <%%= link_to "Log in", <%= singular_name %>_login_path %>  
+<%% end %>
+</div>

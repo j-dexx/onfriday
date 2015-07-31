@@ -1,0 +1,61 @@
+<table border="0" cellpadding="6" cellspacing="0">
+	<tr>
+	  <th align="left" valign="top">Status:</th>
+    <td align="left" valign="top"><%= order.status.titleize %></td>
+	</tr>
+	<tr>
+	  <th align="left" valign="top">Order date:</th>
+    <td align="left" valign="top"><%= simple_date_format order.created_at %></td>
+	</tr>
+  <tr>
+	  <th align="left" valign="top">Invoice No:</th>
+    <td align="left" valign="top"><%= order.online_invoice_number %></td>
+	</tr>
+</table>
+
+<br />
+<br />
+<table border="1" cellpadding="6" cellspacing="0" style="border: 1px solid #000000;">
+	<tr>
+	  <th align="left" valign="top">Products</th>
+    <th align="left" valign="top">Price</th>
+	</tr>
+	
+  <% for order_item in order.order_items %>
+    <tr>
+      <td align="left" valign="top"><%= order_item.amount if order_item.amount > 1 %> <%= order_item.name_code %></td>
+      <td align="left" valign="top"><%= number_to_pounds order_item.subtotal %></td>
+    </tr>
+  <% end %>
+	
+  <tr>
+	  <td align="right" valign="top"><strong>Total:</strong></td>
+    <td align="left" valign="top"><strong><%= number_to_pounds order.total %></strong></td>
+  </tr>
+</table>
+
+<br />
+
+<h2 style="margin: 10px 0px 3px 0px; padding: 10px 0px 3px 0px; font-size: 14px; font-weight: bold; line-height: normal;">
+Billing Address
+</h2>
+
+<%= order.billing_first_names %> <%= order.billing_surname %><br />
+<%= order.billing_address_1 %><br />
+<% if order.billing_address_2? %><%= order.billing_address_2 %><br /><% end %>
+<%= order.billing_city %><br />
+<%= order.billing_postcode %><br />
+<%= Shipping.code_to_country order.billing_country %>
+
+<% unless order.non_deliverable? %>
+  <h2 style="margin: 10px 0px 3px 0px; padding: 10px 0px 3px 0px; font-size: 14px; font-weight: bold; line-height: normal;">
+  Delivery Address
+  </h2>
+
+  <%= order.delivery_first_names %> <%= order.delivery_surname %><br />
+  <%= order.delivery_address_1 %><br />
+  <% if order.delivery_address_2? %><%= order.delivery_address_2 %><br /><% end %>
+  <%= order.delivery_city %><br />
+  <%= order.delivery_postcode %><br />
+  <%= Shipping.code_to_country order.delivery_country %>
+<% end %>

@@ -1,0 +1,32 @@
+<tr>
+  <td align="left" valign="top">
+    <div style="background-color: #ffffff; font-family: Tahoma, Arial, sans-serif; color: #000000; padding: 30px 30px 30px 30px;">
+      
+      <h1 style="margin: 0px 0px 2px 0px; padding: 0px 0px 2px 0px; font-size: 16px; font-weight: bold; line-height: normal;">
+      You've got a new donation!
+      </h1>
+      
+      Donor: <%= @donation.donor_name %>
+      <br />
+      Value: <%= number_to_pounds @donation.value %>
+      <br />
+      <% if @donation.message? %>
+        Message: <br />
+        <%= @donation.message %>
+      <% end %>
+      
+      <br />
+      <br />
+      
+      This brings your donation total to <%= number_to_pounds @donation.donation_page.total %> (Your goal is <%= number_to_pounds @donation.donation_page.goal %>).
+      
+      <br />
+      <br />
+      
+      If you have any queries about your gift wishlist, please don't hesitate to get in touch. The easiest way is to simply reply to this e-mail - we promise we'll contact you as quickly as we possibly can! 
+      
+      <br />
+      
+    </div>
+  </td>
+</tr>

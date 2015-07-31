@@ -1,0 +1,43 @@
+<% form_for @user do |f| %>
+  <%= f.error_messages :header_message => nil, :id => "flash_error" %>
+  
+  <p>
+    <%= f.label :first_names %><br />
+    <%= f.text_field :first_names %>
+  </p>
+  
+  <p>
+    <%= f.label :surname %><br />
+    <%= f.text_field :surname %>
+  </p>
+
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+  
+  <p>
+    <%= f.check_box :newsletter, :checked => (params[:user] ? (params[:user][:newsletter] == '1') : true) %>
+    <%= f.label :newsletter, "Yes, I'd like to hear about the latest news and special offers from onfriday and would be happy to receive their newsletter. *" %>
+  </p>
+    
+  <p>
+    * It will drop into your inbox no more than once a month and you'll always 
+    have the option to unsubscribe if you feel you've heard enough from us. 
+    We will never pass on your email address to anyone else. Please uncheck 
+    this box if you suffer from inbox overload and would prefer not to 
+    receive our newsletter - we won't be offended!
+  </p>
+  
+  <p><%= f.submit "Submit" %></p>
+<% end %>

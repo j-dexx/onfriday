@@ -1,0 +1,70 @@
+<script language="Javascript">
+  
+  var first_image = 0;
+  var images = new Array();
+  <% count = 0 %>
+  <% for small_image in @product_images %>
+    images[<%= count %>] = "<%= "small_product_image_#{small_image.id}" %>";
+    <% count += 1 %>
+  <% end %>
+
+  function switchImage(elementId)
+  {
+    <% for product_image in @product_images %>
+      document.getElementById("product_image_<%= product_image.id %>").style.display = "none";
+      document.getElementById("small_product_image_<%= product_image.id %>").className = "";
+    <% end %>
+    document.getElementById("product_image_" + elementId).style.display = "";
+    document.getElementById("small_product_image_" + elementId).className = "highlight";
+  }
+  
+  function cycle(direction)
+  {
+    if (direction == "left")
+    {
+      if (first_image > 0)
+      {
+        document.getElementById(images[first_image-1]).style.display = "";
+        document.getElementById(images[first_image+2]).style.display = "none";   
+        first_image--;
+      }      
+    }
+    else
+    {
+      if (first_image < (images.length-3))
+      {
+        document.getElementById(images[first_image]).style.display = "none";
+        document.getElementById(images[first_image+3]).style.display = "";
+        first_image++;
+      }
+    }
+  }
+</script>
+
+<p>
+  <% for product_image in @product_images %>
+    <%= link_to image_tag(product_image.image.url(:large), :style => (product_image == @product_images.first) ? "" : "display:none;", :id => "product_image_#{product_image.id}", :title => product_image.product.brand_name, :hspace=>"0", :vspace=>"0", :border=>"0", :width=>"480"), product_image.image.url(:huge), :rel => "lytebox[product_images]" %>
+  <% end %>
+</p>
+
+<% if @product_images.length > 1 %>
+<div class="product_show_thumbnails">
+	
+<%# if @product_images.length > 3 %>
+  <%#= link_to_function image_tag("next.gif", :hspace=>"0", :vspace=>"0", :border=>"0", :alt=>"next", :style=>"margin: 50px 0px 0px 20px;"), "cycle('right')" %>
+<%# end %> 
+  
+<% for product_image in @product_images %>
+  <%#= image_tag product_image.image.url(:tiny), :onclick => "switchImage(#{product_image.id});", :class => (product_image == @product_images.first) ? "highlight" : "", :id => "small_product_image_#{product_image.id}", :style => @product_images[0..2].include?(product_image) ? "" : "display:none;", :hspace=>"0", :vspace=>"0", :border=>"0", :width=>"116" %>
+  <%= image_tag product_image.image.url(:tiny), :onclick => "switchImage(#{product_image.id});", :class => (product_image == @product_images.first) ? "highlight" : "", :id => "small_product_image_#{product_image.id}", :hspace=>"0", :vspace=>"0", :border=>"0", :width=>"107" %>
+<% end %>
+  
+     
+<%# if @product_images.length > 3 %>
+  <%#= link_to_function image_tag("back.gif", :hspace=>"0", :vspace=>"0", :border=>"0", :alt=>"back", :style=>"margin: 50px 2px 0px 0px;"), "cycle('left')" %>
+<%# end %>
+    
+</div>
+<% end %>
+  
+

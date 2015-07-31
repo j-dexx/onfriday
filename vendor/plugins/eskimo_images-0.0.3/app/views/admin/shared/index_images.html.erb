@@ -1,0 +1,51 @@
+<% title "Image Crops" %>
+
+<p><%= link_to 'Back', :action => nil %></p>
+
+<% @object.images.sort{|x,y| x[0].to_s <=> y[0].to_s }.each do |sub_array| %>
+  <% image = sub_array[0] %>
+  
+  <fieldset>
+  <legend>
+  <% begin %>
+    <%= @object.class.send('const_get', "#{image.to_s.capitalize}_name") %>
+  <% rescue %>
+    <%= image.to_s.titleize %>
+  <% end %>
+  </legend>
+  
+  <% if @object.send("#{image}?") %>
+   
+   <div class="image_thumbnails">
+    Original
+    <br />
+    <%= link_to "Add Whitespace", {:action => "add_whitespace", :id => @object.id, :image => image}, :confirm => "Are you sure you would like to ADD WHITESPACE to the image which you have uploaded.  This action cannot be undone." %><br />
+    <%= image_tag(@object.send(image).url, :width => 120) %>
+   </div> 
+    
+    <% if @object.crops(image).length > 0 %>  
+		<% @object.crops(image).each_pair do |crop, dims| %>
+	  <% unless crop == :original %>
+      <div class="image_thumbnails">   
+          <% begin %>
+            <%= @object.class.send('const_get', "#{image.to_s.capitalize}_#{crop.to_s}_name") %>
+          <% rescue %>
+            <%= crop.to_s.titleize %>
+          <% end %>
+          <br />
+          <%= link_to "Edit", :action => "frame", :id => @object.id, :image => image, :crop => crop %><br />
+          <%= link_to image_tag("#{@object.send(image).url(crop, false)}?#{rand(100000)}", :width => 120), :action => "frame", :id => @object.id, :image => image, :crop => crop %>
+      </div>
+    <% end %>
+    <% end %>
+    <% end %>
+    
+  <% else %>
+    <p style="margin-top:15px;">No image uploaded</p>
+  <% end %>
+  
+  </fieldset>
+
+<% end %>
+
+<%= link_to "Finished", :action => nil %>

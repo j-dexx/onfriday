@@ -1,0 +1,68 @@
+<% hide_right %>
+<% hide_left %>
+
+<script language="Javascript">
+  
+  function checkTermsAndConditions()
+  {
+    if (document.getElementById('terms_and_conditions').checked == true)
+    {
+      if (document.getElementById('sagepay_checkout_button') != null)
+        document.getElementById('sagepay_checkout_button').disabled = false;
+      if (document.getElementById('credit_button') != null)
+        document.getElementById('credit_button').disabled = false;
+    }
+    else
+    {
+      if (document.getElementById('sagepay_checkout_button') != null)
+        document.getElementById('sagepay_checkout_button').disabled = true;
+      if (document.getElementById('credit_button') != null)
+        document.getElementById('credit_button').disabled = true;
+    }
+  }
+
+</script>
+
+<%= render "checkout_navigation" %>
+<h1 class="title_payment"><%= title "Payment Options" %></h1>
+<h2>Gift Voucher Code</h2>
+<p>
+  If you have a Gift Voucher code and would like to use it now please <%= link_to "redeem your voucher here", voucher_user_path(:current) %>. If you have already done this, your credit will appear below.
+</p>
+<hr />
+<% if current_user.credit > 0 && (current_basket.credit.nil? || current_basket.credit == 0) %>
+
+  <h2>Credit</h2>
+
+  <p>
+    <% min = [current_user.credit, current_basket.total].min %>
+    Would you like to use some of your credit?  You currently have <strong><%= number_to_pounds current_user.credit %></strong> credit.
+    <br />
+    Max on this purchase: <strong><%= number_to_pounds min %></strong>
+  </p>
+  
+  <% form_tag :action => "add_credit" do %>  
+    <p>
+      <span style="float: left;"><%= label_tag :credit, "Credit (&pound;)" %> <%= text_field_tag :credit, "", {:class=>'med'} %></span> <%= submit_tag "Apply Credit", :style=>"float: left;" %>
+    <br />
+    </p>
+  <% end %>
+  
+  <hr />
+  <h2>Your Basket</h2>
+<% end %>
+
+<%= render "basket_table", :locked => true %>
+
+<% unless @current_basket.orderable? %>
+
+  <p>
+    Sorry, it looks like one of the items you wish to order has gone out of stock while you were checking out.  Please remove this item or reduce the amount you are ordering to continue.  Sorry for any inconvenience.<br />
+    <% for basket_item in @current_basket.basket_items %>
+      <% if !basket_item.orderable? %>
+        <strong><%= basket_item.product.name %> stock Level too low.</strong><br />
+      <% end %>
+    <% end %>
+  </p>
+
+<% end %>

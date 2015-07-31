@@ -1,0 +1,10 @@
+<div id="sortable_tree">
+  <ul id="sortable">
+    <%= render :partial => 'admin/shared/tree_node', :locals => {:nodes => @roots} %>
+    <li>
+      <span class='handle'></span>
+      <%= link_to image_tag("admin/new.gif"), {:action => "new", :section_id => params[:section]} %>
+      <%= link_to "Add a New Main Page", {:action => "new", :section_id => params[:section]} %>
+    </li>
+  </ul>
+</div>

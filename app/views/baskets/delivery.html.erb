@@ -1,0 +1,163 @@
+<%= javascript_include_tag :defaults %>
+<% hide_right %>
+<% hide_left %>
+<%= render "checkout_navigation" %>
+<h1 class="title_delivery_details"><%= title "Delivery Details" %></h1>
+
+<% form_for @current_basket, :url => {:action => "set_delivery"} do |f| %>
+
+<%= f.error_messages :id => "flash_error", :header_message => nil %>
+
+<div class="delivery_form_left">
+  <fieldset>
+  
+  <legend>Billing Address</legend>
+  
+  <p>
+    <%= label_tag :billing_address, "Previous Addresses" %><br />
+    <%= select_tag :billing_address, "<option value="">Enter A New Address</option>" + options_from_collection_for_select(@addresses, :id, :select_name) %>
+    <%= observe_field "billing_address", :url => {:action => "change_billing_address"}, :with => "address_id" %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_first_names, "First names" %><br />
+  <%= f.text_field :billing_first_names %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_surname, "Surname" %><br />
+  <%= f.text_field :billing_surname %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_address_1, "Address Line 1" %><br />
+  <%= f.text_field :billing_address_1 %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_address_2, "Address Line 2" %><br />
+  <%= f.text_field :billing_address_2 %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_city, "City" %><br />
+  <%= f.text_field :billing_city %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_postcode, "Postcode" %><br />
+  <%= f.text_field :billing_postcode, :class=>"med" %>
+  </p>
+  
+  <p>
+  <%= f.label :billing_country, "Country" %><br />
+  <%= f.select :billing_country, grouped_options_for_select(Shipping.grouped_countries, f.object.billing_country), :style => "color:blue;" %>
+  </p>
+  
+  <span id="billing_state_container"></span>
+  <%= observe_field "basket_billing_country", :url => { :controller => "shipping_options", :action => "index_billing" }, :with => "country" %>
+  
+  </fieldset> 
+  
+  <% if current_basket.non_deliverable? %>
+    <p>
+      <%= f.submit "Continue" %>
+    </p>
+  <% end %>
+
+  
+</div>
+
+<% unless current_basket.non_deliverable? %>
+
+  <div class="delivery_form_right">
+    <fieldset>
+
+    <legend>Delivery Address [ <%= link_to_function "Use Billing Address", "useBillingAddress()" %> ]</legend>
+    
+    <p>
+      <%= label_tag :delivery_address, "Previous Addresses" %><br />
+      <%= select_tag :delivery_address, "<option value="">Enter A New Address</option>" + options_from_collection_for_select(@addresses, :id, :select_name) %>
+      <%= observe_field "delivery_address", :url => {:action => "change_delivery_address"}, :with => "address_id" %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_first_names, "First names" %><br />
+    <%= f.text_field :delivery_first_names %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_surname, "Surname" %><br />
+    <%= f.text_field :delivery_surname %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_address_1, "Address Line 1" %><br />
+    <%= f.text_field :delivery_address_1 %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_address_2, "Address Line 2" %><br />
+    <%= f.text_field :delivery_address_2 %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_city, "City" %><br />
+    <%= f.text_field :delivery_city %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_postcode, "Postcode" %><br />
+    <%= f.text_field :delivery_postcode, :class=>"med" %>
+    </p>
+    
+    <p>
+    <%= f.label :delivery_country, "Country" %><br />
+    <%= f.select :delivery_country, grouped_options_for_select(Shipping.grouped_countries, f.object.delivery_country) %>
+    </p>
+    
+    <span id="delivery_state_container"></span>
+    
+    <p>
+      <%= observe_field "basket_delivery_country", :url => { :controller => "shipping_options", :action => "index" }, :with => "country" %>
+    </p>
+    
+    
+    </fieldset>
+  </div>
+
+  <p class="clear" id="shipping_options">
+  <%= render "shipping_options/index" %>
+  </p>
+
+  <p>
+    <%= f.submit "Continue" %>
+  </p>
+  
+<% end %>
+
+
+<% end %>
+
+<%= content_for :body, "<body onload=\"updateBilling();\" >" %>
+
+<script type="text/javascript">
+  function updateBilling()
+  {
+    var e = document.getElementById("basket_billing_country");
+    var value = e.options[e.selectedIndex].value;
+    new Ajax.Request('/shipping_options/index_billing', {
+      asynchronous:true, 
+      evalScripts:true,
+      parameters:'country=' + encodeURIComponent(value)
+    });
+    
+    var e = document.getElementById("basket_delivery_country");
+    var value = e.options[e.selectedIndex].value;
+    new Ajax.Request('/shipping_options/index', {
+      asynchronous:true, 
+      evalScripts:true,
+      parameters:'country=' + encodeURIComponent(value)
+    });
+  }
+</script>

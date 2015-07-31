@@ -1,0 +1,23 @@
+<%= render "sub_navigation" %>
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_edit_profile"><%= title "Edit Profile" %></h1>
+ 
+<%= render :partial => 'form' %>
+
+<% if current_user.addresses.length > 0 %>
+
+  <h2>Stored Addresses</h2>
+
+  <% for address in current_user.addresses %>
+    
+    <p>
+      <%= address.select_name %>
+      <br />
+      [ <%= link_to "Edit", edit_address_path(address) %> ]
+      [ <%= link_to "Remove", {:controller => "addresses", :action => "destroy", :id => address.id}, :method => :delete %> ]
+    </p>
+    
+  <% end %>
+  
+<% end %>

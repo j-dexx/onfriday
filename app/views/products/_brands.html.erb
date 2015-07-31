@@ -1,0 +1,20 @@
+<% brands = Brand.active.select{|x| x.active? } %>
+
+<% if brands.length > 0 %>
+
+<h4>Brands</h4>
+<ul>
+
+<% for brand in brands %>
+
+  <% options = {} %>
+  <% options[:class] = "highlight" if params[:brand] && params[:brand] == brand.name %>
+
+  <li>
+    <%= link_to "#{brand.name}", params.merge(:controller => "products", :action => "index", :search => params[:search].merge(:brand => brand.name)), options %>
+  </li>
+
+<% end %>
+</ul>
+
+<% end %>

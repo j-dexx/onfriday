@@ -1,0 +1,7 @@
+<% title "Site Structure" %>
+
+<p><%= link_to "New Page", new_admin_page_node_path %></p>
+ 
+<div id="tree">
+	<%= render :partial => "tree", :locals => {:nodes => @roots} %>
+</div>

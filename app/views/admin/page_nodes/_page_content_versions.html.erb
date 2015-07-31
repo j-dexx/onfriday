@@ -1,0 +1,55 @@
+<div class="pages_versions_box">
+	
+	<h2>Page Version Tools</h2>
+	<div id="version_tools">
+	
+	<p>
+		<% if !@page_content.active? %>
+			<%= link_to "Use this content", :action => "activate", :id => @page_node.id, :content_id => @page_content.id  %>
+		<% elsif !@page_node.display? %>
+			<strong><span style="color:red;">This content is in use but not displayed on the site</span></strong>
+		<% else %>
+			<strong><span style="color:green;">This content is in use</span></strong>
+		<% end %>
+	</p>	
+	
+	<p><%= link_to "Preview Active Version", :controller => "/page_nodes", :action => "show", :id => @page_node.id, :preview => true %></p>
+	
+	<p><%= link_to "Create a new version", :action => "branch", :page_node_id => @page_node.id, :page_content_id => @page_content.id %></p>
+	
+	<p>
+		<% if @page_node.display? %>
+			<%= link_to "Hide this page", {:action => "toggle_display", :id => @page_node.id, :content_id => params[:content_id]}, :confirm => "Are you sure you would like to hide this page from front end users of the site?" %>
+		<% else %>
+			<%= link_to "Show this page", {:action => "toggle_display", :id => @page_node.id, :content_id => params[:content_id]}, :confirm => "Are you sure you would like to show this page to front end users of the site?" %>
+		<% end %>
+	</p>
+	
+	
+	
+	<p>
+		<% if @page_node.page_contents.length > 1 %>
+			<%= link_to "Delete this version", {:action => "destroy", :id => @page_node.id, :content_id => @page_content.id}, :method => "delete", :confirm => "Are you sure you would like to delete this version of the page?" %>
+		<% else %>
+			<%= link_to "Delete this page", {:action => "destroy", :id => @page_node.id, :content_id => @page_content.id}, :method => "delete", :confirm => "Are you sure you would like to delete this page?" %>
+		<% end %>
+	</p>
+	</div>
+	
+	
+	<h2>Edit Other Versions</h2>
+	<div id="versions">
+	<% for page_content in @page_node.page_contents.select{|x| !x.recycled?} %>
+		<span>
+			<% if @page_content == page_content %>
+			<a href="<%= url_for(:action => "edit", :id => @page_node.id, :content_id => page_content.id) %>" class="green" id="current">
+			<% else %>
+			<a href="<%= url_for(:action => "edit", :id => @page_node.id, :content_id => page_content.id) %>" class="green">
+			<% end %>
+			<%= image_tag("admin/live.gif", :title => "Published on website", :border=>"0", :hspace=>"0", :vspace=>"0") if page_content.active? %><%= page_content.title %>
+			</a>			
+		</span>
+	<% end %>
+	</div>
+
+</div>

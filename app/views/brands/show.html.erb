@@ -1,0 +1,42 @@
+<% title @brand.name %>
+
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_behind_the_brands">Behind the brands</h1>
+
+<div class="pagination">
+	<% if defined? @previous_brand %>
+      <%= link_to "<img src='/images/back.gif' hspace='0' vspace='0' border='0' alt='back' />", @previous_brand %>
+    <% else %>
+      <img src='/images/back.gif' hspace='4' vspace='0' border='0' alt='back' />
+    <% end %>
+    
+    <% if defined? @next_brand %>
+      <%= link_to "<img src='/images/next.gif' hspace='0' vspace='0' border='0' alt='next' />", @next_brand %>
+    <% else %>
+      <img src='/images/next.gif' hspace='4' vspace='0' border='0' alt='next' />
+    <% end %>
+</div>
+
+<%= image_tag @brand.image.url(:large), {:class=>"image_left"} %>
+
+
+
+
+<div class="clear"></div>
+
+<% if @brand.image_2? %>
+  <%= image_tag @brand.image_2.url(:large), :hspace => 0, :vspace => 0, :border => 0, :class => "image_right" %>
+<% end %>
+    
+<div class="main_content" id="yellow_dot">    
+    <%= @brand.story %>
+    
+<p>
+  <%= link_to "Back to all brands", brands_path, :class=>"black_link" %>
+</p>
+</div>
+
+
+<h2 class="other_title">Bags by <%= @brand.name %></h2>
+<%= render "products/associated_products", :products => @brand_products %>

@@ -1,0 +1,20 @@
+<tr>
+  <td align="left" valign="top">
+    <div style="background-color: #ffffff; font-family: Tahoma, Arial, sans-serif; color: #000000; padding: 30px 30px 30px 30px;">
+      
+      <h1 style="margin: 0px 0px 2px 0px; padding: 0px 0px 2px 0px; font-size: 16px; font-weight: bold; line-height: normal;">
+      <%= @name %> has filled in the Contact Us form.
+      </h1>
+      
+      <% if @tel && !@tel.blank? %>
+    	<strong>Telephone: </strong> <%= @tel %><br />
+      <% end %>
+      <% if @email && !@email.blank? %>
+      	<strong>Email: </strong> <%= auto_link @email %><br />
+      <% end %>
+      <strong>Enquiry:</strong>
+      <%= @enquiry %>
+      
+    </div>
+  </td>
+</tr>

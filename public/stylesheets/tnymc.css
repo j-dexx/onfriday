@@ -1,0 +1,92 @@
+/*--Main--*/
+body {
+	font-family: Tahoma, Arial, sans-serif; 
+	font-size: 12px;
+	color: #000000; 
+	background-color: #FFFFFF; 
+	
+}
+
+
+p {
+	margin: 0px; 
+	padding: 8px 0px 8px 0px;
+}
+
+
+hr {
+	border: 0px; 
+	border-bottom: 2px solid #000000; 
+	height: 2px; 
+	clear: left; 
+	margin: 0px 0px 10px 0px; 
+	padding: 10px 0px 0px 0px;
+}
+
+
+/*--Links--*/
+a:link, a:visited, a:active {
+	color: #000000; 
+	text-decoration: underline; 
+	font-weight: bold;
+}
+
+a:hover {
+	color: #666666; 
+	text-decoration: underline; 
+	font-weight: bold;
+}
+
+/*--Titles--*/
+h1.underline {
+	color: #000000; 
+	font-size: 31px; 
+	font-weight: bold; 
+	margin: 20px 0px 12px 0px; 
+	padding: 0px 0px 8px 20px;
+	line-height: normal;
+	letter-spacing: 1px;
+	border-bottom: 2px solid #000000;
+}
+
+h2.underline {
+	color: #000000; 
+	font-size: 18px; 
+	font-weight: bold; 
+	margin: 20px 0px 12px 0px; 
+	padding: 0px 0px 8px 0px;
+	line-height: normal;
+	letter-spacing: 1px;
+	border-bottom: 2px solid #000000;
+}
+
+h2 {
+	color: #000000; 
+	font-size: 18px; 
+	font-weight: normal; 
+	margin: 12px 0px 0px 0px; 
+	padding: 12px 0px 0px 0px;
+	line-height: normal;
+}
+
+h3 {
+	color: #000000; 
+	font-size: 14px; 
+	font-weight: bold; 
+	margin: 8px 0px 0px 0px; 
+	padding: 8px 0px 0px 0px;
+	line-height: normal;
+}
+
+
+/*--Styles--*/
+.image_right {
+	float: right; 
+	margin: 12px 0px 8px 30px;
+}
+
+.image_left {
+	float: left; 
+	margin: 12px 30px 8px 0px;
+}
+

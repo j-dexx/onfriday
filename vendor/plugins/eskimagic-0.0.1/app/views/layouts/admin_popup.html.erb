@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= h("#{SiteSetting.find_by_name("Site Name").value} Admin - #{yield(:title) || "Untitled"}") %></title>
+    
+    <noscript>
+    <h1>This page requires Javascript be turned on, please enable it in your browser and reload the page.</h1>
+    </noscript>
+    
+    <%= javascript_include_tag 'admin/tiny_mce/tiny_mce' %>
+    <%= javascript_include_tag 'admin/tiny_mce_configs' %>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'admin/admin_table_sub_menu' %>
+    <%= javascript_include_tag 'admin/prototype-base-extensions' %>
+    <%= javascript_include_tag 'admin/prototype-date-extensions' %>
+    <%= javascript_include_tag 'admin/cropper' %>
+    
+    
+    <!-- 
+    * Cool DHTML tooltip script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+    * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+    -->
+    <%= javascript_include_tag 'admin/tooltip' %>
+    
+    <script type="text/javascript">
+      anylinkcssmenu.init("menu_link")
+    </script>
+    
+    <% if @current_administrator && @current_administrator.css? %>
+    	<%= stylesheet_link_tag @current_administrator.css %>
+  	<% else %>
+  		<%= stylesheet_link_tag "admin_orange" %>
+    <% end %>
+    <%= stylesheet_link_tag 'admin' %>
+    <%= stylesheet_link_tag 'lytebox' %>
+    <%= stylesheet_link_tag 'calendar_date_select/default' %>
+
+    <%= yield(:head) %>
+  </head>
+  <body style="background-color: #FBFBFB;">  
+    <div ID="dek"></div>
+    <div id="dhtmltooltip"></div>
+    
+    <script type="text/javascript">
+    
+      var offsetxpoint=-60 //Customize x offset of tooltip
+      var offsetypoint=20 //Customize y offset of tooltip
+      var ie=document.all
+      var ns6=document.getElementById && !document.all
+      var enabletip=false
+      if (ie||ns6)
+      var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
+      document.onmousemove=positiontip
+            
+    </script>
+
+
+        <div class="admin_pop_up">
+        <h1><%=h yield(:title) %></h1>
+        <%- flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%- end -%>
+      
+        <%= yield %>
+        </div>
+
+  </body>
+</html>

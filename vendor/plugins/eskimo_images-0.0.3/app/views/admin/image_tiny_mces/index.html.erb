@@ -1,0 +1,20 @@
+<% title "Stored Images" %>
+
+<p><%= link_to "New Image", new_admin_image_tiny_mce_path %></p>
+
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :image_file_name_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({
+  :columns => [
+    ["Image", lambda{|x| link_to image_tag(x.image.url(:small)), admin_image_tiny_mce_path(x) }, "image_file_name"],
+    "image_file_name",
+    ["Size", lambda{|x| number_to_human_size x.image_file_size}, "image_file_size"],
+    ["Use", lambda{|x| link_to "Use this Image", insert_admin_image_tiny_mce_path(x)}, nil]
+    ], 
+  :delete_action => nil,
+  :list => @images}) %>

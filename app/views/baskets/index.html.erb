@@ -1,0 +1,15 @@
+<% hide_right %>
+<% hide_left %>
+
+<%= render "checkout_navigation" %>
+<h1 class="title_your_basket"><%= title "Your Basket" %></h1>
+
+<% if @current_basket.basket_items.length > 0 %>
+	
+  <%= render "basket_table" %>
+  
+<% else %>
+
+  <p>There are currently no items in your basket.</p>
+  
+<% end %>

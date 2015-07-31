@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  current_rating: 1.5
+  times_rated: 1
+  controller: MyString
+  action: MyString
+  id: MyString
+  url: MyText
+
+two:
+  current_rating: 1.5
+  times_rated: 1
+  controller: MyString
+  action: MyString
+  id: MyString
+  url: MyText

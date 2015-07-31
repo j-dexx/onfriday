@@ -1,0 +1,14 @@
+<%% title "<%= plural_name.titleize %>" %>
+
+<%- if admin_action? :new -%>
+<p><%%= link_to "New <%= singular_name.titleize %>", new_admin_<%= singular_name %>_path %></p>
+<%- end -%>
+ 
+<%% form_for @search do |f| %>
+  <p>
+    <%%= f.text_field :name_like %>
+    <%%= f.submit "Search" %>
+  </p>
+<%% end %>
+
+<%%= admin_table({:columns => <%= attributes.collect{|a| a.name}.inspect %>, :list => @<%= plural_name %>}) %>

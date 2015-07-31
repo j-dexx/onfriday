@@ -1,0 +1,40 @@
+<% form_for @address do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :surname %><br />
+    <%= f.text_field :surname %>
+  </p>
+
+  <p>
+    <%= f.label :first_names %><br />
+    <%= f.text_field :first_names %>
+  </p>
+
+  <p>
+    <%= f.label :address_1 %><br />
+    <%= f.text_field :address_1 %>
+  </p>
+
+  <p>
+    <%= f.label :address_2 %><br />
+    <%= f.text_field :address_2 %>
+  </p>
+
+  <p>
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </p>
+
+  <p>
+    <%= f.label :postcode %><br />
+    <%= f.text_field :postcode %>
+  </p>
+
+  <p>
+    <%= f.label :country %><br />
+    <%= f.select :country, grouped_options_for_select(Shipping.grouped_countries, f.object.country) %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

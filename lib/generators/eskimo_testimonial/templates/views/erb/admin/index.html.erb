@@ -1,0 +1,17 @@
+<%% title "<%= plural_title %>" %>
+
+<p><%%= link_to "New <%= singular_title %>", new_admin_<%= singular_name %>_path %></p>
+ 
+<%% form_for @search do |f| %>
+  <p>
+    <%%= f.text_field :quote_or_author_like %>
+    <%%= f.submit "Search" %>
+  </p>
+<%% end %>
+
+<%%= admin_table({:columns => [
+  ["Quote", lambda{|x| (x.quote.length > 50) ? "#{Sanitize.clean(x.quote)[0..50]}..." : x.quote}, "quote"],
+  "author",
+  "company_name"
+  ],
+  :list => @<%= plural_name %>}, "admin/shared/admin_table_sort") %>

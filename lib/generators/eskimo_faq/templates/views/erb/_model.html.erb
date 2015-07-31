@@ -1,0 +1,6 @@
+<p>
+<%%= link_to_function <%= singular_name %>.question, "toggleDiv(this, '<%= singular_name %>_#{<%= singular_name %>.id}', 'down', 'up')", :class => "down" %>
+<div id="<%= singular_name %>_<%%= <%= singular_name %>.id %>" style="display:none;">
+  <%%= <%= singular_name %>.answer %>
+</div>
+</p>

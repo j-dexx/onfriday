@@ -1,0 +1,10 @@
+<p>
+"<%%= <%= singular_name %>.quote %>"
+<%% if <%= singular_name %>.author? && <%= singular_name %>.company_name? %>
+  <%%= <%= singular_name %>.author %>, <%%= <%= singular_name %>.company_name %>
+<%% elsif <%= singular_name %>.author? %>
+  <%%= <%= singular_name %>.author %>
+<%% elsif <%= singular_name %>.company_name? %>
+  <%%= <%= singular_name %>.company_name %>
+<%% end %>
+</p>

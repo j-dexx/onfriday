@@ -1,0 +1,18 @@
+<% title "Donation Pages" %>
+
+
+<p><%= link_to "New Donation Page", new_admin_donation_page_path %></p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :name_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => [
+  ["User's Name", lambda{|x| x.user.full_name }, "users_name"], 
+  "product_id", "admin_contribution",
+  ["Donations", lambda{|x| link_to "Donations", admin_donations_path(:search => {:donation_page_id_equals => x.id})}, nil, true]
+  ], :list => @donation_pages}) %>

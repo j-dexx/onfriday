@@ -1,0 +1,10 @@
+<h1><% title "Reset Password" %></h1>
+
+<p>Please enter your email address below and then press "Reset Password".</p>
+
+<% form_tag admin_password_resets_path do %>
+  <%= text_field_tag :email %>
+  <%= submit_tag "Reset Password" %>
+<% end %>
+
+<%= link_to "Back to Admin Login", admin_login_path %>

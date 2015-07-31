@@ -1,0 +1,29 @@
+<script language="Javascript" type="text/javascript">
+
+  function slideToggle()
+  { 
+    element = document.getElementById('open_basket')
+    element.style.display = (element.style.display == "none")?"":"none";
+  } 
+  
+</script>
+
+<% if current_basket %>  
+  
+  <div class="basket_navigation" id="open_basket"> 
+    <% if @current_basket.basket_items.length == 0 %>
+      No items in your bag <span>|</span> 
+    <% elsif @current_basket.basket_items.length == 1 %>
+      1 item in your bag <span>|</span>
+    <% else %>
+      <%= @current_basket.basket_items.length %> items in your bag  <span>|</span>   
+    <% end %>
+    
+    <strong>Total: <%= number_to_pounds @current_basket.total %></strong> <span>|</span>
+    
+    <%= link_to "Checkout", basket_path %>    
+  </div>
+  
+  <%= link_to "BASKET", basket_path, {:class=>"basket", :id => "basket_link", :disabled => true} %>
+  
+<% end %>  

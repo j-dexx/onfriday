@@ -1,0 +1,7 @@
+<div class="user_sub_nav">
+  <%= link_to "Your Orders", users_path %>
+  <%= link_to "Account Credit", credit_user_path(:current) %>
+  <%= link_to "Redeem Gift Voucher", voucher_user_path(:current) %>
+  <%= link_to "Edit Profile", edit_user_path(:current) %>
+  <%= link_to "Your Gift Wishlists", donation_pages_path, {:style=> "background-image: none;"} %>
+</div>

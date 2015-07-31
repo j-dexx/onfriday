@@ -1,0 +1,9 @@
+<p>
+  Version <%= object.version %>
+  <% if object.version > 1 %>
+    <%= link_to "Previous Version", :action => "edit", :id => object.id, :version => object.version-1 %>
+  <% end %>
+  <% if params[:version] %>
+    <%= link_to "Latest Version", :action => "edit", :id => object.id %>
+  <% end %>
+</p>

@@ -1,0 +1,32 @@
+<%% form_for([:admin, @<%= singular_name %>], :html => {:multipart => true}) do |f| %>
+  <%%= f.error_messages %>
+  
+  <fieldset>
+  <legend>Question</legend>
+  <p>
+    <%%= f.text_area :question %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Answer</legend>
+  <p>
+    <%%= f.text_area :answer %>
+  </p>
+  </fieldset>
+
+  <fieldset>
+  <legend>Tags</legend>
+  <p>
+    <%%= f.label :tags %><br />
+    <%%= f.tag_field :tags %>
+  </p>
+  </fieldset>
+ 
+  <p>
+    <%%= f.label :display %>
+    <%%= f.check_box :display %>
+  </p>
+
+  <p><%%= f.submit "Submit" %></p>
+<%% end %>

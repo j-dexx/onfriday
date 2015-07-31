@@ -1,0 +1,19 @@
+<%= render "sub_navigation" %>
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_your_orders"><%= title "Your Orders" %></h1>
+
+
+<% if current_user.orders.length > 0 %>
+
+<% for order in current_user.orders.sort_by{|x| x.created_at}.reverse %>
+  <%= render "orders/order", :order => order, :dynamic => true %>
+<% end %>
+
+<% else %>
+
+  <p>
+    You currently have no orders.
+  </p>
+
+<% end %>

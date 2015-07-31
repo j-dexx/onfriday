@@ -1,0 +1,103 @@
+eskimo-images
+=============
+
+New approach to images on eskimodules 1.0.1.
+
+For an in depth explaination of this plugin speak to Nick or pester him to write it down (or go look for yourself, it's not that complex)
+
+BASIC: 1.0.0
+
+To use follow steps:
+
+1. 
+  To create the image table:
+  script/generate eskimo_images
+  
+2.
+  Create the model as usual using eskimo_scaffold but make no reference to images in it.
+  
+3.
+  Run the generator to create image columns for the model
+  script/generate paperclip_image
+  This method works just like the normal paperclip generator but has an additional column (alt)
+  
+4.
+  In the model specify that the model has_attached_image :name
+  
+5.
+  Add styles if needed (see STYLES: 2.0.0 for more information)
+  NOTE never use the name :sample for a style, this is reserved
+  
+6. 
+  AFTER the has_attached_image code include:
+  has_images
+  This loads in the required libraries and methods for the model
+  
+7.
+  If the model has any advanced text fields (or any other html text areas) which may contain images they need to be
+  highlighted so that on after_saves the model knows to scan them for images and store them in the appropriate location.
+  To do this simply use:
+  may_contain_images [:summary, :body]
+  (OR)
+  may_contain_images :summary
+  
+8. 
+  In the controller which handles saving the object with images add:
+  handles_images_for Model
+  (e.g. handles_images_for Article)
+  
+9.
+  In the form make sure the form is multipart (:html => {:multipart => true}) and add:
+  <%= image_field_tag f, :article, :image %>
+  where f is the form object, :article the name of the object being saved and :image the name of the image attachment
+  
+10. (optional) 
+  Image framing occur at /admin/:controller/index_images/:id
+  So you can add a link to this page in the admin table or anywhere else you see fit (to quickly add to admin tables pass
+  the options of :images => true
+  
+11. (optional)
+  If you want to detect images changes to determine whether to redirect to the framing page you can
+  use the has_images Model.image_changes?(params) method.
+  In the controller (update and create I image) before the redirect to the index add the code:
+  if Model.image_changes?(params[:model])
+    redirect_to :action => "index_images", :id => object.id
+  else
+    redirect_to admin_objects_path
+  end
+  The Model.image_changes?(params) inspects the params you post and uses the information about the model which it has to
+  determine if any images have been changed
+  
+12. (optional)
+  To change an images default max and min dimensions you can change the original style (default "700x500")
+  has_attached_image :image1, :styles => {:index => "200x200#", :original => "600x400"}
+  
+  
+STYLES: 2.0.0
+This plugin follows the paperclip (and therefore rmagick) conventions.  Specify a style for an image by passing :styles to the image definitions, as in the following examples (followed by an explaination of each style):
+
+1. has_attached_image :image1, :styles => {:index => "200x200#"}
+2. has_attached_image :image2, :styles => {:index => "200"}
+3. has_attached_image :image3, :styles => {:index => "x200"}
+4. has_attached_image :image4, :styles => {:index => "200x200"}
+5. has_attached_image :image5, :styles => {:index => "200x200#", :show => "200"}
+6. has_attached_image :image4, :styles => {:index => "100>"}
+7. has_attached_image :image4, :styles => {:index => "x100>"}
+8. has_attached_image :image4, :styles => {:index => "100^"}
+9. has_attached_image :image4, :styles => {:index => "x100^"}
+
+1. will make a style (called index) which is EXACTLY 200x200 pixels, disregarding the original aspect ratio
+2. fixed width but any height
+3. fixed height but any width
+4. 200x200 pixel style but keep original aspect ratio - usually ends up shrinking by one set of dimension - not very useful as the results are unpredictably
+5. multiple styles
+6. no wider than 100 pixels
+7. no taller than 100 pixels
+8. no thiner than 100 pixels
+9. no shorted than 100 pixels
+
+RENAMING IMAGES AND STYLES: 3.0.0
+You can give an image and a style a different name, without having to track down all the references to the images.  Doing this will just change the image name on the index_images page and the forms.  It should be used when admins are getting confused about which image is which or to tidy up the admin.  To do this just add a constant to the model.
+For an image: Image_2_name = "new name" where Image_2 is the name of the attachment (capitalized to make it a constant).
+For a style: Image_2_show_page_name = "new name" where Image_2 is the name of the attachment (capitalized to make it a constant) and show_page is the name of the style.
+

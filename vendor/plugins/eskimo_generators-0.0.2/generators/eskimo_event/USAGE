@@ -1,0 +1,7 @@
+Description:
+    Generates a eskimo_scaffold template which behaves as a standard "Events" module.
+    
+Examples:
+    ./script/generate eskimo_article SingularObjectName
+    ./script/generate eskimo_article Event
+    ./script/generate eskimo_article BirthdayParty

@@ -1,0 +1,32 @@
+<h1><%%= title "<%= plural_name.titleize %>" %></h1>
+
+<%- if action? :new -%>
+<p><%%= link_to "New <%= singular_name.titleize %>", new_<%= singular_name %>_path %></p>
+<%- end -%>
+
+<%% if @<%= plural_name %>.length > 0 %>
+
+  <%% for <%= singular_name %> in @<%= plural_name %> %>
+  <p>
+    <%- for attribute in attributes -%>
+      <%%=h <%= singular_name %>.<%= attribute.name %> %><br />
+    <%- end -%>
+    <%- if action? :show -%>
+      <%%= link_to "Show", <%= singular_name %> %><br />
+    <%- end -%>
+    <%- if action? :edit -%>
+      <%%= link_to "Edit", edit_<%= singular_name %>_path(<%= singular_name %>) %><br />
+    <%- end -%>
+    <%- if action? :destroy -%>
+      <%%= link_to "Destroy", <%= singular_name %>, :confirm => 'Are you sure?', :method => :delete %><br />
+    <%- end -%>
+  </p>
+  <%% end %>
+  
+  <%%= will_paginate @<%= plural_name %> %>
+  
+<%% else %>
+
+  No <%= plural_name.titleize %>  to Display
+
+<%% end %>

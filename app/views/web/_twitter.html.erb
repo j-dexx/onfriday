@@ -1,0 +1,42 @@
+<% cache "twitter_feed", Time.now + 60.minutes do %>
+
+  <% account = "alionfriday" %>
+	
+	<% require 'xmlsimple' %>
+	<% require 'curb' %>
+	<% url = "http://api.twitter.com/1/statuses/user_timeline/#{account}.xml" %>
+  
+  <% begin %>
+    <% SystemTimer.timeout(5.seconds) do %>
+      <% @xml_data = Curl::Easy.perform(url).body_str %>
+    <% end %>
+  <% rescue Timeout::Error %>
+    <% unless @xml_data %>
+      <% @xml_data = nil %>
+    <% end %>
+  <% end %>
+
+  <div id="twitter">
+    <% unless @xml_data == nil %>
+      <% updates = XmlSimple.xml_in(@xml_data, { 'KeyAttr' => 'statuses' }) %>
+      <% unless updates["error"] %>
+        <span>
+          <%= updates["status"][0]["text"][0].gsub(/http:\/\/[^ ]*/){|match| "<a href='#{match}' target='_blank'>#{match}</a>"} %>
+        </span>
+          <a style="font-size: 85%;" href="http://twitter.com/<%= account %>/statuses/<%= updates["status"][0]["id"][0] %>" target='_blank'>
+            <%= Time.parse(updates["status"][0]["created_at"][0].to_s).strftime('%H:%M - %d/%m/%Y') %>
+          </a>
+        </li>
+      <% else %>
+        <span>     
+          <%= updates["error"] %>
+        </span>
+      <% end %>
+    <% else %>
+      <span>
+        Twitter is not responding
+      </span>
+    <% end %>
+  </div>
+    
+<% end %>

@@ -1,0 +1,19 @@
+<br />
+<% form_for @basket_item, :url => create_donation_donation_page_basket_items_path(@donation_page) do |f| %>  
+
+  <%= f.error_messages %>
+   
+  <p>
+    <%= f.label :message, "Message" %><br />
+    <%= f.text_area :message %>
+  </p>
+  
+  <p>
+    <%= f.label :value, "Value (&pound;)", :class=>'med' %> <%= f.text_field :value %>
+  </p>
+  
+  <p>
+    <%= f.submit "Add to Basket" %>
+  </p>
+
+<% end %>

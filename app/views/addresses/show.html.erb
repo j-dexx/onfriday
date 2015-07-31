@@ -1,0 +1,52 @@
+<h1><%= title "Address" %></h1>
+ 
+
+<p>
+  <strong>Surname:</strong>
+  <%=h @address.surname %>
+</p>
+
+<p>
+  <strong>First Names:</strong>
+  <%=h @address.first_names %>
+</p>
+
+<p>
+  <strong>Address 1:</strong>
+  <%=h @address.address_1 %>
+</p>
+
+<p>
+  <strong>Address 2:</strong>
+  <%=h @address.address_2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%=h @address.city %>
+</p>
+
+<p>
+  <strong>Postcode:</strong>
+  <%=h @address.postcode %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%=h @address.country %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%=h @address.user_id %>
+</p>
+
+
+ 
+<p>
+
+
+
+  <%= link_to "View All", addresses_path %>
+
+</p>

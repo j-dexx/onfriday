@@ -1,0 +1,14 @@
+<% title "Content Pages" %>
+<div class="view">
+	<%= link_to "Browse", {:action => "index"}, :class => "highlight" %>
+	 | 
+	<%= link_to "Search", params.merge({:action => "index_list"}) %>
+	 | 
+	<%= link_to "Re-Order", {:action => "index_reorder"} %>
+</div>
+
+<p><%= link_to "New Page", new_admin_page_node_path %></p>
+
+<div id="tree">
+	<%= render :partial => "static_tree", :locals => {:nodes => @roots, :static => true} %>
+</div>

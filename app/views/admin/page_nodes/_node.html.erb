@@ -1,0 +1,27 @@
+<% for node in nodes %>
+
+	<li id="node_<%= node.id %>">
+
+	<% if !node.children.empty? %>
+	
+		<span onClick="document.getElementById('list_<%= node.id %>').style.display = ''; this.style.display='none'; document.getElementById('<%= node.id %>_less').style.display = '';" style="cursor:pointer;cursor:hand;" id="<%= node.id %>_more">
+			<%= image_tag("admin/more.gif") %>
+		</span>
+				
+		<span onClick="document.getElementById('list_<%= node.id %>').style.display = 'none'; this.style.display='none'; document.getElementById('<%= node.id %>_more').style.display = '';" style="cursor:pointer;cursor:hand;display:none;" id="<%= node.id %>_less">
+			<%= image_tag("admin/less.gif") %>
+		</span>
+		
+	<% end %>
+	
+	<span class="handle"><%= node.name %></span>
+
+	
+  <ul id="list_<%= node.id %>" style="display:none;">
+	  <% if !node.children.empty? %>
+  		<%= render :partial => 'reorder_node', :locals => {:nodes => node.children} %>
+	  <% end %>
+  </ul>
+</li>
+
+<% end %>

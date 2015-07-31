@@ -1,0 +1,52 @@
+<tr>
+  <td align="left" valign="top">
+    <div style="background-color: #ffffff; font-family: Tahoma, Arial, sans-serif; color: #000000; padding: 30px 30px 30px 30px;">
+      
+      <h1 style="margin: 0px 0px 2px 0px; padding: 0px 0px 2px 0px; font-size: 16px; font-weight: bold; line-height: normal;">
+      Thank you very much for ordering an onfriday voucher.
+      </h1>
+      
+      <br />
+      <br />
+      
+      <% if @order_item.delivery_email? %>
+        
+        <p>
+          Many thanks for purchasing an onfriday gift voucher. You have chosen to send the gift voucher direct to the recipient so your email is now already on its way to them. We hope they will be over the moon to receive it!
+        </p>
+
+        <p>
+          If you have any queries please don't hesitate to contact us by replying to this email.
+        </p>
+
+        <p>
+          With best wishes from the onfriday team! 
+        </p>        
+        
+        
+      <% elsif @order_item.delivery_print? %>
+      
+        <p>
+          Many thanks for purchasing an onfriday gift voucher. You have chosen to download and print the gift voucher certificate so we have sent it with this email as an attachment. 
+        </p>
+        
+        <p>          
+          We hope the lucky recipient will be over the moon to receive their gift voucher!
+        </p>
+
+        <p>
+          If you have any queries please don't hesitate to contact us by replying to this email.
+        </p>
+
+        <p>
+          With best wishes from the onfriday team!
+        </p>
+        
+      <% end %>
+      
+      <br />
+      <br />
+      
+    </div>
+  </td>
+</tr>

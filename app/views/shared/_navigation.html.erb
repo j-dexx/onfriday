@@ -1,0 +1,15 @@
+<%- if @current_page_node -%>
+  
+	<%- main_page_node = @current_page_node.root -%>
+	
+  <h2><%= main_page_node.navigation_title %></h2>
+  <%= yield "left_navigation_#{main_page_node.id}"%>
+  
+  <% active_children = main_page_node.children.select{|x| x.active? }%>
+  <% if active_children.length > 0 %>
+	<ul>
+		<%= render :partial => "shared/navigation_node", :locals => {:nodes => active_children} %>
+	</ul> 
+	<% end %> 
+	    
+<% end %>

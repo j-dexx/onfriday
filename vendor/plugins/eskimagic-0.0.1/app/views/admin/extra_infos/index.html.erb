@@ -1,0 +1,20 @@
+<% title("Recycle Bin") %>
+
+<p>
+<%= link_to "Delete All", {:action => "destroy_all"}, :confirm => "Are you sure you want to DESTROY ALL items in recycle bin?" %>
+ | <%= link_to "Restore All", {:action => "restore_all"}, :confirm => "Are you sure you want to RESTORE ALL items in recycle bin?" %>
+</p>
+
+<%= admin_table :columns => [
+    ["Name", lambda{|x| x.name}, nil],
+    ["Recycled At", lambda{|x| simple_datetime_format x.recycled_at}, nil],
+    ["Object Type", lambda{|x| x.class}, nil],
+    ["Object ID", lambda{|x| x.id}, nil],
+    ["", lambda{|x| link_to "Delete", {:controller => "extra_infos", :action => "destroy", :class => x.class, :id => x.id}, :confirm => "Are you sure yo uwant to DELETE this item?"}, nil, true],
+    ["", lambda{|x| link_to "Restore", {:controller => "extra_infos", :action => "restore", :class => x.class, :id => x.id}, :confirm => "Are you sure yo uwant to RESTORE this item?"}, nil, true],
+  ],
+  :list => @extra_infos, 
+  :show => nil,
+  :edit_action => nil,
+  :delete_action => nil
+  %>

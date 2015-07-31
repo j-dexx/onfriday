@@ -1,0 +1,14 @@
+ESKIMO_ERRORS-0.0.1
+===================
+
+IMPORTANT - This code depends on the config.action_mailer.default_url_options[:host] being set correctly.
+
+This plugin adds a few new pages (/error_pages/e404 and /error_pages/e500) which act as the frame for the error pages.
+
+You need to add:
+  after_save { ErrorPages.regenerate }
+to any models which are used on the application layout.
+
+This means that any time you save one of these object the 404.html and 500.html files are recreated.
+
+If you want to have a custom 404 or 500 just create file in views/error_pages/e404 (or e500).  This code runs through the layout.

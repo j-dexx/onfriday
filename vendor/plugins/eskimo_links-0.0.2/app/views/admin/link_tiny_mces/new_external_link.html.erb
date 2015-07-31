@@ -1,0 +1,17 @@
+<% title "External Link" %>
+<p><%= link_to "Go back", :action => "index" %></p>
+<% form_tag (:action => "insert", :link_type => "external") do %>
+  
+  <p>
+    <%= label_tag :url, "Link to" %>  http://<%= text_field_tag :url, params[:url], :length => 100 %>
+  </p>
+  
+  <p>
+    <%= check_box_tag :popup, "1", params[:popup], {:class=>"checkbox"} %> <%= label_tag :popup, "I would like this link to open a new window" %>    
+  </p>
+  
+  <p>
+    <%= submit_tag "Create Link" %>
+  </p>
+  
+<% end %>

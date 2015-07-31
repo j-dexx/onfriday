@@ -1,0 +1,16 @@
+<%= render "sub_navigation" %>
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_gift_vouchers"><%= title "Gift Voucher Code" %></h1>
+
+<% form_tag activate_voucher_user_path(:current) do %>
+
+  <p>
+    Please enter your voucher code below:
+  </p>
+  
+  <p>
+   <span style="float: left;"> <%= label_tag :code %> <%= text_field_tag :code, params[:code] %></span> <%= submit_tag "Redeem", :style=>"float: left;" %>
+  </p>
+  
+<% end %>

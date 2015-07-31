@@ -1,0 +1,45 @@
+<%% form_for([:admin, @<%= singular_name %>], :html => {:multipart => true}) do |f| %>
+  <%%= f.error_messages %>
+  
+  <fieldset>
+  <legend>Summary Information</legend>
+  <p>
+    <%%= f.label :headline %><br />
+    <%%= f.text_field :headline %>
+  </p>
+
+  <p>
+    <%%= f.label :summary %><br />
+    <%%= f.text_area :summary %>
+  </p>
+  </fieldset>
+
+  <fieldset>
+  <legend>Detailed Information</legend>
+  <p>
+    <%%= f.label :main_content %><br />
+    <%%= f.advanced_text_area :main_content %>
+  </p>
+
+  <p>
+    <%%= f.label :date %><br />
+    <%%= f.calendar_date_select :date %>
+  </p>
+  
+  <p>
+    <%%= image_field_tag f, :<%= singular_name %>, :image %>
+  </p>
+
+  <p>
+    <%%= f.label :tags %><br />
+    <%%= f.tag_field :tags %>
+  </p>
+  </fieldset>
+  
+  <p>
+    <%%= f.label :display %>
+    <%%= f.check_box :display %>
+  </p>
+
+  <p><%%= f.submit "Submit" %></p>
+<%% end %>

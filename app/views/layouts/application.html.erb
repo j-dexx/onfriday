@@ -1,0 +1,216 @@
+<% determine_page_node %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<link rel="shortcut icon" href="/favicon.ico" />
+	
+	<title>
+	Ethical bags | Fair Trade bags | Upcycled Bags | Recycled bags | Eco
+	Friendly Bags | Designer Bags | Handmade Bags | Purses and Accessories |
+	onfriday Bags
+  </title>
+
+
+  <%= yield :additional_stylesheets if yield :additional_stylesheets %>	
+	<%= stylesheet_link_tag "webstyle.css" %>
+	<%= stylesheet_link_tag "tnymc.css" %>
+	
+	<%= javascript_include_tag :defaults %>
+	<% if @include_tinymce_script -%>
+	  <%= javascript_include_tag "tiny_mce/tiny_mce.js" %>
+	  <%= javascript_include_tag "tiny_mce_config" %>
+	<% end -%>
+	
+	<%= javascript_include_tag "swfobject.js"  %>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	
+	<%= yield :head %>
+
+<!--[if lt IE 7]>
+<style type="text/css">
+  .bags, .basket_checkout_navigation span { behavior: url(../iepngfix.htc); }
+</style>
+<![endif]-->
+    
+	<meta name="description" content="Shop online - a great range of unique, handmade, ethical, fair trade,upcycled, recycled and eco friendly bags, handbags, purses and wallets for women and men from onfriday">
+    <meta name="keywords" content="handmade, designer, ethical, fair trade, recycled, upcycled, eco friendly, unique, bags, handbags, leather bags, messenger bags, man bags, shoulder bags, clutch bags, shopper bags, laptop bags, laptop cases, courier bags, satchels, iPad bags, iPad cases, weekend bags, beach bags, overnight bags, travel bags, shopper bags, backpacks, rucksacks, briefcases, tote bags, kit bags, cabin bags, purses, wallets, accessories">
+
+  <meta name="google-site-verification" 
+content="pVFDCRB7FJMmKlRTd_GqbVqC_7iw2-Fcbbfpnn6lW3o" />
+
+  
+</head>
+
+<% if yield :body -%>
+  <%= yield :body %>
+<% else -%>
+  <body>
+<% end -%>
+	
+<%# render :partial => "shared/admin_widget" %>
+
+<div class="maincontainer">
+	<p class="skip"><a href="#content" accesskey="s">Skip to the main content</a></p>
+	
+	<div class="top">
+		<%= link_to image_tag("logo.gif", :alt => SiteSetting.find_by_name("Site Name").value, :title => SiteSetting.find_by_name("Site Name").value, :border => "0", :hspace => "0", :vspace => "0", :class => "logo"), {:controller => 'web', :action => 'index'} %>
+		<div class="top_right">
+      <%= render "users/navigation" %>
+			<%= render :partial => "shared/main_navigation" %>
+      <%= render "baskets/navigation" %>
+    </div>
+      
+		
+	</div>
+
+	<div class="navigation">
+  		<%= render :partial => "shared/top_navigation" %>
+	</div>
+  
+	<div id="content">
+		
+		<%- unless hide_flash? -%>
+		  <%- flash.each do |name, msg| -%>
+				<%= content_tag(:div, msg, :id => "flash_#{name}") unless flash[name].nil? %>
+			<%- end -%>
+		<%- end -%>
+		
+		<% if hide_left? && hide_right? %>
+		
+			<%= @content_for_layout %>
+			
+		<% elsif hide_left? %>
+			
+			<div class="content_left">
+				<%= @content_for_layout %>
+			</div>
+			
+			<div class="right">
+				<%= yield :right %>	
+			</div>
+			
+		<% elsif hide_right? %>
+		
+			<div class="left">
+				<%= yield :left %>	
+			</div>
+			
+			<div class="content_right">
+				<%= @content_for_layout %>
+			</div>
+		
+		<% else %>
+			
+			<div class="left">
+				<%= yield :left %>	
+			</div>
+			
+			<div class="content_middle">
+				<%= @content_for_layout %>
+			</div>
+			
+			<div class="right">
+				<%= yield :right %>	
+			</div>
+			
+		<% end %>
+			
+  	
+    <div class="clear"></div>
+	</div>
+	
+	
+<div class="footer">
+	
+  <div class="footer_cols">
+  		
+      <div class="footer_col_1">
+      	<%= link_to_page "The Onfriday thing. What are we all about?", "The onfriday Thing", {:class=>"about_button"} %>
+      	<p><%= link_to_page "Big heart, small footprint<span>Trying to do our bit</span>", "Big Heart Small Footprint" %></p>
+        <p><%= link_to_page "Be part of it<span>Ways you can get involved</span>", "Be Part Of It" %></p>
+        <p><%= link_to_page "Behind the brands<span>Every bag tells a story</span>", "Behind the brands" %></p>
+        <p><%= link_to_page "In the spotlight<span>Some thoughts from our designers</span>", "In the Spotlight" %></p>
+      </div>
+      
+      <div class="footer_col_2">
+      	<h2><%= link_to_page "Our Gift Services", "Gift Service" %></h2>
+      	<p>
+					<%= link_to_page image_tag("footer_gift_service.gif", :alt => "Its a wrap", :title => "Its a wrap"), "Gift Service" %>
+          <%= link_to_page "It's a wrap<span>You choose, we wrap, it's that simple</span>", "Gift Service" %>
+        </p>
+        <p>
+        	<%= link_to_page image_tag("footer_gift_vouchers.gif", :alt => "Gift vouchers", :title => "Gift Voucher"), "Gift Voucher" %>
+					<%= link_to_page "Gift vouchers<span>No need for risky guess work any more</span>", "Gift Voucher" %>
+        </p>
+        <p>
+        	<%= link_to_page image_tag("footer_gift_wishlists.gif", :alt => "Gift wishlists", :title => "Gift wishlists"), "Gift Wishlists" %>
+					<%= link_to_page "Gift wishlists<span>Invite your friends and family to chip in</span>", "Gift Wishlists" %>
+        </p>
+      </div>
+      
+      <div class="footer_col_3">
+      	<!--<a href="<%#= SiteSetting.value("Facebook") %> " target="_blank"><%#= image_tag "footer_facebook.gif", :alt => "Become an onfriday fan on Facebook", :title => "Become an onfriday fan on Facebook", :border => "0", :hspace => "0", :vspace => "0", :style=>"margin-bottom: 7px;" %></a>-->
+        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fonfridaybags&amp;width=185&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;height=62" style="border: medium none; overflow: hidden; width: 185px; height: 62px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+        <h2 class="tweet_title" style="margin-top: 7px;">Tweet Tweet</h2>
+        <%= render "/web/twitter" %>
+        <%= image_tag "footer_tweet_bottom.gif", :alt => " ", :border => "0", :hspace => "0", :vspace => "0", :style => "float: left; margin-bottom: 7px;" %>
+        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="alionfriday">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      </div>
+  		
+      <div class="footer_col_4">
+      	<a href="http://onfriday-ethical-bags.blogspot.com" target="_blank" class="footer_blog">Blog onfriday<span>You heard it here first!</span></a>
+        <h2>Newsletter</h2>
+        <p>Pop in your email address to receive our newsletter</p>
+        <% form_for NewsletterSubscriber.new do |f| %>
+          <p>
+          <%= f.error_messages :id => "flash_error", :header_message => nil %>
+          <%= f.text_field :email, :style=>"float: left;" %><br />
+          <%= f.submit "" %>
+          </p>
+        <% end %> 
+      </div>
+      
+  </div>
+
+
+	
+        <div class="footer_bottom clear">
+            <div class="footer_left">
+            <p>
+                <%= link_to "Delivery &amp; Returns", :controller=>"page", :action=>"delivery-and-returns" %> | 
+                <%= link_to "Ordering", :controller=>"page", :action=>"safe-and-easy-ordering" %> | 
+                <%= link_to "Privacy Policy", :controller=>"page", :action=>"privacy-policy" %> | 
+                <%= link_to "Terms &amp; Conditions", :controller=>"page", :action=>"terms-and-conditions" %> | 
+                <%= link_to_page "Press &amp; Media", "Press and Media" %>
+            </p>
+            <div class="font_small">
+                <a href="">&copy; <%= h SiteSetting.find_by_name("Site Name").value %></a> | 
+                <a href="http://www.eskimosoup.co.uk" target="_blank">Web design by eskimosoup</a> | 
+                <%= link_to "Accessibility", {:controller => "web", :action => "accessibility"}, {:accesskey => "1"} %> | 
+                <a href="http://validator.w3.org/check?uri=referer" target="_blank">Valid XHTML</a> | 
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">Valid CSS</a> | 
+                <%= link_to "Site Map", {:controller => "web", :action => "site_map"}, {:accesskey => "s"} %>
+            </div>
+            </div>
+            <div class="footer_right"><p><%= image_tag "payment_icons.gif", :alt=>"Accepted Payment Types" %></p></div>     
+		</div>
+</div>
+	
+</div>
+
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20100051-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<% title "Stored Documents" %>
+
+<p><%= link_to "New Document", new_admin_document_path %></p>
+
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :document_file_name_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({
+  :columns => [["Document",
+                lambda{|x| link_to x.document,
+                                   x.document.url,
+                                   :title => x.document_file_name},
+                                   "document_file_name"
+               ], "document_file_name",
+               ["Size",
+                lambda{|x| number_to_human_size x.document_file_size},
+                "document_file_size"
+               ]
+              ], :list => @documents, :edit_action => nil}) %>
+

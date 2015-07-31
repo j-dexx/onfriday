@@ -1,0 +1,14 @@
+<% title "Promo Codes" %>
+
+
+<p><%= link_to "New Promo Code", new_admin_promo_code_path %></p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :name_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => ["name", "code", "start_date", "end_date"], :list => @promo_codes}) %>

@@ -1,0 +1,10 @@
+<% title "Products" %>
+
+<p><%= link_to "Search Products", admin_products_path %></p>
+
+<%= eskimo_table({:columns => [
+  ["Brand", lambda{|x| x.brand.name}, "brand.name"],
+  "product_code", 
+  "name", 
+  ["Price", lambda{|x| number_to_pounds x.price}, "price"], 
+  ], :list => @products, :edit_action => nil, :manual_sorting => true}) %>

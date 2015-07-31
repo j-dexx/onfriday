@@ -1,0 +1,7 @@
+Description:
+    Generates a eskimo_scaffold template which behaves as a standard "Testimonial" module.
+    
+Examples:
+    ./script/generate eskimo_article SingularObjectName
+    ./script/generate eskimo_article Testimonial
+    ./script/generate eskimo_article PublicOpinion

@@ -1,0 +1,16 @@
+<%% title "<%= plural_title %>" %>
+
+<p><%%= link_to "New <%= singular_title %>", new_admin_<%= singular_name %>_path %></p>
+ 
+<%% form_for @search do |f| %>
+  <p>
+    <%%= f.text_field :question_or_answer_like %>
+    <%%= f.submit "Search" %>
+  </p>
+<%% end %>
+
+<%%= admin_table({:columns => [
+  ["Question", lambda{|x| (x.question.length > 50) ? "#{Sanitize.clean(x.question)[0..50]}..." : x.question}, "question"],
+  ["Answer", lambda{|x| (x.answer.length > 50) ? "#{Sanitize.clean(x.answer)[0..50]}..." : x.answer}, "answer"],
+  ],
+  :list => @<%= plural_name %>}, "admin/shared/admin_table_sort") %>

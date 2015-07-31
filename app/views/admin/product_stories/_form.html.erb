@@ -1,0 +1,28 @@
+<% form_for [:admin, @product_story] do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>Story Details</legend>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :summary %><br />
+    <%= f.advanced_text_area :summary %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Assocated Products</legend>
+  <p>
+    Hold ctrl to select multiple products.
+  </p>
+  <p>
+    <%= f.collection_select :product_ids, Product.unrecycled, :id, :brand_name, {}, :multiple => true %>
+  </p>
+  </fieldset>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

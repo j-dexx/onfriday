@@ -1,0 +1,27 @@
+<% klass = Article %>
+
+<% tags = [] %>
+
+<% tags << link_to("All (#{klass.active.length})", :action => "index") %>
+
+<% for tag in klass.active.tag_counts %>
+  
+  <% options = {} %>
+  <% options[:class] = "highlight" if params[:tag] && params[:tag] == tag.to_s %>
+	
+	<% tag_link = link_to("#{tag} (#{klass.active.tagged_with(tag).length})", {:action =>"index", :tag => tag.to_s}, options) %>
+	
+	<% unless tags.include?(tag_link) %>
+		<% tags << tag_link %>
+	<% end %>
+	
+<% end %>
+
+<% if tags.length > 1 %>
+	<h3>Categories</h3>
+	<ul>
+	<% for tag in tags  %>
+		<li><%= tag %></li>
+	<% end %>
+	</ul>
+<% end %>

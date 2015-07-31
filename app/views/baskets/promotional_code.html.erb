@@ -1,0 +1,41 @@
+<% hide_right %>
+<% hide_left %>
+
+<%= render "checkout_navigation" %>
+
+<h1 class="title_discount"><%= title "Dicount" %></h1>
+
+<% if @current_basket.promo_code %>
+
+  <h2>
+    <span style="float: left; margin-right: 10px;">Code Entered: <%= @current_basket.promo_code.code %></span> <%= link_to image_tag("remove.gif"), {:action => "remove_promotional_code"}, {:title => "Remove this code"} %>
+  </h2>
+  
+  <p>
+    <%= @current_basket.promo_code.name %>
+  </p>
+  
+  <br />
+  <p>
+    <%= link_to "Continue", {:action => "user"}, {:class=>"button"} %>
+  </p>
+
+<% else %>
+
+  <% form_for @current_basket, :url => {:action => "set_promotional_code"} do |f| %>
+
+    <p>
+      If you have a promotional code enter it in the space below to recieve your savings.  
+      <br />
+      Otherwise you can <%= link_to "skip this step", :action => "user"%> to continue to the next step of ordering.
+    </p>
+
+    <p>
+      <%= text_field_tag "promo_code", params[:promo_code], :style=>"float: left;" %><%= f.submit "Enter Code" %>
+    </p>
+    
+  <% end %>
+  
+  <p><%= link_to "Skip This Step", {:action => "user"}, {:class=>"button"} %></p>
+  
+<% end %>

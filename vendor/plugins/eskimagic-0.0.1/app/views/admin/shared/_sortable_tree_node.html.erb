@@ -1,0 +1,14 @@
+<% for node in nodes %>
+
+<li class="node" id="node_<%= node.id %>">
+  <span class='handle'><%= node.name %></span>
+  <ul>
+  <li><span class='handle'></span>&nbsp;</li>
+  <% if !node.children.empty? %>
+    <%= render :partial => 'admin/shared/sortable_tree_node', :locals => {:nodes => node.children} %>
+    <li><span class='handle'></span>&nbsp;</li>
+  <% end %>
+  </ul>
+</li>
+
+<% end %>

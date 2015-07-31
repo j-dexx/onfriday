@@ -1,0 +1,7 @@
+<% form_tag({:controller => "products", :action => "index"}, {:method => :get}) do %>
+
+<p>
+  <%= submit_tag " " %><%= text_field_tag "search[name_or_summary_like]" %>
+</p>
+
+<% end %>

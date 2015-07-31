@@ -1,0 +1,8 @@
+Description:
+    Generate a new generic feature on a site.  
+    USAGE - ./script/generate eskimo_scaffold SINGULAR_NAME column_1_name:column_1_type column_2_name:column_2_type --option_1 -- option_2
+    IMAGES - include an integer column, pref with the name image_id (image_2_id, image_3_id, etc.)  If you would like any crops also include a text column pref with the name image_crop (image_2_crop, image_3_crop, etc)
+    DOCUMENTS - include an integer column, pref with the name document_id (document_2_id, document_3_id, etc.)
+
+Examples:
+    ./script/generate eskimo_scaffold rticle headline:string summary:text image_id:integer --skip-migration --skip-model

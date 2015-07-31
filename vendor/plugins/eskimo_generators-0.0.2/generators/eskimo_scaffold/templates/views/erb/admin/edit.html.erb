@@ -1,0 +1,10 @@
+<%% title "Edit <%= singular_name.titleize %>" %>
+ 
+<p>
+<%- if admin_action? :index -%>
+  <%%= link_to "View All", admin_<%= plural_name %>_path %>
+<%- end -%>
+</p>
+ 
+<%= render_form %>
+

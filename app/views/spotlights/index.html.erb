@@ -1,0 +1,30 @@
+<% hide_right %>
+<% hide_left %>
+
+<% title "In the Spotlight" %>
+
+<% if @spotlight.brand %>
+  <%= link_to image_tag(@spotlight.brand.image.url(:small), :class=>"spotlight_img"), @spotlight.brand %>
+<% end %>
+
+<h1 class="title_in_the_spotlight"><%= @spotlight.name %></h1>
+
+<div class="clear"></div>
+
+<% if @spotlight.designer? || @spotlight.company? %>
+<h2 class="spotlight_sub_header"><%= @spotlight.designer %><span><%= @spotlight.company %></span></h2>
+<% end %>
+
+<% if @spotlight.summary? %>
+  <div class="introduction">
+  	<%= simple_format @spotlight.summary %>
+  </div>
+<% end %>
+
+<% if @spotlight.image? %>
+  <%= image_tag @spotlight.image.url(:large), :hspace => 0, :vspace => 0, :border => 0, :class => "image_right" %>
+<% end %>
+
+<div class="main_content spotlight_main">
+	<%= @spotlight.content %>
+</div>

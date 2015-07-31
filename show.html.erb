@@ -1,0 +1,137 @@
+<%= javascript_include_tag "lytebox" %>
+<%= stylesheet_link_tag "lytebox.css" %>
+
+<% metadata(@product.summary, "#{@product.name}, #{@product.brand.name}, #{@product.colour_list}, #{@product.material_list}, #{@product.type_list}") %>
+
+<% hide_right %>
+<% hide_left %>
+
+<% if session[:product_search] %>
+<div class="breadcrumbs">
+  <%= link_to search_link, session[:product_search] %>
+</div>
+<% end %>
+
+<div class="facebook_like">
+<%= image_tag "facebook_like.gif", :alt => "Like this on Facebook", :title => "Like this on Facebook", :border => "0", :hspace => "0", :vspace => "0" %>
+<iframe src="http://www.facebook.com/plugins/like.php?href=<%= url_for(:controller => "products", :action => "show", :id => @product.id, :only_path => false) %>&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:85px; height:21px;" allowTransparency="true"></iframe>
+
+</div>
+
+<h1 class="underline"><%= title "#{@product.brand.name} - #{@product.name}" %> <span><%= @product.product_code %></span></h1>
+
+<div class="product_show_left">
+
+    <p class="product_summary"><%=h @product.summary %></p>
+    
+    <div class="product_show_buy">
+        <p class="product_show_price">
+          <% if @product.sale %>
+            <del><%= number_to_pounds @product.price %></del>
+            <%= number_to_pounds @product.sale_price %>
+          <% else %>
+            <%= number_to_pounds @product.price %>
+          <% end %>
+        </p>
+        
+        <% if @product.stock <= 0 %>
+          <div class="stock_message"><%=h @product.smart_stock_message %></div>
+        <% else %> 
+          <% form_tag :controller => "baskets", :action => "add", :product_id => @product.id do %>
+            <%= submit_tag "Add To Basket", :id=>"add" %>
+          <% end %>
+        <% end %>
+    </div>
+    
+    <div class="product_show_info">
+		<% if @product.colours.length > 0 %>
+          <div>
+              COLOUR
+              <p><%= @product.colour_list %></p>
+          </div>
+        <% end %>
+        
+        <% if @product.materials.length > 0 %>
+          <div> 
+          	MATERIAL
+          	<p><%= @product.material_list %></p>
+          </div>
+        <% end %>
+        
+        <% if @product.types.length > 0 %>
+          <div style="background-image: none;">
+              TYPE
+              <p><%= @product.type_list %></p>
+          </div>
+        <% end %>
+    </div>
+    
+    <div class="clear"><br /></div>
+    
+    <% if @product.size? %>
+      <div class="size">
+         <%=h @product.size %>
+      </div>
+    <% end %>
+    
+<br />
+    <% if @product.fair_trade? %>
+      <%= image_tag "fair_trade.gif", :alt => "Fair Trade", :border => "0", :hspace => "0", :vspace => "0" %>
+    <% end %>
+    
+    <% if @product.upcycled? %>
+      <%= image_tag "upcycled.gif", :alt => "Upcycled", :border => "0", :hspace => "0", :vspace => "0" %>
+    <% end %>
+<br />
+    
+      <%= @product.description %>
+    
+
+      <%= link_to image_tag(@product.brand.image.url(:small)), @product.brand %>
+      <p><%= link_to "Read more about the brand", @product.brand, :class=>"black_link" %></p>
+    
+    <% if @product.product_stories.length > 0 %>
+    <h2>The Story...</h2>
+      <p>
+      <% for product_story in @product.product_stories %>
+        <%= link_to product_story.name, product_story, :class=>"black_link" %><br />
+      <% end %>
+      </p>
+    <% end %>
+    
+</div>
+
+
+<div class="product_show_right">
+
+	<%= render "product_images" %>	
+
+		<div class="clear"></div>
+    <div class="product_show_buy" style="margin-top: 20px;">
+        <p class="product_show_price">
+          <% if @product.sale %>
+            <del><%= number_to_pounds @product.price %></del>
+            <%= number_to_pounds @product.sale_price %>
+          <% else %>
+            <%= number_to_pounds @product.price %>
+          <% end %>
+        </p>        
+        <% if @product.stock <= 0 %>
+          <div class="stock_message"><%=h @product.smart_stock_message %></div>
+        <% else %> 
+          <% form_tag :controller => "baskets", :action => "add", :product_id => @product.id do %>
+            <%= submit_tag "Add To Basket", :id=>"add" %>
+          <% end %>
+        <% end %>
+    </div>
+
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<h2 class="other_title">Other bags you might like</h2>
+<%= render "associated_products", :products => @product.associated_products.select{|x| x.active?} %>
+
+<% content_for :left do %>
+  <%= render "navigation" %>
+<% end %>

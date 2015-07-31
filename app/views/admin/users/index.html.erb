@@ -1,0 +1,14 @@
+<% title "Users" %>
+
+
+<p><%= link_to "New User", new_admin_user_path %></p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :email_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => ["first_names", "surname", "email"], :list => @users}) %>

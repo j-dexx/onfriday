@@ -1,0 +1,10 @@
+<% if @current_administrator && @current_page_node %>
+	<div id="admin_widget">
+		Administrator Functions: 
+		<% if @current_page_node.can_be_edited? %>
+			<%= link_to "[Edit This Page]", url_for(@current_page_node.admin_path) %>
+		<% else %>
+			[This Page Cannot be Edited]
+		<% end %>
+	</div>
+<% end %>

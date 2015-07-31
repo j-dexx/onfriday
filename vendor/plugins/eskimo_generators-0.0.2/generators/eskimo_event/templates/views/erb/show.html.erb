@@ -1,0 +1,26 @@
+<h1><%%= title "<%= singular_title %>" %></h1>
+
+<h2><%%=h @<%= singular_name %>.name %></h2>
+
+<p>
+<span class="date"><%%=h simple_date_format @<%= singular_name %>.start_date %></span>
+<%% if @<%=singular_name %>.end_date? %>
+   to <span class="date"><%%=h simple_date_format @<%= singular_name %>.end_date %></span>
+<%% end %>
+</p>
+
+
+<%% if @<%= singular_name %>.image? %>
+    <%%= image_tag @<%= singular_name %>.image.url(:show), :class=>"image_left" %>
+<%% end %>
+
+  <%%= @<%= singular_name %>.main_content %>
+
+<p>
+  <%%= link_to "View all <%= human_plural_name %>", <%= plural_name %>_path %>
+</p>
+
+<%% content_for :right do  %>
+  <%%= render :partial => "tags" %>
+  <%%= render :partial => "dates" %>
+<%% end %>

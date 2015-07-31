@@ -1,0 +1,28 @@
+<h1><%%= title "<%= singular_title %>" %></h1>
+
+<h2><%%=h @<%= singular_name %>.name %></h2>
+
+<%% if @<%= singular_name %>.image? %>
+    <%%= image_tag @<%= singular_name %>.image.url(:show), :class=>"image_left" %>
+<%% end %>
+
+<p>
+  <%%= @<%= singular_name %>.summary %>
+</p>
+
+<p>
+  <%%= @<%= singular_name %>.main_content %>
+</p>
+
+<p>
+  <%%= @<%= singular_name %>.tag_list.collect{|x| link_to(x.to_s, <%= plural_name %>_path(:tag => x.to_s)) }.join(' | ') %>
+</p>
+
+
+<p>
+  <%%= link_to "View all <%= human_plural_name %>", <%= plural_name %>_path %>
+</p>
+
+<%% content_for :right do  %>
+  <%%= render :partial => "tags" %>
+<%% end %>

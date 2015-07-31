@@ -1,0 +1,37 @@
+<% form_for [:admin, @brand], :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>Basic Information</legend>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Images</legend>
+  <p>
+    <%= image_field_tag f, :brand, :image %>
+  </p>
+  
+  <p>
+    <%= image_field_tag f, :brand, :image_2 %>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Detailed Information</legend>
+  <p>
+    <%= f.label :story %><br />
+    <%= f.advanced_text_area :story %>
+  </p>
+  </fieldset>
+  
+  <p>
+    <%= f.label :display %>
+    <%= f.check_box :display %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

@@ -1,0 +1,36 @@
+<%= render "users/sub_navigation" %>
+<% hide_left %>
+<% hide_right %>
+<h1 class="title_gift_vouchers"><%= title "Gift Vouchers" %></h1>
+
+<p>
+<br />
+  <% if @order_item.delivery_email? %>
+    
+    <%= link_to "Resend Voucher Email To #{@order_item.email}", resend_voucher_email_order_item_path(@order_item) %>
+    
+  <% elsif @order_item.delivery_print? %>
+  
+    <%= link_to "Download Printable Voucher", download_voucher_pdf_order_item_path(@order_item, :code => @order_item.code), :class => "pdf" %> 
+  <% end %>
+  
+</p>
+<br />
+<p>Voucher Code: <strong><%= @order_item.code %></strong></p>
+  <% if @order_item.used? %>
+   <p> Voucher Used: <strong>True</strong></p>
+    <p>Name of Voucher User: <strong><%= @order_item.users_name %></strong></p>
+  <% end %>
+  <p>Recipient's Name: <strong><%= @order_item.name %></strong></p>
+  <% if @order_item.email? %>
+    <p>Recipient's Email: <strong><%= @order_item.email %></strong></p>
+  <% end %>
+  <p> Value: <strong><%= number_to_pounds @order_item.value %></strong></p>
+  <% if @order_item.message? %>
+    <p>Your Message: <br /><%= @order_item.message %></p>
+  <% end %>
+
+
+<p>
+  <%= link_to "Go back", users_path %>
+</p>

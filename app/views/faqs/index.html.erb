@@ -1,0 +1,29 @@
+<% hide_left %>
+<% hide_right %>
+<% content_for :additional_stylesheets do %>
+  <%= stylesheet_link_tag "faqs.css" %>
+<% end %>
+
+<%= javascript_include_tag :defaults %>
+
+<h1 class="title_faqs"><%= title "FAQs" %></h1>
+
+<div class="introduction_faqs">
+    	<p>Please find answers to the most frequently asked questions by clicking on the links below. Still can't find what you are looking for? Simply <%= link_to "contact us", :controller=>"web", :action=>"contact_us" %> or email us at <a href="mailto:enquiries@onfriday.co.uk">enquiries@onfriday.co.uk</a>.</p>
+</div>
+<div class="main_content">
+
+
+<% if @faqs.length > 0 %>
+
+  <% for faq in @faqs %>
+    <%= render "faqs/faq", :faq => faq %>
+  <% end %>
+  
+  <%= will_paginate @faqs %>
+  
+<% else %>
+ <p>Sorry, there are currently no FAQs to display.</p>
+<% end %>
+</div>
+

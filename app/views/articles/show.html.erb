@@ -1,0 +1,27 @@
+<% if @article.image? %>
+  <%= image_tag @article.image(:large) %>
+<% end %>
+
+<h1><%= title @article.name %></h1>
+ 
+<p>
+  <%=h @article.date %>
+</p>
+
+
+<p>
+  <%=h @article.summary %>
+</p>
+
+<p>
+  <%= @article.body %>
+</p>
+ 
+<p>
+  <%= link_to "View All", articles_path %>
+</p>
+
+<% content_for :left do %>
+  <%= render "tags" %>
+  <%= render "dates" %>
+<% end %>

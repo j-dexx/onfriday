@@ -1,0 +1,30 @@
+<% if params[:link] %>
+
+<h1>Remove Link</h1>
+
+<p>
+  <%= link_to "Unlink", {:action => "insert", :link_type => "remove"}, :method => :post %>
+</p>
+
+<% else %>
+
+<h1>Add a Link</h1>
+
+<p>
+  What would you like to link to?<br/>
+</p>
+
+<p>
+  <%= link_to "Link to Another Part of this Website", :action => "new_internal_link" %><br />
+</p>
+
+<p>
+  <%= link_to "Link to an External Website", :action => "new_external_link" %><br />
+</p>
+
+<p>
+  <%= link_to "Link to an Email Address", :action => "new_email_link" %><br />
+</p>
+  
+<% end %>
+

@@ -1,0 +1,14 @@
+<% title "Features" %>
+
+
+<p><%= link_to "New Feature", new_admin_feature_path %></p>
+
+<% form_tag (admin_features_path), :method => :get do %>
+  
+  <%= select_tag :type, options_for_select(["Website Content", "Management Tools", "Top Navigation", "Souper Features", "Permissions Features"], params[:type])%>
+  <%= submit_tag "Filter" %>
+
+ 
+<% end %>
+
+<%= admin_table({:columns => ["name", "controller", "action"], :list => @features}, 'admin/shared/admin_table_sort') %>

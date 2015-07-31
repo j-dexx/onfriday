@@ -1,0 +1,11 @@
+<%% title "<%= singular_title %> Images" %>
+
+<p>
+  <%%= link_to "Back to <%= plural_title %>", admin_<%= plural_name %>_path %>
+   | 
+  <%%= link_to "New <%= singular_title %> Image", new_admin_<%= singular_name %>_image_path(:<%= singular_name %>_id => @<%= singular_name %>.id) %>
+</p>
+
+<%%= admin_table({:columns => [
+  ["", lambda{|x| image_tag x.image.url(:sample)}, nil]
+  ], :list => @<%= singular_name %>_images, :images => true}, "admin/shared/admin_table_sort") %>

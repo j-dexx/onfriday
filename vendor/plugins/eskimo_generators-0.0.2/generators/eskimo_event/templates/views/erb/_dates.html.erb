@@ -1,0 +1,29 @@
+<%% klass = <%= class_name %> %>
+
+<%% if klass.active.length > 0 %>
+	
+	<h3>Archive</h3>
+	<%% years = klass.years.reverse %>
+	<ul>
+	<li><%%= link_to "All (#{klass.active.length})", :action => 'index', :year => nil, :month => nil %></li>
+	<%% for year in years %>
+		<%% if params[:year] && params[:year] == year.to_s %>
+			<li><%%= link_to "#{year} (#{klass.active.start_year(year).length})", {:action => 'index', :year => year}, :class => "highlight" %></li>
+			<ul>
+				<%% for month in klass.months(year) %>
+					<%% if params[:month] && params[:month] == month.to_s %>
+						<li><%%= link_to "#{Date::MONTHNAMES[month]} (#{klass.active.start_year(year).start_month(month).length})", {:action => 'index', :year => year, :month => month}, :class => "highlight" %></li>	
+					<%% else %>
+						<li><%%= link_to "#{Date::MONTHNAMES[month]} (#{klass.active.start_year(year).start_month(month).length})", {:action => 'index', :year => year, :month => month} %></li>	
+					<%% end %>
+				<%% end %>
+			</ul>
+		<%% else %>
+			<li><%%= link_to "#{year} (#{klass.active.start_year(year).length})", {:action => 'index', :year => year} %></li>
+		<%% end %>
+	<%% end %>
+	</ul>
+
+<%% end %>
+
+

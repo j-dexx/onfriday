@@ -1,0 +1,26 @@
+<%% klass = <%= class_name %> %>
+
+<%% tags = [] %>
+<%% tags << link_to("All", :action => "index") %>
+<%% for tag in klass.active.tag_counts %>
+	<%% if params[:tag] && params[:tag] == tag.to_s %>
+		<%% tag_link = link_to(tag, {:action =>"index", :tag => tag.to_s}, :class => "highlight") %>
+	<%% else %>
+		<%% tag_link = link_to(tag, {:action =>"index", :tag => tag.to_s}) %>
+	<%% end %>
+	<%% unless tags.include?(tag_link) %>
+		<%% tags << tag_link %>
+	<%% end %>
+<%% end %>
+
+<%% if tags.length > 1 %>
+
+	<h3>Categories</h3>
+	<ul>
+	<%% for tag in tags  %>
+		<li><%%= tag %></li>
+	<%% end %>
+	</ul>
+
+<%% end %>
+

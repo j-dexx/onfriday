@@ -1,0 +1,21 @@
+<% for node in nodes %>
+
+<% if  node.display_in_navigation? && node.display? %>
+	<li>
+		<%- if @current_page_node && (@current_page_node == node || @current_page_node.ancestors.include?(node)) -%>
+			<%= link_to h(node.navigation_title), url_for(node.path), :class => "highlight" -%>
+			<%= yield "left_navigation_#{node.id}"%>
+			<%- if node.children.count > 0 -%>
+				<ul>
+					<%- if @current_page_node && (@current_page_node == node || @current_page_node.ancestors.include?(node)) -%>
+						<%= render :partial => "shared/navigation_node", :locals => {:nodes => node.children} -%>
+					<%- end -%>
+				</ul>
+				<%- end -%>
+			<%- else -%>
+				<%= link_to h(node.navigation_title), url_for(node.path) -%>
+				<%= yield "left_navigation_#{node.id}"%>
+			<% end %>	
+	</li>
+	<%- end -%>
+<%- end -%>

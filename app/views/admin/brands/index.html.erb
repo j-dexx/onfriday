@@ -1,0 +1,6 @@
+<% title "Brands" %>
+
+
+<p><%= link_to "New Brand", new_admin_brand_path %></p>
+
+<%= admin_table({:columns => ["name"], :images => true, :list => @brands}, "admin/shared/admin_table_sort") %>

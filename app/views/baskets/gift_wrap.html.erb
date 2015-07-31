@@ -1,0 +1,40 @@
+<%= render "checkout_navigation" %>
+<% hide_right %>
+<% hide_left %>
+<h1 class="title_gift_wrap"><%= title "Gift Service" %></h1>
+
+<% if current_basket.non_deliverable? %>
+
+  <p>
+    Since your basket only contains vouchers or gift donations it does not qualify for the gift wrap option.
+  </p>
+  
+  <p>
+    <%= link_to "Continue", :action => "payment" %>
+  </p>
+
+<% else %>
+
+  <p>The onfriday gift service - probably the best present you'll ever send! This is the easiest way of becoming a very, very popular person! If you want none of the hassle and all of the kudos, we think we have the perfect solution and it will only cost you an extra <strong><%= number_to_pounds Basket.safe_gift_wrap_price %></strong>. Sorted...</p>
+
+  <% form_for @current_basket, :url => {:action => "set_gift_wrap"} do |f| %>
+
+  <%= f.error_messages :id => "flash_error", :header_message => nil %>
+
+  <p>
+    <label>Please gift-wrap my order</label>
+    <%= f.check_box :gift_wrap %>
+  </p>
+
+  <p>
+    <%= f.label :gift_wrap_message, "Message" %><br />
+    <%= f.text_area :gift_wrap_message %>
+  </p>
+
+  <p>
+  <%= f.submit "Continue" %>
+  </p>
+
+  <% end %>
+  
+<% end %>

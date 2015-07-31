@@ -1,0 +1,34 @@
+24/01/11
+--------
+Nick - Changed some .toggle and $('') methods (prototype) to document.getElementById and simpleToggle(), simpleToggle is a new method in the application javascript
+
+14/01/11
+--------
+Nick - Changed default style merges to images to merge from merge!
+
+21/12/10
+Nick - Set the stored images partial called in the image_field_tag to take options, the main one of which is :field_id which is the string name id of the image fields to be used by the javascript e.g. <%= image_field_tag f, 'page_node[page_contents_attributes][0]', :image, :field_id => "page_node_page_contents_attributes_0" %>
+
+13/12/10
+--------
+Nick - Changed "finished" button on index_images to a link so it doesn't automatically become a post and redirect to wrong location.
+
+26/11/10
+--------
+Nick - Fixed a problem where original style was showing as an editable crop.
+
+24/11/10
+--------
+Nick - Changed the way that the original styles default dims are merged so it actually works now.
+
+11/11/20
+--------
+Nick - Added ability to give different display names to images and styles.  At the moment these new names are shown on the index_images page and the form.  It will look for the alternate name and if it cannot find it will fall back to the name of the attachtment.  To give an image a different name just add a contant to the model with the name of the image followed by '_name' (Image_name = "Main Image") for example.  To do this for a style use Image_style_name (Image_2_large_version_name = "Show Page Version").  This is documented in the README.
+
+======VERSION=0.0.3=RELEASED======
+
+03/11/2010
+----------
+Nick - Added the "Add Whitespace" functionality so you can add whitespace to the original file which you upload.
+
+Nick - Added some checks to allow you to make a new crop for when you add a new style after files are already uploaded

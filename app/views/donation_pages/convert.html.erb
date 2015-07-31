@@ -1,0 +1,18 @@
+<% hide_left %>
+<% hide_right %>
+<h1 class="title_gift_wishlists">Gift Wishlists</h1>
+<h2><%= title "Convert Donation" %></h2>
+
+<p>
+  By clicking the 'Convert Now' button below, we will credit your account with the amount you have raised through your Gift Wishlist. The credit will remain in your account until it has been fully redeemed. We hope you enjoy spending it!
+</p>
+
+<% form_tag do %>
+  <p>
+    <%= submit_tag "Convert Now" %>
+  </p>
+<% end %>
+
+<p>
+  <%= link_to "Back", donation_pages_path %>
+</p>

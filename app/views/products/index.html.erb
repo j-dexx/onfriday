@@ -1,0 +1,70 @@
+<% hide_right %>
+
+<% title "Bags" %>
+
+
+  <% if params[:search].reject{|k,v| v == "" || v == nil || v == "0" || v == "false" || v.to_s == "0-10000"}.length > 0 %>
+ <div class="filters">   
+    
+    <span>Searching for:</span> 
+    <%= link_to("Men", params.merge(:search => params[:search].merge(:men => "false"))) if params[:search][:men] == "true" %>
+    <%= link_to("Women", params.merge(:search => params[:search].merge(:women => "false"))) if params[:search][:women] == "true" %>
+    <%= link_to(params[:search][:brand], params.merge(:search => params[:search].merge(:brand => nil))) if !params[:search][:brand].blank? %>
+    <%= link_to(params[:search][:taggable_with_types], params.merge(:search => params[:search].merge(:taggable_with_types => nil))) if !params[:search][:taggable_with_types].blank? %>
+    <%= link_to(params[:search][:taggable_with_colours], params.merge(:search => params[:search].merge(:taggable_with_colours => nil))) if !params[:search][:taggable_with_colours].blank? %>
+    <%= link_to(params[:search][:taggable_with_materials], params.merge(:search => params[:search].merge(:taggable_with_materials => nil))) if !params[:search][:taggable_with_materials].blank? %>
+    <%= link_to(tidy(params[:search][:price_range]), params.merge(:search => params[:search].merge(:price_range => nil))) if params[:search][:price_range].to_s != "0-10000" && !params[:search][:price_range].blank? %>
+    <%= link_to("Upcycled", params.merge(:search => params[:search].merge(:upcycled => nil))) if params[:search][:upcycled] == "1" %>
+    <%= link_to("Fair Trade", params.merge(:search => params[:search].merge(:fair_trade => nil))) if params[:search][:fair_trade] == "1" %>
+    <%= link_to("CLEAR ALL", :controller => "products", :action => "index_clean") %>
+  
+  </div>
+	<% end %>
+
+<% if @products.length > 0 %>
+
+  <div class="sort">
+    <%= will_paginate @products, :previous_label => "<img src='/images/back.gif' hspace='0' vspace='0' border='0' alt='back' />", :next_label => "<img src='/images/next.gif' hspace='0' vspace='0' border='0' alt='next' />" %>
+    <div class="sort_left"><%= render "sort" %></div> 	
+  </div> 
+
+  <div class="product_list">
+    <% for product in @products %>
+	    <div>
+	      <p>
+			  <% if product.product_images.select{|x| x.active? }.length > 0 %>
+			    <% if product.new_in? -%>
+          	<span class="new_in"></span>			      
+			    <% end -%>
+          <%= link_to image_tag(product.product_images.sort_by{|x| x.position}.first.image.url(:small), :border=>"0", :hspace=>"0", :vspace=>"0"), product %>
+	      <% else %>
+  	      <% if product.new_in? -%>
+          	<span class="new_in"></span>
+        	<% end -%>
+	        <%= link_to image_tag("no_image.gif", :border=>"0", :hspace=>"0", :vspace=>"0", :class => product.new_in? ? 'get_rid_nick' : nil), product %>
+	      <% end %>
+	      </p>
+
+	      <%= link_to product.name, product %><br />
+	      
+				<% if product.sale %>
+  	      <del><%= number_to_pounds product.price %></del>
+  	      <span><%= number_to_pounds product.sale_price %></span>
+  	    <% else %>
+    	    <span><%= number_to_pounds product.price %></span>
+  	    <% end %>
+		  </div>
+    <% end %>
+  </div>
+  
+  <div class="clear"><br /></div>
+  <%= will_paginate @products, :previous_label => "<img src='/images/back.gif' hspace='0' vspace='0' border='0' alt='back' />", :next_label => "<img src='/images/next.gif' hspace='0' vspace='0' border='0' alt='next' />" %>
+  
+<% else %>
+  <p>Sorry we don't have any stock that matches your exact search. <%= link_to "Click here", :action => "index", :search => {:brand => "", :taggable_with_types => "", :men => false, :women => false, :taggable_with_colours => "", :taggable_with_materials => "", :price_range => "", :upcycled => "", :fair_trade => ""} %> to clear your search.</p>
+<% end %>
+
+<% content_for :left do %>
+	<h2>REFINE BY</h2>
+	<%= render "navigation" %>
+<% end %>

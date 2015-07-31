@@ -1,0 +1,15 @@
+<% form_for [:admin, @testimonial] do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :writer %><br />
+    <%= f.text_field :writer %>
+  </p>
+
+  <p>
+    <%= f.label :statement %><br />
+    <%= f.text_area :statement %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

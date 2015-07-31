@@ -1,0 +1,27 @@
+<% title "Products" %>
+
+
+<p>
+  <%= link_to "New Product", new_admin_product_path %>
+   | 
+  <%= link_to "Order Products", sort_admin_products_path %>
+</p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :name_or_product_code_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => [
+  ["Brand", lambda{|x| x.brand.name}, "brand.name"],
+  "product_code", 
+  "name", 
+  ["Price", lambda{|x| number_to_pounds x.price}, "price"], 
+  "stock",
+  ["Amount Sold", lambda{|x| x.amount_sold }, "amount_sold"],
+  ["Sales Total", lambda{|x| number_to_pounds x.sales_total }, "sales_total"],
+  ["", lambda{|x| link_to image_tag("admin/nav_image.gif"), :controller => "product_images", :action => "index", :product_id => x.id}, nil],
+  ], :list => @products}) %>

@@ -1,0 +1,9 @@
+<% title "Price Ranges" %>
+
+
+<p><%= link_to "New Price Range", new_admin_price_range_path %></p>
+
+<%= admin_table({:columns => [
+  ["Start", lambda{|x| number_to_pounds x.start}, "start"], 
+  ["End", lambda{|x| number_to_pounds x.end }, "end"]
+  ], :list => @price_ranges}, "admin/shared/admin_table_sort") %>

@@ -1,0 +1,42 @@
+<% form_for @search, :url => {:controller => "products", :action => "search"}, :method => :get do |f| %>
+
+  <%= f.hidden_field :women %>
+  <%= f.hidden_field :men %>    
+  
+  <p>
+    <%= f.label :brand %><br />
+    <%= f.collection_select :brand, Brand.active.sort_by{|x| x.name }, :name, :name, :include_blank => "All" %>
+  </p>
+  
+  <p>
+    <%= f.label :taggable_with_types, "Type" %><br />
+    <%= f.collection_select :taggable_with_types, Product.type_counts.sort_by{|x| x.name }, :name, :name, :include_blank => "All" %>
+  </p>
+  
+  <p>
+    <%= f.label :taggable_with_colours, "Colour" %><br />
+    <%= f.collection_select :taggable_with_colours, Product.colour_counts.sort_by{|x| x.name }, :name, :name, :include_blank => "All" %>
+  </p>
+  
+  <p>
+    <%= f.label :taggable_with_materials, "Material" %><br />
+    <%= f.collection_select :taggable_with_materials, Product.material_counts.sort_by{|x| x.name }, :name, :name, :include_blank => "All" %>
+  </p>
+  
+  <p>
+    <%= f.label :price_range, "Price" %><br />
+    <%= f.select :price_range, options_for_select(PriceRange.to_array, params[:search][:price_range]) %>
+  </p>
+  
+  <p>
+    <%= f.label :upcycled %>
+    <%= f.check_box :upcycled %>
+  </p>
+  
+  <p>
+    <%= f.label :fair_trade %>
+    <%= f.check_box :fair_trade %>
+  </p>  
+  
+  <p><%= f.submit "Search" %></p>
+<% end %>

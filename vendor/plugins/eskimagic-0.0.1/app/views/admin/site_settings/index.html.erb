@@ -1,0 +1,20 @@
+<% title "Site Settings" %>
+
+<% if @current_administrator.super_admin? %>
+  <p>
+  <%= link_to "Add New Site Setting", new_admin_site_setting_path %>
+   | 
+  <%= link_to "Generate Test Script", :action => "new_test_script" %>
+   | 
+  <%= link_to "Generate SEO Site Map (sitemap.xml)", {:action => "new_site_map"}, :confirm => "Are you sure? This will override existing sitemap.xml"%>
+  </p>
+<% end %>
+ 
+<% form_for @search do |f| %>
+    <%= f.label :name_like_or_value_like, "Name/Value" %>
+    <%= f.text_field :name_like_or_value_like %>
+    <%= f.submit "Search" %>
+<% end %>
+
+<%= admin_table :columns => ["name", "value"],
+  :list => @site_settings %>

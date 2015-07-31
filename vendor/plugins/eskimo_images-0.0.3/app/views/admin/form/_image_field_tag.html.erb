@@ -1,0 +1,62 @@
+<div class="image_field">
+  
+  <% if form.object.send("#{image}?") %>
+    
+    <p>
+    <% begin %>
+      <%= form.object.class.send('const_get', "#{image.to_s.capitalize}_name") %>
+    <% rescue %>
+      <%= image.to_s.titleize %>
+    <% end %>
+     - 
+    <%= link_to_function "Remove/Replace", "simpleToggle(document.getElementById('replace_#{image}'))" %></p>
+    <div id="replace_<%= image %>" style="display:none;">
+    <p>
+    <%= label_tag "#{object}[delete_#{image}]", "Remove image" %>
+    <%= check_box_tag "#{object}[delete_#{image}]", "1", false, :class => "checkbox" %>
+    </p>
+    
+  <% else %>
+  
+  <div id="replace_<%= image %>">
+    
+  <% end %>
+
+    <p>
+    <%= label_tag "#{object}[#{image}]", image.to_s.titleize %><br />
+    <%= file_field_tag "#{object}[#{image}]" %>
+    </p>
+
+    <p>
+    <%= label_tag "#{object}[store_#{image}]", "Store for future use" %>
+    <%= check_box_tag "#{object}[store_#{image}]", "1", false, :class => "checkbox" %>
+    </p>
+
+    <p>
+    <%= label_tag "stored_images_for_#{image}", "Use a stored image" %> <%= link_to_function "View All", "simpleToggle(document.getElementById('stored_images_#{image}'))" %><br />
+    <div id="stored_images_<%= image %>" style="display:none;">
+      <%= render "admin/form/stored_images", :object => object, :image => image, :options => options %>
+    </div>
+    </p>
+    
+    <% unless form.object.send("#{image}?") %>
+    <p>
+      <%= form.label "#{image}_alt".to_sym, "Alt tag / image title" %><br />
+      <%= form.text_field "#{image}_alt".to_sym %>
+    </p>
+    <% end %>
+    
+  </div>
+  
+  <% if form.object.send("#{image}?") %>
+  
+    <p><%= link_to image_tag(form.object.send(image).url(:sample)), {:action => "index_image", :id => form.object.id, :image => image}, :rel => "lyteframe", :rev => "width: 700px; height: 400px;" %></p>
+    
+    <p>
+      <%= form.label "#{image}_alt".to_sym, "Alt tag / image title" %><br />
+      <%= form.text_field "#{image}_alt".to_sym %>
+    </p>
+    
+  <% end %>
+
+</div>

@@ -1,0 +1,14 @@
+<% title "Product Stories" %>
+
+
+<p><%= link_to "New Product Story", new_admin_product_story_path %></p>
+
+ 
+<% form_for @search do |f| %>
+  <p>
+    <%= f.text_field :name_like %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
+<%= admin_table({:columns => ["name"], :list => @product_stories}) %>

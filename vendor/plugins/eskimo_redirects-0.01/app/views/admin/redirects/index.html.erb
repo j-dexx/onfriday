@@ -1,0 +1,38 @@
+<% form_tag({:action => 'create'}, {:style => 'width:1000px'}) do %>
+
+  <fieldset>
+    <legend>Existing Redirects</legend>
+    <% count = 0 %>
+    <% for redirect in @redirects %>
+      <% count += 1 %>
+      <p>
+        <%= label_tag "redirects[#{count}][from]", "From" %>
+        <%= text_field_tag "redirects[#{count}][from]", redirect[0], {:style => 'width:450px'} %>
+        &nbsp;&nbsp;
+        <%= label_tag "redirects[#{count}][to]", "To" %>
+        <%= text_field_tag "redirects[#{count}][to]", redirect[1], {:style => 'width:450px'} %>
+      </p>
+    <% end %>
+  </fieldset>
+
+  <fieldset>
+    <legend>New Redirect</legend>
+    <p>
+      <%= label_tag "redirects[new][from]", "From" %>
+      <% if params[:redirects] && params[:redirects][:new][:from] %>
+        <%= text_field_tag "redirects[new][from]", params[:redirects][:new][:from], {:style => 'width:450px'} %>
+      <% else %>
+        <%= text_field_tag "redirects[new][from]", nil, {:style => 'width:450px'} %>
+      <% end %>
+      &nbsp;&nbsp;
+      <%= label_tag "redirects[new][to]", "To" %>
+      <% if params[:redirects] && params[:redirects][:new][:to] %>
+        <%= text_field_tag "redirects[new][to]", params[:redirects][:new][:to], {:style => 'width:450px'} %>
+      <% else %>
+        <%= text_field_tag "redirects[new][to]", nil, {:style => 'width:450px'} %>
+      <% end %>
+    </p>
+  </fieldset>
+
+  <%= submit_tag %>
+<% end %>

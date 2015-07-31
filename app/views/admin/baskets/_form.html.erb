@@ -1,0 +1,141 @@
+<% form_for [:admin, @basket] do |f| %>
+  
+  <% if f.object.keep? %>
+    <h4>
+      This basket is set to be kept, so will never be automatically deleted.
+    </h4>
+  <% end %>
+
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>User Information</legend>
+  <p>
+    <% if f.object.user %>
+      User: 
+      <%= link_to f.object.user.email, edit_admin_user_path(f.object.user) %>
+    <% else %>
+      No user has been associated with this basket yet.
+    <% end %>
+  </p>  
+  </fieldset>
+  
+  <fieldset>
+  <legend>Basket Contents</legend>
+  <% if f.object.basket_items.length > 0 %>
+    <% for basket_item in f.object.basket_items %>
+      <%= render "admin/order_items/order_item", :order_item => basket_item %>
+    <% end %>
+  <% else %>
+    <p>There are currently no items in this basket.</p>
+  <% end %>
+  </fieldset>
+
+  <fieldset>
+  <legend>Cost</legend>
+  <p>
+    Delivery Subtotal: 
+    <% if f.object.delivery_done? %>
+      <%= number_to_pounds f.object.delivery_subtotal %>
+    <% else %>
+      Pending
+    <% end %>
+  </p>
+  
+  <p>
+    Discount: 
+    <%= number_to_pounds f.object.discount_subtotal %>
+  </p>
+  
+  <p>
+    Gift Wrap: 
+    <% if f.object.gift_done? %>
+      <%= number_to_pounds f.object.gift_wrap_subtotal %>
+    <% else %>
+      Pending
+    <% end %>
+  </p>
+
+  <p>
+    Products: 
+    <%= number_to_pounds f.object.products_subtotal %>
+  </p>
+
+  <p>
+    <strong>
+    Total:
+    <%= number_to_pounds f.object.total %>
+    </strong>
+  </p>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Gift Wrap</legend>
+    <% if f.object.gift_wrap.nil? %>
+    <p>No gift wrap information has been associated with this basket yet.</p>
+    <% elsif f.object.gift_wrap? %>
+    <p>
+      Paid: 
+      <%= number_to_pounds f.object.gift_wrap_subtotal %>
+    </p>
+    <p>
+      Message: "<%= f.object.gift_wrap_message %>"
+    </p>
+    <% else %>
+    <p>No Gift Wrap</p>
+    <% end %>
+  </fieldset>
+  
+  <fieldset>
+  <legend>Delivery Summary</legend>
+  <% if f.object.delivery_done? %>
+  <p>
+    Delivery Option: 
+    <%= f.object.delivery_summary %>
+  </p>
+  
+  <p>
+    <%= f.object.delivery_first_names %> <%= f.object.delivery_surname %><br />
+    <%= f.object.delivery_address_1 %><br />
+    <% if f.object.delivery_address_2? %><%= f.object.delivery_address_2 %><br /><% end %>
+    <%= f.object.delivery_city %><br />
+    <%= f.object.delivery_postcode %><br />
+    <%= Shipping.code_to_country f.object.delivery_country %>
+  </p>
+  <% else %>
+    <p>Delivery information not yet completed.</p>
+  <% end %>
+  </fieldset>
+
+  <fieldset>
+  <legend>Billing Summary</legend>
+  <% if f.object.delivery_done? %>
+  <p>
+    <%= f.object.billing_first_names %> <%= f.object.billing_surname %><br />
+    <%= f.object.billing_address_1 %><br />
+    <% if f.object.billing_address_2? %><%= f.object.billing_address_2 %><br /><% end %>
+    <%= f.object.billing_city %><br />
+    <%= f.object.billing_postcode %><br />
+    <%= Shipping.code_to_country f.object.billing_country %>
+  </p>
+  <% else %>
+    <p>Billing information not yet completed.</p>
+  <% end %>
+  </fieldset>
+  
+  <p>
+  <% if f.object.payment_ready? %>
+    <%= link_to "Convert to order", convert_to_order_admin_basket_path(f.object), :confirm => "Are you sure you want to CONVERT THIS BASKET INTO AN ORDER?" %>
+     | 
+    <%= link_to "Convert to order (Skip Emails)", convert_to_order_admin_basket_path(f.object, :skip_email => true), :confirm => "Are you sure you want to CONVERT THIS BASKET INTO AN ORDER?" %>
+  <% else %>
+    This basket is not complete enough to be converted into an order.
+  <% end %>
+  </p>
+
+  <% unless f.object.keep? %>
+    <p>
+      <%= link_to "Keep this Basket", keep_admin_basket_path(f.object) %>
+    </p>
+  <% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<% form_for [:admin, @document], :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :document %><br />
+    <%= f.file_field :document %>
+  </p>
+  
+  <p><%= f.submit "Submit" %></p>
+<% end %>
